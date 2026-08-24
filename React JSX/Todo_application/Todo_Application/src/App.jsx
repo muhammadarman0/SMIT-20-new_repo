@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-
+import Swal from "sweetalert2";
 function App() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
@@ -8,7 +8,21 @@ function App() {
 
   const addTodoItem = () => {
     if (!input.trim()) {
-      return toast("Enter a Task");
+      Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      }).fire({
+        icon: "error",
+        title: "Please Enter a task",
+      });
+      return;
     }
 
     const todoItem = {
