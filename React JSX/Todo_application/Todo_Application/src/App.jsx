@@ -6,22 +6,25 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [editTodo, setEditTodo] = useState(null);
 
+  const sweetAlert = (icon,body) => {
+    Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    }).fire({
+      icon: `${icon}`,
+      title: `${body}`,
+    });
+  };
   const addTodoItem = () => {
     if (!input.trim()) {
-      Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        },
-      }).fire({
-        icon: "error",
-        title: "Please Enter a task",
-      });
+      sweetAlert("error","Please Enter a task")
       return;
     }
 
@@ -48,7 +51,7 @@ function App() {
       setTodos(updateTodoList);
       setEditTodo(null);
       setInput("");
-      return;
+      return sweetAlert("success","Update Your Task");
     }
 
     setTodos((prev) => [...prev, todoItem]);
@@ -64,6 +67,7 @@ function App() {
   const deleteHandler = (id) => {
     let deleteItem = todos.filter((item) => item.id !== id);
     setTodos(deleteItem);
+    return sweetAlert("success","Delete your Task")
   };
 
   return (
