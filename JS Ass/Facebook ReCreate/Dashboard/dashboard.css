@@ -1,0 +1,197 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Segoe UI, sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+}
+
+/* Navbar */
+
+#navbar {
+    height: 60px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+}
+
+/* Left */
+
+#left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#logo {
+    width: 40px;
+    height: 40px;
+    background: #1877f2;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+#search input {
+    width: 240px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: #f0f2f5;
+    border-radius: 30px;
+    padding: 0 15px;
+    font-size: 15px;
+}
+
+/* Center */
+
+#center {
+    display: flex;
+    gap: 10px;
+}
+
+#center i {
+    width: 110px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 24px;
+    color: #65676b;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+#center i:hover {
+    background: #f0f2f5;
+    cursor: pointer;
+}
+
+#center .active {
+    color: #1877f2;
+    border-bottom: 3px solid #1877f2;
+}
+
+/* Right */
+
+#right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.fa-bars,
+.fa-facebook-messenger,
+.fa-bell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 50%;
+    background: #e4e6eb;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.fa-bars,
+.fa-facebook-messenger,
+.fa-bell:hover {
+    background: #d8dadf;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.user-profile {
+    position: relative;
+}
+
+.fa-angle-down {
+    position: absolute;
+    font-size: 10px;
+    bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 26px;
+    background-color: #88888a;
+    border-radius: 25px;
+    width: 18px;
+    cursor: pointer;
+    height: 18px;
+}
+
+#sidebar {
+    width: 320px;
+    height: 100vh;
+    background: #f0f2f5;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#profile,
+.menu-item,
+#see-more {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#profile:hover,
+.menu-item:hover,
+#see-more:hover {
+    background: #e4e6eb;
+}
+
+#profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#profile span,
+.menu-item span,
+#see-more span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1c1e21;
+}
+
+.icon {
+    width: 28px;
+    text-align: center;
+    font-size: 24px;
+}
+
+#see-more button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: #d8dadf;
+    font-size: 18px;
+    cursor: pointer;
+}

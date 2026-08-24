@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arman — Frontend Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ===== custom cursor dot ===== -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#home" class="logo">
+                <span class="logo-bracket">&lt;</span>Arman<span class="logo-bracket">/&gt;</span>
+                <span class="logo-cursor">_</span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#home"><span class="tag">01</span>home</a>
+                <a href="#about"><span class="tag">02</span>about</a>
+                <a href="#skills"><span class="tag">03</span>skills</a>
+                <a href="#projects"><span class="tag">04</span>projects</a>
+                <a href="#games"><span class="tag">05</span>games</a>
+                <a href="#contact"><span class="tag">06</span>contact</a>
+            </nav>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-inner">
+            <div class="hero-text reveal">
+                <p class="eyebrow">// hello world</p>
+                <h1 class="hero-title">
+                    I'm <span class="highlight">Arman</span><br>
+                    I build things<br>for the web.
+                </h1>
+                <p class="hero-sub">Frontend developer crafting fast, clean, and interactive
+                    experiences with <strong>HTML</strong>, <strong>CSS</strong> and <strong>JavaScript</strong>.
+                    I like turning ideas into working code — one function at a time.</p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">View Work</a>
+                    <a href="#contact" class="btn btn-ghost">Say Hi</a>
+                </div>
+            </div>
+
+            <div class="hero-code reveal" style="--delay:.15s">
+                <div class="code-window">
+                    <div class="code-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="code-filename">developer.js</span>
+                    </div>
+                    <pre class="code-body"><code><span class="c-key">const</span> <span class="c-var">developer</span> = {
+  <span class="c-prop">name</span>: <span class="c-str">'Arman'</span>,
+  <span class="c-prop">role</span>: <span class="c-str">'Frontend Developer'</span>,
+  <span class="c-prop">stack</span>: [<span class="c-str">'HTML'</span>, <span class="c-str">'CSS'</span>, <span class="c-str">'JavaScript'</span>],
+  <span class="c-prop">loves</span>: [<span class="c-str">'clean UI'</span>, <span class="c-str">'games'</span>, <span class="c-str">'coffee'</span>],
+  <span class="c-fn">isHiring</span>: () <span class="c-key">=></span> <span class="c-key">true</span>
+};<span class="typing-cursor">|</span></code></pre>
+                </div>
+            </div>
+        </div>
+        <a href="#about" class="scroll-hint" aria-label="Scroll down">
+            <span>scroll</span>
+            <span class="scroll-line"></span>
+        </a>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="section about">
+        <p class="section-eyebrow reveal">02 / about</p>
+        <h2 class="section-title reveal">About Me</h2>
+
+        <div class="about-grid">
+            <div class="about-photo reveal">
+                <div class="photo-frame">
+                    <svg viewBox="0 0 200 200" class="avatar-svg" aria-label="Arman avatar">
+                        <defs>
+                            <linearGradient id="avatarGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#58a6ff" />
+                                <stop offset="100%" stop-color="#7ee787" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="200" rx="24" fill="#161b22" />
+                        <circle cx="100" cy="80" r="34" fill="url(#avatarGrad)" opacity="0.9" />
+                        <path d="M40 175 C40 130 160 130 160 175" fill="url(#avatarGrad)" opacity="0.9" />
+                        <text x="100" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="20"
+                            fill="#0d1117" font-weight="700">A</text>
+                    </svg>
+                    <span class="photo-tag">&lt;img src="arman.jpg" /&gt;</span>
+                </div>
+            </div>
+
+            <div class="about-text reveal" style="--delay:.1s">
+                <p>Hi, I'm <strong>Arman</strong> — a self-taught frontend developer who enjoys
+                    turning simple ideas into interactive, working products in the browser.
+                    My focus is on the core web trio: <strong>HTML</strong> for structure,
+                    <strong>CSS</strong> for design, and <strong>JavaScript</strong> for logic and interactivity.
+                </p>
+                <p>I like building real, hands-on projects — from small utility apps to
+                    clones of popular platforms and playable browser games — because that's
+                    where I actually learn how things work under the hood.</p>
+                <p>Currently sharpening my skills, exploring new project ideas, and always
+                    open to interesting collaborations.</p>
+
+                <div class="about-stats">
+                    <div class="stat-box">
+                        <span class="stat-num">6+</span>
+                        <span class="stat-label">Projects Built</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-num">3</span>
+                        <span class="stat-label">Core Languages</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-num">2</span>
+                        <span class="stat-label">Playable Games</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="section skills">
+        <p class="section-eyebrow reveal">03 / skills</p>
+        <h2 class="section-title reveal">My Stack</h2>
+
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <div class="skill-head">
+                    <span class="skill-icon html">&lt;/&gt;</span>
+                    <span class="skill-name">HTML</span>
+                    <span class="skill-percent" data-target="90">0%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill html-fill" data-width="90"></div>
+                </div>
+            </div>
+
+            <div class="skill-card reveal" style="--delay:.08s">
+                <div class="skill-head">
+                    <span class="skill-icon css">#</span>
+                    <span class="skill-name">CSS</span>
+                    <span class="skill-percent" data-target="85">0%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill css-fill" data-width="85"></div>
+                </div>
+            </div>
+
+            <div class="skill-card reveal" style="--delay:.16s">
+                <div class="skill-head">
+                    <span class="skill-icon js">{}</span>
+                    <span class="skill-name">JavaScript</span>
+                    <span class="skill-percent" data-target="80">0%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill js-fill" data-width="80"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="section projects">
+        <p class="section-eyebrow reveal">04 / projects</p>
+        <h2 class="section-title reveal">Selected Work</h2>
+
+        <div class="project-grid">
+            <article class="project-card reveal">
+                <div class="project-top">
+                    <span class="project-index">01</span>
+                    <div class="project-links">
+                        <a href="#" aria-label="View code on GitHub">GitHub ↗</a>
+                    </div>
+                </div>
+                <h3>Restaurant Menu</h3>
+                <p>A responsive digital menu app with category filtering, item details
+                    and a clean card-based layout — built to feel like a real restaurant site.</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            </article>
+
+            <article class="project-card reveal" style="--delay:.06s">
+                <div class="project-top">
+                    <span class="project-index">02</span>
+                    <div class="project-links">
+                        <a href="#" aria-label="View code on GitHub">GitHub ↗</a>
+                    </div>
+                </div>
+                <h3>Quiz App</h3>
+                <p>An interactive quiz with score tracking, timed questions and instant
+                    feedback — logic-heavy JS with a smooth, distraction-free UI.</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            </article>
+
+            <article class="project-card reveal" style="--delay:.12s">
+                <div class="project-top">
+                    <span class="project-index">03</span>
+                    <div class="project-links">
+                        <a href="#" aria-label="View code on GitHub">GitHub ↗</a>
+                    </div>
+                </div>
+                <h3>Todo App</h3>
+                <p>A task manager with add, complete, edit and delete functionality,
+                    local storage persistence, and satisfying micro-interactions.</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            </article>
+
+            <article class="project-card reveal" style="--delay:.18s">
+                <div class="project-top">
+                    <span class="project-index">04</span>
+                    <div class="project-links">
+                        <a href="#" aria-label="View code on GitHub">GitHub ↗</a>
+                    </div>
+                </div>
+                <h3>Facebook Clone</h3>
+                <p>A static front-end recreation of Facebook's core layout — navbar,
+                    feed, post cards and sidebar — focused on pixel-close UI replication.</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===== GAMES ===== -->
+    <!-- <section id="games" class="section games">
+        <p class="section-eyebrow reveal">05 / games</p>
+        <h2 class="section-title reveal">Play Something</h2>
+        <p class="games-sub reveal">Two small games, fully playable right here — no reload, no plugins, just vanilla
+            JavaScript.</p>
+
+        <div class="games-grid">
+
+            Tic Tac Toe
+            <div class="game-card reveal">
+                <div class="game-card-head">
+                    <h3>Tic Tac Toe</h3>
+                    <button class="reset-btn" id="ttResetBtn">Reset</button>
+                </div>
+                <p class="game-status" id="ttStatus">Player X's turn</p>
+                <div class="tictactoe-board" id="ttBoard">
+                    <button class="tt-cell" data-i="0"></button>
+                    <button class="tt-cell" data-i="1"></button>
+                    <button class="tt-cell" data-i="2"></button>
+                    <button class="tt-cell" data-i="3"></button>
+                    <button class="tt-cell" data-i="4"></button>
+                    <button class="tt-cell" data-i="5"></button>
+                    <button class="tt-cell" data-i="6"></button>
+                    <button class="tt-cell" data-i="7"></button>
+                    <button class="tt-cell" data-i="8"></button>
+                </div>
+            </div>
+
+            Rock Paper Scissors
+            <div class="game-card reveal" style="--delay:.1s">
+                <div class="game-card-head">
+                    <h3>Stone Paper Scissors</h3>
+                    <button class="reset-btn" id="rpsResetBtn">Reset</button>
+                </div>
+                <p class="game-status" id="rpsStatus">Make your move</p>
+                <div class="rps-score">
+                    <div><span id="rpsPlayerScore">0</span><small>You</small></div>
+                    <div><span id="rpsCpuScore">0</span><small>CPU</small></div>
+                </div>
+                <div class="rps-choices">
+                    <button class="rps-btn" data-choice="rock" aria-label="Rock">🪨</button>
+                    <button class="rps-btn" data-choice="paper" aria-label="Paper">📄</button>
+                    <button class="rps-btn" data-choice="scissors" aria-label="Scissors">✂️</button>
+                </div>
+            </div>
+
+        </div>
+    </section> -->
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section contact">
+        <p class="section-eyebrow reveal">06 / contact</p>
+        <h2 class="section-title reveal">Let's Build Something</h2>
+        <p class="contact-sub reveal">Got a project, an idea, or just want to talk code? My inbox is open.</p>
+
+        <div class="contact-grid reveal" style="--delay:.1s">
+            <a class="contact-card" href="tel:+920000000000">
+                <span class="contact-icon">📞</span>
+                <span class="contact-label">Phone</span>
+                <span class="contact-value">+92 325 181923</span>
+            </a>
+            <a class="contact-card" href="https://www.linkedin.com/in/arman-coder-77500a38a/" target="_blank" rel="noopener">
+                <span class="contact-icon">in</span>
+                <span class="contact-label">LinkedIn</span>
+                <!-- <span class="contact-value">/in/arman</span> -->
+            </a>
+            <a class="contact-card" href="https://github.com/muhammadarman0" target="_blank" rel="noopener">
+                <span class="contact-icon">&lt;/&gt;</span>
+                <span class="contact-label">GitHub</span>
+                <span class="contact-value">@arman</span>
+            </a>
+            <a class="contact-card" href="https://www.instagram.com/fullstack_developer2/" target="_blank" rel="noopener">
+                <span class="contact-icon">◎</span>
+                <span class="contact-label">Instagram</span>
+                <span class="contact-value">@arman</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <a href="#home" class="logo">
+                <span class="logo-bracket">&lt;</span>Arman<span class="logo-bracket">/&gt;</span>
+            </a>
+            <div class="footer-socials">
+                <a href="https://github.com/your-github" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+                <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener"
+                    aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://instagram.com/your-instagram" target="_blank" rel="noopener"
+                    aria-label="Instagram">Instagram</a>
+                <a href="https://facebook.com/your-facebook" target="_blank" rel="noopener"
+                    aria-label="Facebook">Facebook</a>
+            </div>
+            <p class="footer-note">Designed &amp; built by Arman — © <span id="year"></span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

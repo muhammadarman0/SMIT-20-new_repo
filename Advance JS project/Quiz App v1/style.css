@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F8FAFC;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.totalquiz {
+    /* position: fixed; */
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 180px;
+}
+
+.selections {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF;
+    color: #1E293B;
+    padding: 20px;
+    border: 1px solid #334155;
+    overflow: hidden;
+    border-radius: 10px;
+    outline: none;
+}
+
+.totalquiz>h1 {
+    color: #1E293B;
+    margin-bottom: 15px;
+}
+
+.selections>option {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+.selections>option:hover {
+    /* border: 1px solid gray; */
+    background-color: #2563EB;
+    border-radius: 10px;
+}
+
+/* .hidden {
+    display: none;
+} */
+
+.selectbtn {
+    max-width: 200px;
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    margin: auto;
+}
+
+.selectbtn>button {
+    width: 100%;
+    padding: 5px;
+    margin-top: 20px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    height: 42px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+/* Quiz Question  */
+.not-show {
+    display: none;
+
+}
+
+.parent {
+    background: linear-gradient(135deg, #0F172A, #1E293B);
+    padding: 10px;
+}
+
+.quetion-parent {
+    max-width: 700px;
+    width: 100%;
+    /* background-color: rebeccapurple; */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .3);
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.question {
+    text-align: center;
+}
+
+.question>h1 {
+    font-size: 40px;
+    color: white;
+    margin-top: 20px;
+}
+
+.question>h2 {
+    margin-top: 20px;
+    color: #94A3B8;
+}
+
+.totalQuestion {
+    text-align: center;
+    margin-top: 30px;
+    display: flex;
+    gap: 180px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.questionOfyou {
+    color: white;
+    font-size: 25px;
+    margin-top: 30px;
+    display: flex;
+    /* justify-content: center; */
+}
+
+.selectOption {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    max-width: 650px;
+    width: 100%;
+    row-gap: 20px;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.selectOption>button {
+    padding: 15px;
+    border: none;
+    background-color: #2563EB;
+    color: white;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.selectOption>button:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.selectOption>button:focus{
+        opacity: 0.5;
+    cursor: pointer;
+}
+
+#option2 {
+    display: flex;
+    padding: 15px;
+    border: none;
+    background-color: #2563EB;
+    color: white;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.quizResult {
+    display: flex;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    max-width: 250px;
+    width: 100%;
+    border: 2px solid grey;
+    height: 250px;
+    margin-top: 50px;
+    border-radius: 500px;
+    background-color: rgb(116, 250, 116);
+    color: white;
+}
+
+
+.totalQuestion-correctAns {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.totalQuestion-correctAns>h3 {
+    margin-top: 10px;
+}
+
+.btn {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    margin-top: 20px;
+    max-width: 200px;
+    width: 100%;
+    height: 40px;
+}
+
+.btn>button {
+    width: 100%;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hidden3{
+    display: none;
+}

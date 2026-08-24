@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up for facebook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="signup.css">
+</head>
+
+<body>
+    <div class="pane-box">
+        <div class="panel-img">
+            <img class="panel-img" src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg" alt="">
+        </div>
+    </div>
+    <div class="panel-items">
+        <div class="second-panel">
+            <h1 class="head1">Create a new account</h1>
+            <p class="para1">It's quick and easy.</p>
+            <hr>
+        </div>
+        <form class="former" onsubmit="saveLocalStorage(event)">
+            <div class="inputText">
+                <input class="first-name" id="firstName" type="text" placeholder="First name">
+                <input class="last-name" id="lastName" type="text" placeholder="Surname">
+            </div>
+            <div class="date-of-birth">
+                <p class="date">Date of birth!</p>
+                <div class="parent-sel">
+                    <select class="first-select" name="" id="day">
+                        <option value="Day" disabled selected>Day</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+
+                    </select>
+                    <select class="first-select" name="" id="month">
+                        <option value="Month" disabled selected>Month</option>
+
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+
+                    </select>
+                    <select class="first-select" name="" id="year">
+                        <option value="year" disabled selected>year</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                        <option value="2009">2009</option>
+                        <option value="2008">2008</option>
+                        <option value="2007">2007</option>
+                        <option value="2006">2006</option>
+                        <option value="2005">2005</option>
+                        <option value="2004">2004</option>
+                        <option value="2003">2003</option>
+                        <option value="2002">2002</option>
+                        <option value="2001">2001</option>
+                        <option value="2000">2000</option>
+                        <option value="1999">1999</option>
+                        <option value="1998">1998</option>
+                        <option value="1997">1997</option>
+                        <option value="1996">1996</option>
+                        <option value="1995">1995</option>
+                        <option value="1994">1994</option>
+                    </select>
+                </div>
+            </div>
+            <div class="genders">
+                <p class="para3">Gender</p>
+                <div class="panel-generation">
+                    <span class="gender1"> Male
+                        <input name="Gender" value="male" type="radio"></span>
+                    <span class="gender2"> Female
+                        <input name="Gender" value="Female" type="radio"></span>
+                    <span class="gender3"> Other
+                        <input name="Gender" value="Other" type="radio"></span>
+                </div>
+            </div>
+            <div class="email-address">
+                <input class="panel-contact" type="text" id="email" placeholder="Enter email"><br>
+                <div class="pass">
+                    <input class="panel-contact" type="password" id="password" placeholder="Enter Password">
+                    <i class="fa-solid fa-eye-slash" id="toggle"></i>
+                </div>
+            </div>
+            <br>
+
+            <div class="paraOflink">
+                <p class="para4">People who use our service may have uploaded your contact information to Facebook. <a
+                        href="">Learn
+                        more</a>.</p>
+                <p class="para4">By clicking Sign up, you agree to our <a href="">Terms, Privacy Policy</a> and Cookies
+                    Policy. You
+                    may receive SMS
+                    notifications from us and can opt out at any time.</p>
+            </div>
+            <div class="btn">
+                <button class="btn-panel">Sign up</button>
+                <a class="hyper" href="../login/login.html">Already have an account?</a>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="signup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student ID Card Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container" id="parentOfRegistration">
+
+        <h1 class="title">🎓 Student ID Card Registration</h1>
+
+        <!-- <form  class="registration-form"> -->
+
+        <!-- Student Name -->
+        <div class="input-group">
+            <label for="studentName">Student Name</label>
+            <input type="text" id="studentName" placeholder="Enter Student Name">
+        </div>
+
+        <!-- Father Name -->
+        <div class="input-group">
+            <label for="fatherName">Father Name</label>
+            <input type="text" id="fatherName" placeholder="Enter Father Name">
+        </div>
+
+        <!-- CNIC -->
+        <div class="input-group">
+            <label for="cnic">CNIC</label>
+            <input type="number" id="cnic" placeholder="XXXXX-XXXXXXX-X">
+        </div>
+
+        <!-- Branch -->
+        <div class="input-group">
+            <label for="branch">Branch</label>
+            <select id="branch">
+                <option value="" selected disabled>Select Branch</option>
+                <option value="karachi">Karachi</option>
+                <option value="lahore">Lahore</option>
+                <option value="islamabad">Islamabad</option>
+                <option value="hyderabad">Hyderabad</option>
+            </select>
+        </div>
+
+        <!-- Course -->
+        <div class="input-group">
+            <label for="course">Select Course(s)</label>
+            <select id="course">
+                <option value="" selected disabled>Select Course</option>
+                <option value="web-development">Web Development</option>
+                <option value="graphic-design">Graphic Design</option>
+                <option value="digital-marketing">Digital Marketing</option>
+                <option value="flutter">Flutter Development</option>
+                <option value="python">Python Programming</option>
+                <option value="ui-ux">UI / UX Design</option>
+                <option value="video-editing">Video Editing</option>
+                <option value="ai">Artificial Intelligence</option>
+            </select>
+        </div>
+
+        <!-- File Upload -->
+        <div class="input-group">
+            <label for="studentImage">Student Photo</label>
+            <input type="file" id="studentImage">
+        </div>
+
+        <!-- Submit -->
+        <button class="btn" onclick="generateCard(event)">
+            Register Student
+        </button>
+
+        <!-- </form> -->
+
+    </div>
+
+    <!-- Student Card -->
+    <div class="parent hidden" id="cardContainer">
+        <!-- <div class="student-card">
+
+            <div class="card-header">
+                <h2>Student ID Card</h2>
+            </div>
+
+            <div class="card-body">
+
+                <div class="student-image">
+                    <img src="https://via.placeholder.com/120" alt="Student Photo">
+                </div>
+
+                <div class="student-info">
+                    <h3>Muhammad Arman</h3>
+
+                    <p>
+                        <span>Student ID:</span>
+                        STD-2026-001
+                    </p>
+
+                    <p>
+                        <span>Father Name:</span>
+                        Muhammad Ali
+                    </p>
+
+                    <p>
+                        <span>CNIC:</span>
+                        42101-1234567-1
+                    </p>
+
+                    <p>
+                        <span>Course:</span>
+                        Web Development
+                    </p>
+
+                    <p>
+                        <span>Branch:</span>
+                        Karachi
+                    </p>
+                </div>
+                <button class="btn-ant">Generate Another Card</button>
+            </div>
+
+            <div class="card-footer">
+                <p>Institute Management System</p>
+            </div>
+
+        </div> -->
+    </div>
+
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>

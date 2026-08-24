@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="todo-container">
+
+        <div class="todo-header">
+            <h1>📝 Todo App</h1>
+            <p>Stay organized and productive</p>
+        </div>
+
+        <div class="todo-input-box">
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Add a new task..."
+            >
+            <button id="addBtn" onclick="addtask()">Add Task</button>
+        </div>
+
+        <div class="todo-filter">
+            <button class="active">All</button>
+            <!-- <button>Pending</button>
+            <button>Completed</button> -->
+        </div>
+
+        <ul class="todo-list" id="todolist">
+<!-- 
+            <li class="todo-item">
+                <div class="task-info">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">Complete HTML Assignment</label>
+                </div>
+
+                <div class="actions">
+                    <button class="edit-btn">✏️</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </li>
+
+            <li class="todo-item completed">
+                <div class="task-info">
+                    <input type="checkbox" id="task2" checked>
+                    <label for="task2">Learn CSS Flexbox</label>
+                </div>
+
+                <div class="actions">
+                    <button class="edit-btn">✏️</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </li>
+
+            <li class="todo-item">
+                <div class="task-info">
+                    <input type="checkbox" id="task3">
+                    <label for="task3">Build Todo App UI</label>
+                </div>
+
+                <div class="actions">
+                    <button class="edit-btn">✏️</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </li> -->
+
+        </ul>
+
+        <div class="todo-footer">
+            <span>Tasks Remaining: <strong id="pendingCount">0</strong></span>
+            <button class="clear-btn" onclick="clearCompleted()">Clear Completed</button>
+        </div>
+
+    </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>

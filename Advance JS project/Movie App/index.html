@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MovieVerse</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <header id="hero">
+
+            <nav id="navbar">
+
+                <div id="logo">
+
+                    🎬 MovieVerse
+
+                </div>
+
+                <ul id="navMenu">
+
+                    <li><a href="#">Home</a></li>
+
+                    <li><a href="#popularSection">Popular</a></li>
+
+                    <li><a href="#latestSection">Latest</a></li>
+
+                    <li><a href="#topRatedSection">Top Rated</a></li>
+
+                    <li><a href="#upcomingSection">Upcoming</a></li>
+
+                </ul>
+
+                <div id="searchContainer">
+
+                    <input id="movieSearchInput" type="text" placeholder="Search movies...">
+
+                    <button id="searchBtn">
+
+                        Search
+
+                    </button>
+
+                </div>
+
+            </nav>
+
+            <div id="heroContent">
+
+                <h1>
+
+                    Unlimited Movies,
+
+                    TV Shows & More
+
+                </h1>
+
+                <p>
+
+                    Discover thousands of movies with one click.
+
+                    Powered by TMDB API.
+
+                </p>
+
+                <div id="heroButtons">
+
+                    <button id="exploreBtn">
+
+                        Explore Movies
+
+                    </button>
+
+                    <button id="trendingBtn">
+
+                        Trending
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div id="scrollDown">
+
+                ↓
+
+            </div>
+
+        </header>
+        <section id="popularSection">
+
+            <div class="sectionHeading">
+
+                <h2>🔥 Popular Movies</h2>
+
+                <button id="viewAllBtn">
+
+                    View All
+
+                </button>
+
+            </div>
+
+            <div id="popularContainer">
+
+                <!-- Movie Card -->
+
+                <div class="movieCard">
+
+                    <div class="moviePoster">
+
+                        <img src="https://placehold.co/350x500" alt="Movie Poster">
+
+                        <span class="rating">
+
+                            ⭐ 8.9
+
+                        </span>
+
+                        <span class="movieType">
+
+                            Action
+
+                        </span>
+
+                    </div>
+
+                    <div class="movieContent">
+
+                        <h3>
+
+                            Avengers Endgame
+
+                        </h3>
+
+                        <p>
+
+                            2019
+
+                        </p>
+
+                        <button class="detailsBtn">
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Duplicate this card with JS later -->
+
+            </div>
+
+        </section>
+        <section id="latestSection">
+
+            <div class="sectionHeader">
+
+                <div class="leftHeading">
+
+                    <span class="yellowBar"></span>
+
+                    <h2>Latest Releases</h2>
+
+                </div>
+
+                <button id="latestViewAll">
+
+                    View All
+
+                </button>
+
+            </div>
+
+            <div id="latestMoviesContainer">
+
+                <!-- Card -->
+
+                <div class="latestMovieCard">
+
+                    <div class="posterContainer">
+
+                        <img src="https://placehold.co/400x580" alt="Movie Poster">
+
+                        <div class="posterOverlay">
+
+                            <button class="playBtn">
+
+                                ▶
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="latestContent">
+
+                        <h3>Dune Part Two</h3>
+
+                        <div class="movieInfoRow">
+
+                            <span>⭐ 8.9</span>
+
+                            <span>2024</span>
+
+                        </div>
+
+                        <p>
+
+                            Adventure • Sci-Fi
+
+                        </p>
+
+                        <button class="watchBtn">
+
+                            Watch Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <section id="topRatedSection">
+
+            <div class="sectionHeader">
+
+                <div class="leftHeading">
+
+                    <span class="yellowBar"></span>
+
+                    <h2>Top Rated Movies</h2>
+
+                </div>
+
+                <button id="topRatedViewAll">
+
+                    View All
+
+                </button>
+
+            </div>
+
+            <div id="topRatedSlider">
+
+                <div class="topMovieCard">
+
+                    <div class="topPoster">
+
+                        <img src="https://placehold.co/350x500" alt="Poster">
+
+                        <button class="bookmarkBtn">
+                            ♥
+                        </button>
+
+                        <span class="imdbBadge">
+                            IMDb 9.2
+                        </span>
+
+                    </div>
+
+                    <div class="topMovieContent">
+
+                        <h3>The Dark Knight</h3>
+
+                        <div class="movieMeta">
+
+                            <span>2008</span>
+
+                            <span>2h 32m</span>
+
+                        </div>
+
+                        <p>
+                            Action • Crime • Drama
+                        </p>
+
+                        <button class="detailsBtn">
+
+                            View Details
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <section id="upcomingSection">
+
+            <div class="sectionHeader">
+
+                <div class="leftHeading">
+
+                    <span class="yellowBar"></span>
+
+                    <h2>Upcoming Movies</h2>
+
+                </div>
+
+                <button id="upcomingViewAll">
+                    View All
+                </button>
+
+            </div>
+
+            <div id="upcomingContainer">
+
+                <div class="upcomingCard">
+
+                    <img src="https://placehold.co/350x500" alt="Movie">
+
+                    <div class="upcomingContent">
+
+                        <h3>Avatar 3</h3>
+
+                        <span class="releaseDate">
+                            Releasing • Dec 2026
+                        </span>
+
+                        <button class="notifyBtn">
+
+                            Notify Me
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Featured Banner -->
+
+        <section id="featuredBanner">
+
+            <div id="featuredOverlay">
+
+                <h2>
+                    Movie of the Week
+                </h2>
+
+                <h1>
+                    Oppenheimer
+                </h1>
+
+                <p>
+
+                    Experience the story of the man who changed history.
+
+                </p>
+
+                <button id="watchNowBtn">
+
+                    Watch Details
+
+                </button>
+
+            </div>
+
+        </section>
+
+        <footer id="footer">
+
+            <div class="footerColumn">
+
+                <h2>MovieVerse</h2>
+
+                <p>
+
+                    Discover trending, latest and top-rated movies powered by TMDB API.
+
+                </p>
+
+            </div>
+
+            <div class="footerColumn">
+
+                <h3>Navigation</h3>
+
+                <a href="#">Home</a>
+
+                <a href="#">Popular</a>
+
+                <a href="#">Latest</a>
+
+                <a href="#">Top Rated</a>
+
+            </div>
+
+            <div class="footerColumn">
+
+                <h3>Follow</h3>
+
+                <a href="#">Facebook</a>
+
+                <a href="#">Instagram</a>
+
+                <a href="#">GitHub</a>
+
+                <a href="#">LinkedIn</a>
+
+            </div>
+
+        </footer>
+
+        <div id="copyright">
+
+            © 2026 MovieVerse | Designed by You
+
+        </div>
+        <!-- Loader -->
+        <div id="loader">
+
+            <div class="loaderRing"></div>
+
+            <h2>
+
+                MovieVerse
+
+            </h2>
+
+        </div>
+
+        <!-- Back To Top -->
+
+        <button id="backToTop">
+
+            ↑
+
+        </button>
+
+        <!-- Empty Search -->
+
+        <section id="emptyState">
+
+            <img src="https://placehold.co/220x220" alt="Empty">
+
+            <h2>
+
+                No Movies Found
+
+            </h2>
+
+            <p>
+
+                Try searching with another keyword.
+
+            </p>
+
+        </section>
+
+        <!-- Error -->
+
+        <section id="errorState">
+
+            <h1>
+
+                ⚠
+
+            </h1>
+
+            <h2>
+
+                Something Went Wrong
+
+            </h2>
+
+            <button id="retryBtn">
+
+                Try Again
+
+            </button>
+
+        </section>
+    </div>
+    <script src="app.js"></script>
+
+</body>
+
+</html>

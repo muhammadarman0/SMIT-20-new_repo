@@ -1,0 +1,85 @@
+body {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEh9zxBevsYkSESxrahlhDPA1nEDZ_xCBpuw&s');
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.parent {
+    border: 1px solid wheat;
+    margin: 0 auto;
+    width: 300px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.head>h1 {
+    text-align: center;
+    color: wheat;
+    margin-top: 100px;
+}
+
+.email {
+    /* width: 100%; */
+    padding: 15px;
+    /* margin: 10px 0; */
+    border: none;
+    border-radius: 10px;
+}
+
+.email>input {
+    width: 250px;
+    padding: 10px;
+    background: none;
+    border: 1px solid wheat;
+    border-radius: 10px;
+    height: 20px;
+    color: white;
+}
+
+.password {
+    /* width: 100%; */
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+}
+
+.password>input {
+    width: 250px;
+    padding: 10px;
+    background: none;
+    border: 1px solid wheat;
+    border-radius: 10px;
+    height: 20px;
+    color: white;
+
+}
+
+/* btn */
+button {
+    background-color: #444141;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: none;
+    display: flex;
+    margin: 0 auto;
+}
+
+button:hover {
+    background-image: linear-gradient(90deg, #53cbef 0%, #dcc66c 50%, #ffa3b6 75%, #53cbef 100%);
+    animation: slidernbw 5s linear infinite;
+    color: #000;
+}
+
+@keyframes slidernbw {
+    to {
+        background-position: 20vw;
+    }
+}

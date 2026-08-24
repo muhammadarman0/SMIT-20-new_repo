@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Form Validation UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <form class="form-card" onsubmit="submitHandler(event)">
+
+            <h2>✨ Sign Up</h2>
+            <p>Create your account today</p>
+
+            <!-- Full Name -->
+            <div class="input-box">
+                <input type="text" id="fullName">
+                <label for="fullName">👤 Full Name</label>
+                <span class="error" id="nameError"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="input-box">
+                <input type="text" id="email">
+                <label for="email">📧 Email Address</label>
+                <!-- <span class="error" id="emailError"></span> -->
+            </div>
+
+            <!-- Password -->
+            <div class="input-box">
+                <input type="text" id="password">
+                <label for="password">🔒 Password</label>
+                <!-- <span class="error" id="passwordError"></span> -->
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-box">
+                <input type="text" id="confirmPassword">
+                <label for="confirmPassword">🔐 Confirm Password</label>
+                <!-- <span class="error" id="confirmPasswordError"></span> -->
+            </div>
+
+            <!-- Checkbox -->
+            <div class="checkbox">
+                <input type="checkbox" id="terms">
+                <label for="terms">I agree to Terms & Conditions</label>
+            </div>
+            <span class="error" id="termsError"></span>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn">
+                🚀 Create Account
+            </button>
+
+            <div class="login-link">
+                Already have an account?
+                <a href="#" onclick="submitHandler()">Login</a>
+            </div>
+
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

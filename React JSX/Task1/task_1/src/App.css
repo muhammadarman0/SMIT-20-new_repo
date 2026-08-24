@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+.userName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1320px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-top: 10px;
+  background-color: aqua;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.contacts>ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+.contacts>ul>li{
+  font-weight: bold;
+}
+.contacts>ul>li:hover {
+  text-decoration:underline white;
+  cursor: pointer;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.course {
+  width: 250px;
+  margin-top: 20px;
+  height: 300px;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: rgb(138, 232, 248);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.course>img {
+  display: flex;
+  margin: auto;
+  border-radius: 20px;
+  object-fit: contain;
+  transform: scale(1);
+}
+.course>img:hover{
+  transition: all 1.2s;
+}
+.inf_course>h3 {
+  text-align: center;
+  text-decoration: underline rebeccapurple;
+  font-weight: bold;
+  margin-top: 20px;
+}

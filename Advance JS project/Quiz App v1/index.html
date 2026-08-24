@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <section>
+            <div class="selectQuiz hidden" id="select">
+                <div class="totalquiz">
+                    <h1>Select Your Quiz</h1>
+                    <select multiple size="3" class="selections" name="quiz" id="quiz">
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="javascript">Javascript</option>
+                    </select>
+                    <div class="selectbtn"><button class="option1">Select Quiz</button></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="parent not-show">
+                <div class="display-your-quiz" id="display-your-quiz">
+                    <div class="question" id="question">
+                        <h1>Quiz Master</h1>
+                        <h2 id="testQuiz">Test Your JavaScript Skills</h2>
+                    </div>
+                    <div class="totalQuestion">
+                        <span class="correct-answer">Question </span>
+                        <span class="timer">⏱ 15 sec</span>
+                    </div>
+                    <div class="quetion-parent">
+                        <div class="quetionOfQuiz">
+                            <div class="questionOfyou">
+                                <h2 id="quetion-text">What does DOM stand for?</h2>
+                            </div>
+                        </div>
+                        <div class="option-parent">
+                            <div class="parentOfoption">
+                                <div class="selectOption" id="select-option">
+                                    <button class="correct-wrong"></button>
+                                    <button class="correct-wrong"></button>
+                                    <button class="correct-wrong"></button>
+                                    <button class="correct-wrong"></button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="next-btn">
+                        <div class="answer-next-btn">
+                            <button id="option2">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="resutl-of-your-quiz hidden3">
+                <div class="quizResult" id="quizResult">
+                    <div class="totalQuestion-correctAns">
+                        <h1 id="showPassed-Failed">Passed</h1>
+                        <h3 id="number">22/30</h3>
+                    </div>
+                </div>
+                <div class="btn">
+                    <button class="option3">ReStart Quiz</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
