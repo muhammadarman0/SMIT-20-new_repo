@@ -20,12 +20,12 @@ const Footer = ({ setPage, setLimit, page }) => {
 
           <select
             onChange={(e) => setLimit(Number(e.target.value))}
-            className="cursor-pointer rounded-xl border bg-gray-500 border-white/10 bg-white/6 px-4 py-2.5 text-sm text-gray-300 outline-none transition focus:border-purple-500"
+            className="cursor-pointer rounded-xl border border-white/10 bg-gray-500 px-4 py-2.5 text-sm text-gray-300 outline-none transition focus:border-purple-500 rounded-3xl"
           >
-            <option>8</option>
-            <option>25</option>
-            <option>50</option>
-            <option>100</option>
+            <option className="bg-gray-800 text-white">8</option>
+            <option className="bg-gray-800 text-white">25</option>
+            <option className="bg-gray-800 text-white">50</option>
+            <option className="bg-gray-800 text-white">100</option>
           </select>
         </div>
 
