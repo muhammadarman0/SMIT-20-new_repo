@@ -4,7 +4,6 @@ const Hero = ({ data , key }) => {
   return (
     <>
       {/* Gallery Grid */}
-      <div className="overflow-y-auto">
         {/* Card 1 */}
           <div className="group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-2xl transition duration-500 hover:-translate-y-2 hover:border-purple-500/40">
             <div className="relative h-80 overflow-hidden">
@@ -34,7 +33,6 @@ const Hero = ({ data , key }) => {
               </div>
             </div>
           </div>
-      </div>
     </>
   );
 };
