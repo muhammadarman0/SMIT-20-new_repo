@@ -34,7 +34,7 @@ const Footer = ({ setPage, setLimit, page }) => {
           {[1, 2, 3, 4, 5].map((btn) => (
             <button
               onClick={(e) => setPage(btn)}
-              className="cursor-pointer h-10 w-10 rounded-xl bg-purple-600 font-semibold"
+              className={`${page === btn ? "bg-purple-600" : "bg-white text-black"} cursor-pointer h-10 w-10 rounded-xl font-semibold `}
             >
               {btn}
             </button>
