@@ -1,23 +1,31 @@
-import React from 'react'
-import Input from './component/Input'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Home from './pages/Dashboard/Home'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React from "react";
+import Input from "./component/Input";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Dashboard/Home";
+import Settings from "./pages/Setting";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./pages/Layout";
+import UserDetail from "./pages/UserDetail";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/" element={<Home />}></Route>
-
+          {/* Nested Routing */}
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/" element={<Layout />}>
+            {" "}
+            <Route index element={<Home />} />
+            <Route path="setting" element={<Settings />} />
+            <Route path="user/:userId" element={<UserDetail />}/>
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

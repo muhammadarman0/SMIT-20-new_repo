@@ -1,47 +1,73 @@
-import React, { useState } from 'react'
-import Input from '../component/Input'
-import Btn from '../component/Btn';
+import React, { useState } from "react";
+import Input from "../component/Input";
+import Btn from "../component/Btn";
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [Form, setForm] = useState({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
+  const sweetAlert = (icon, text) => {
+    Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    }).fire({
+      icon: `${icon}`,
+      title: `${text}`,
+    });
+  };
   const formHandler = (value, field) => {
     // console.log("ma chala", value);
-    setForm((prev) => ({ ...prev, [field]: value }))
-  }
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
 
+  const navigate = useNavigate();
+  
   const loginHandler = () => {
-    console.log(Form);
-
-
-  }
-
+    if (Form.email === "" || Form.password === "") {
+      sweetAlert("error", "Fill all field");
+      return;
+    }
+    sweetAlert("success", "Login successful");
+    navigate("/");
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-950 px-4">
-
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-gray-900 p-8 shadow-2xl">
-
         <h1 className="mb-8 text-center text-3xl font-bold text-white">
           Login Form
         </h1>
 
         <div className="space-y-5">
+          <Input
+            head={"Email"}
+            placeholder={"Enter Your Email"}
+            handler={formHandler}
+            type={"email"}
+          />
 
-          <Input head={"Email"} placeholder={"Enter Your Password"} handler={formHandler} type={"email"} />
-
-          <Input head={"Password"} placeholder={"Enter your Password"} handler={formHandler} type={"password"} />
+          <Input
+            head={"Password"}
+            placeholder={"Enter your Password"}
+            handler={formHandler}
+            type={"password"}
+          />
 
           <Btn btn={"Login"} Handler={loginHandler} />
-
         </div>
-
       </div>
-
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
