@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const UserDetail = () => {
-  const {  userId} = useParams();
-  console.log(userId)
+  const { userId } = useParams();
   const [user, setUser] = useState(null);
-
+  //   const location = useLocation();
   const userData = async () => {
     const result = await axios.get(`https://dummyjson.com/users/${userId}`);
     // console.log(result);
@@ -17,7 +16,7 @@ const UserDetail = () => {
   useEffect(() => {
     userData();
   }, [userId]);
-  
+
   if (!user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-950 text-white">
