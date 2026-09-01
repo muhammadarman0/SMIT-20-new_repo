@@ -50,3 +50,15 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+//  72.8%
+
+// 77.8%

@@ -8,9 +8,7 @@ const UserDetail = () => {
   //   const location = useLocation();
   const userData = async () => {
     const result = await axios.get(`https://dummyjson.com/users/${userId}`);
-    // console.log(result);
-    setUser(result.data);
-    console.log(user);
+    setUser(result.data);  
   };
 
   useEffect(() => {
