@@ -34,7 +34,7 @@ const Navbar = () => {
             href="#"
             className={`${theme === "Dark" ? "text-gray-300 transition hover:text-white" : "text-black"}  text-sm font-medium`}
           >
-            Home
+            <Link to={"/"}>Home</Link>
           </a>
 
           <a
