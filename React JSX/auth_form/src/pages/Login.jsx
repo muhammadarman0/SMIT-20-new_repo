@@ -86,6 +86,7 @@ const Login = () => {
           />
 
           <Btn btn={"Login"} Handler={loginHandler} />
+          
           <Link to={"/register"}>
             {" "}
             <button className="text-white font-bold text-center border-2 p-2 rounded-xl">

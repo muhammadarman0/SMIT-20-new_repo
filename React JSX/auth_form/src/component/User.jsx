@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const User = ({ data }) => {
+  // console.log(data);
+  
   return (
     <div className="min-h-screen bg-gray-950 text-white ">
       {/* Navbar */}

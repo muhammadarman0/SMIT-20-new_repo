@@ -11,6 +11,8 @@ const UserDetail = () => {
     setUser(result.data);  
   };
 
+  console.log(userId);
+  
   useEffect(() => {
     userData();
   }, [userId]);

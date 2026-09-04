@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDcJZ3wIzR8b5CPvFwx8i6ny5rmuiQ9Gsk",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "react-with-firebase-1ea1b.firebaseapp.com",
   projectId: "react-with-firebase-1ea1b",
   storageBucket: "react-with-firebase-1ea1b.firebasestorage.app",
