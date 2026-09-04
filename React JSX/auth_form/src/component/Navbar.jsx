@@ -1,11 +1,26 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const location = useLocation();
   const currentLocation = location.pathname === "/setting";
   const currentLoca = location.pathname === `/user/:userId`;
-  console.log(currentLoca);
-  
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const auth = getAuth();
+console.log(auth);
+
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+ 
 
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#080b12]/95 backdrop-blur-xl">
@@ -23,19 +38,22 @@ const Navbar = () => {
 
         {/* Buttons */}
         <div className="flex items-center gap-2">
-          <Link to={"/login"}>
-            {/* {" "} */}
-            <button className="rounded-xl px-4 py-2.5 text-sm font-medium text-gray-400 transition-all duration-300 hover:bg-white/5 hover:text-white cursor-pointer">
-              Login Out
-            </button>
-          </Link>
+          {/* <Link to={"/login"}> */}
+          {/* {" "} */}
+          <button
+            onClick={handleLogout}
+            className="rounded-xl px-4 py-2.5 text-sm font-medium text-gray-400 transition-all duration-300 hover:bg-white/5 hover:text-white cursor-pointer"
+          >
+            Login Out
+          </button>
+          {/* </Link> */}
 
-          <Link to={"/register"}>
+          {/* <Link to={"/register"}>
             {" "}
             <button className="rounded-xl bg-white/5 px-5 py-2.5 text-sm font-semibold text-gray-300 transition-all duration-300 cursor-pointer">
               Register
             </button>
-          </Link>
+          </Link> */}
 
           <Link to={currentLocation ? "/" : "/setting"}>
             {" "}
@@ -50,14 +68,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
 
 //  72.8%
 

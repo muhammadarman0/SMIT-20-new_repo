@@ -3,7 +3,8 @@ import Input from "../component/Input";
 import Btn from "../component/Btn";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-
+import app from "../firebase/auth";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 const Login = () => {
   const [Form, setForm] = useState({
     email: "",
@@ -31,14 +32,35 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
-  
+
   const loginHandler = () => {
     if (Form.email === "" || Form.password === "") {
       sweetAlert("error", "Fill all field");
       return;
     }
-    sweetAlert("success", "Login successful");
-    navigate("/");
+
+    const auth = getAuth();
+
+    signInWithEmailAndPassword(auth, Form.email, Form.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        sweetAlert("success", "Login SuccessFully");
+        navigate("/");
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (error.code === "auth/invalid-credential") {
+          sweetAlert("error", "Email or password is incorrect");
+        } else if (error.code === "auth/invalid-email") {
+          sweetAlert("error", "Invalid email");
+        } else {
+          sweetAlert("error", "Login failed");
+        }
+      });
   };
 
   return (
@@ -64,6 +86,12 @@ const Login = () => {
           />
 
           <Btn btn={"Login"} Handler={loginHandler} />
+          <Link to={"/register"}>
+            {" "}
+            <button className="text-white font-bold text-center border-2 p-2 rounded-xl">
+              Go to Register
+            </button>
+          </Link>
         </div>
       </div>
     </div>

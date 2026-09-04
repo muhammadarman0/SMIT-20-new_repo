@@ -18,18 +18,19 @@ const App = () => {
           <Route path="/register" element={<Register />}></Route>
           {/* Nested Routing */}
           <Route path="/login" element={<Login />}></Route>
-          <Route
-            path="/"
-            element={
-                <Layout />
-            }
-          >
+          <Route path="/" element={<Layout />}>
             {" "}
-            <Route index element={<Home />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             <Route path="setting" element={<Settings />} />
             <Route path="user/:userId" element={<UserDetail />} />
             <Route path="user/:userId/progress" element={<CourseProgress />} />
-
           </Route>
         </Routes>
       </BrowserRouter>

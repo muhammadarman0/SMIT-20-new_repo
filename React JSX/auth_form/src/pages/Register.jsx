@@ -3,6 +3,13 @@ import Input from "../component/Input";
 import Btn from "../component/Btn";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import app from "../firebase/auth";
+import { field, log } from "firebase/firestore/pipelines";
+// import
+
+// const auth = getAuth(app);
+// console.log(auth);
 
 const Register = () => {
   const [Form, setForm] = useState({
@@ -36,6 +43,22 @@ const Register = () => {
   const navi = useNavigate();
 
   const registerHandler = () => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, Form.email, Form.password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        console.log("user Mila", user);
+
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Error  Mila", errorCode, errorMessage);
+
+        // ..
+      });
     if (
       Form.email === "" ||
       Form.username === "" ||
@@ -44,7 +67,7 @@ const Register = () => {
       Form.text === ""
     ) {
       sweetAlert("error", "Please Fill All field");
-      return
+      return;
     }
     sweetAlert("success", "Register successful");
     navi("/");
@@ -100,6 +123,12 @@ const Register = () => {
 
           {/* <Link to={"/"}> */}
           <Btn btn="Sign Up" Handler={registerHandler} />
+          <Link to={"/login"}>
+            {" "}
+            <button className="bg-amber-100 text-black cursor-pointer font-bold text-center border-2 p-2 rounded-xl">
+              Go to Login
+            </button>
+          </Link>
           {/* </Link> */}
         </div>
       </div>
