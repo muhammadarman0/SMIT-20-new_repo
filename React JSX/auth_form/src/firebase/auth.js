@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -7,9 +8,12 @@ const firebaseConfig = {
   projectId: "react-with-firebase-1ea1b",
   storageBucket: "react-with-firebase-1ea1b.firebasestorage.app",
   messagingSenderId: "734141946037",
-  appId: "1:734141946037:web:bf419556c19e13f71706fc"
+  appId: "1:734141946037:web:bf419556c19e13f71706fc",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export default app
+const db = getFirestore(app);
+ 
+export {db}
+export default app;

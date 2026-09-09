@@ -33,7 +33,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const loginHandler = () => {
+  const loginHandler = async () => {
     if (Form.email === "" || Form.password === "") {
       sweetAlert("error", "Fill all field");
       return;
@@ -41,6 +41,7 @@ const Login = () => {
 
     const auth = getAuth();
 
+    
     signInWithEmailAndPassword(auth, Form.email, Form.password)
       .then((userCredential) => {
         // Signed in

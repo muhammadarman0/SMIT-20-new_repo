@@ -8,11 +8,11 @@ const UserDetail = () => {
   //   const location = useLocation();
   const userData = async () => {
     const result = await axios.get(`https://dummyjson.com/users/${userId}`);
-    setUser(result.data);  
+    setUser(result.data);
   };
 
   console.log(userId);
-  
+
   useEffect(() => {
     userData();
   }, [userId]);

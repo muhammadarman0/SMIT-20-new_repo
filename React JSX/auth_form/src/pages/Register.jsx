@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Input from "../component/Input";
 import Btn from "../component/Btn";
 import Swal from "sweetalert2";
+import { collection, addDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import app from "../firebase/auth";
+import app, { db } from "../firebase/auth";
 import { field, log } from "firebase/firestore/pipelines";
 // import
 
@@ -42,23 +43,33 @@ const Register = () => {
 
   const navi = useNavigate();
 
-  const registerHandler = () => {
+  const registerHandler = async () => {
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, Form.email, Form.password)
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        console.log("user Mila", user);
+    try {
+      let { user } = await createUserWithEmailAndPassword(
+        auth,
+        Form.email,
+        Form.password,
+      );
+      console.log("User Register SuccessFully", user);
+      if (user) {
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            email: Form.email,
+            password: Form.password,
+            fullname: Form.text,
+            username: Form.username,
+            age: Form.age,
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("Error  Mila", errorCode, errorMessage);
-
-        // ..
-      });
     if (
       Form.email === "" ||
       Form.username === "" ||
@@ -125,7 +136,7 @@ const Register = () => {
           <Btn btn="Sign Up" Handler={registerHandler} />
           <Link to={"/login"}>
             {" "}
-            <button className="bg-amber-100 text-black cursor-pointer font-bold text-center border-2 p-2 rounded-xl">
+            <button  className="bg-amber-100 text-black cursor-pointer font-bold text-center border-2 p-2 rounded-xl">
               Go to Login
             </button>
           </Link>
