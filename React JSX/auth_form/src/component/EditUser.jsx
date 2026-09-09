@@ -1,78 +1,182 @@
 import React, { useEffect, useState } from "react";
-
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/auth";
+import { uploadImage } from "../cloudinary/cloudinary.js";
 
-const EditUser = ({ user, setEditIsUser, userDataEdit, updateUser }) => {
+const EditUser = ({ setEditIsUser, userDataEdit, updateUser }) => {
   const [Form, setForm] = useState({
-    fullname: userDataEdit?.fullname || "",
-    username: userDataEdit?.username || "",
-    email: userDataEdit?.email || "",
-    password: userDataEdit?.password || "",
-    age: userDataEdit?.age || "",
+    fullname: "",
+    username: "",
+    email: "",
+    password: "",
+    age: "",
+    img: null,
   });
+
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     setForm({
       fullname: userDataEdit?.fullname || "",
       username: userDataEdit?.username || "",
       email: userDataEdit?.email || "",
-      password: userDataEdit?.password || "",
+      password: "",
       age: userDataEdit?.age || "",
+      img: null,
     });
   }, [userDataEdit]);
 
   const formHandler = (e) => {
-    setForm({
-      ...Form,
+    setForm((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
+
+  const imageHandler = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      img: e.target.files[0],
+    }));
+  };
+
   const updateData = async (id) => {
+    if (
+      Form.fullname.trim() === "" ||
+      Form.username.trim() === "" ||
+      Form.email.trim() === "" ||
+      Form.age === ""
+    ) {
+      alert("Please fill all required fields");
+      return;
+    }
+
     try {
+      setLoading(true);
+
+      // Existing image
+      let imgUrl = userDataEdit?.imgUrl || "";
+
+      // Upload only if new image selected
+      if (Form.img) {
+        imgUrl = await uploadImage(Form.img);
+      }
+
+      // Update Firestore
       await updateDoc(doc(db, "users", id), {
         fullname: Form.fullname,
         username: Form.username,
         email: Form.email,
         age: Form.age,
+        imgUrl: imgUrl,
       });
 
+      // Update UI immediately
       updateUser({
         id: id,
         fullname: Form.fullname,
         username: Form.username,
         email: Form.email,
         age: Form.age,
+        imgUrl: imgUrl,
       });
 
       setEditIsUser(false);
     } catch (error) {
-      console.log(error);
+      console.log("Update Error:", error);
+      alert("Something went wrong while updating user");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-md">
       {/* Modal */}
-      <div className="w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-gray-900 shadow-2xl">
+      <div className="w-full max-w-xl overflow-hidden rounded-3xl border border-white/10 bg-gray-900 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 bg-gradient-to-r from-purple-600/20 via-blue-600/10 to-transparent px-6 py-5">
-          <div>
-            <p className="text-sm font-medium text-purple-400">USER PROFILE</p>
+        <div className="relative overflow-hidden border-b border-white/10 px-6 py-6">
+          <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-purple-600/20 blur-3xl" />
 
-            <h2 className="mt-1 text-2xl font-bold text-white">Edit User</h2>
+          <div className="relative flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold tracking-widest text-purple-400">
+                USER PROFILE
+              </p>
+
+              <h2 className="mt-1 text-2xl font-bold text-white">Edit User</h2>
+
+              <p className="mt-1 text-sm text-gray-500">
+                Update your profile information
+              </p>
+            </div>
+
+            <button
+              onClick={() => setEditIsUser(false)}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg text-gray-400 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
+            >
+              ✕
+            </button>
           </div>
-
-          {/* Close */}
-          <button
-            onClick={() => setEditIsUser(false)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-xl text-gray-400 transition hover:bg-red-500/20 hover:text-red-400"
-          >
-            ✕
-          </button>
         </div>
 
         {/* Body */}
-        <div className="space-y-5 p-6">
+        <div className="max-h-[70vh] space-y-5 overflow-y-auto p-6">
+          {/* Profile Image */}
+          <div className="rounded-2xl border border-white/10 bg-gray-950/50 p-4">
+            <label className="mb-3 block text-sm font-semibold text-gray-300">
+              Profile Image
+            </label>
+
+            <div className="flex flex-col items-center gap-4 sm:flex-row">
+              {/* Current Image */}
+              <div className="relative">
+                <img
+                  src={
+                    Form.img
+                      ? URL.createObjectURL(Form.img)
+                      : userDataEdit?.imgUrl ||
+                        "https://via.placeholder.com/100"
+                  }
+                  alt="Profile"
+                  className="h-24 w-24 rounded-2xl border-2 border-purple-500/30 object-cover shadow-lg"
+                />
+
+                <div className="absolute -bottom-2 -right-2 rounded-lg border border-gray-800 bg-purple-600 px-2 py-1 text-xs text-white">
+                  📷
+                </div>
+              </div>
+
+              {/* File Input */}
+              <div className="flex-1">
+                <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-gray-700 bg-gray-800/50 px-4 py-5 transition hover:border-purple-500 hover:bg-purple-500/5">
+                  <span className="text-2xl">📁</span>
+
+                  <span className="mt-2 text-sm font-medium text-gray-300">
+                    Choose new image
+                  </span>
+
+                  <span className="mt-1 text-xs text-gray-500">
+                    PNG, JPG or WEBP
+                  </span>
+
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={imageHandler}
+                    className="hidden"
+                  />
+                </label>
+
+                {Form.img && (
+                  <p className="mt-2 truncate text-xs text-purple-400">
+                    Selected: {Form.img.name}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
           {/* Full Name */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-300">
@@ -84,7 +188,8 @@ const EditUser = ({ user, setEditIsUser, userDataEdit, updateUser }) => {
               name="fullname"
               value={Form.fullname}
               onChange={formHandler}
-              className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
+              placeholder="Enter full name"
+              className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
             />
           </div>
 
@@ -99,7 +204,8 @@ const EditUser = ({ user, setEditIsUser, userDataEdit, updateUser }) => {
               name="username"
               value={Form.username}
               onChange={formHandler}
-              className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              placeholder="Enter username"
+              className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
             />
           </div>
 
@@ -114,7 +220,8 @@ const EditUser = ({ user, setEditIsUser, userDataEdit, updateUser }) => {
               name="email"
               value={Form.email}
               onChange={formHandler}
-              className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
+              placeholder="Enter email"
+              className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
             />
           </div>
 
@@ -131,8 +238,13 @@ const EditUser = ({ user, setEditIsUser, userDataEdit, updateUser }) => {
                 name="password"
                 value={Form.password}
                 onChange={formHandler}
-                className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
+                placeholder="Password"
+                className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
               />
+
+              <p className="mt-1 text-xs text-gray-600">
+                Password is handled by Firebase Auth
+              </p>
             </div>
 
             {/* Age */}
@@ -146,18 +258,20 @@ const EditUser = ({ user, setEditIsUser, userDataEdit, updateUser }) => {
                 name="age"
                 value={Form.age}
                 onChange={formHandler}
-                className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+                placeholder="Age"
+                className="w-full rounded-xl border border-white/10 bg-gray-800 px-4 py-3 text-white outline-none transition placeholder:text-gray-600 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
               />
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex gap-3 border-t border-white/10 bg-gray-950/50 px-6 py-5">
+        <div className="flex gap-3 border-t border-white/10 bg-gray-950/70 px-6 py-5">
           {/* Cancel */}
           <button
             onClick={() => setEditIsUser(false)}
-            className="flex-1 rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-gray-300 transition hover:bg-white/10 hover:text-white"
+            disabled={loading}
+            className="flex-1 rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-gray-300 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
             Cancel
           </button>
@@ -165,9 +279,10 @@ const EditUser = ({ user, setEditIsUser, userDataEdit, updateUser }) => {
           {/* Save */}
           <button
             onClick={() => updateData(userDataEdit.id)}
-            className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 px-5 py-3 font-semibold text-white shadow-lg shadow-purple-500/20 transition hover:scale-[1.02] hover:from-purple-500 hover:to-blue-500"
+            disabled={loading}
+            className="flex-1 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 px-5 py-3 font-semibold text-white shadow-lg shadow-purple-500/20 transition hover:scale-[1.02] hover:from-purple-500 hover:to-blue-500 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
           >
-            💾 Save Changes
+            {loading ? "Updating..." : "💾 Save Changes"}
           </button>
         </div>
       </div>

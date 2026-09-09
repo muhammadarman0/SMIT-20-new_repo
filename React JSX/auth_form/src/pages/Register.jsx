@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import app, { db } from "../firebase/auth";
 import { field, log } from "firebase/firestore/pipelines";
+import { uploadImage } from "../cloudinary/cloudinary.js";
 // import
 
 // const auth = getAuth(app);
@@ -19,7 +20,10 @@ const Register = () => {
     text: "",
     age: "",
     username: "",
+    img: null,
   });
+  console.log(Form);
+
   const sweetAlert = (icon, text) => {
     Swal.mixin({
       toast: true,
@@ -45,6 +49,17 @@ const Register = () => {
 
   const registerHandler = async () => {
     const auth = getAuth();
+    if (
+      Form.email === "" ||
+      Form.username === "" ||
+      Form.age === "" ||
+      Form.password === "" ||
+      Form.text === "" ||
+      !Form.img === ""
+    ) {
+      sweetAlert("error", "Please Fill All field");
+      return;
+    }
     try {
       let { user } = await createUserWithEmailAndPassword(
         auth,
@@ -52,14 +67,16 @@ const Register = () => {
         Form.password,
       );
       console.log("User Register SuccessFully", user);
+      const imgUrl = await uploadImage(Form.img);
       if (user) {
         try {
           const docRef = await addDoc(collection(db, "users"), {
             email: Form.email,
-            password: Form.password,
+            // password: Form.password,
             fullname: Form.text,
             username: Form.username,
             age: Form.age,
+            imgUrl: imgUrl,
           });
           console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -70,16 +87,6 @@ const Register = () => {
       console.log(error);
     }
 
-    if (
-      Form.email === "" ||
-      Form.username === "" ||
-      Form.age === "" ||
-      Form.password === "" ||
-      Form.text === ""
-    ) {
-      sweetAlert("error", "Please Fill All field");
-      return;
-    }
     sweetAlert("success", "Register successful");
     navi("/");
   };
@@ -118,7 +125,12 @@ const Register = () => {
             type="email"
             handler={formHandler}
           />
-
+          <Input
+            placeholder="Enter your Img"
+            head="File"
+            type="file"
+            handler={formHandler}
+          />
           <Input
             placeholder="Password"
             head="Password"
@@ -136,7 +148,7 @@ const Register = () => {
           <Btn btn="Sign Up" Handler={registerHandler} />
           <Link to={"/login"}>
             {" "}
-            <button  className="bg-amber-100 text-black cursor-pointer font-bold text-center border-2 p-2 rounded-xl">
+            <button className="bg-amber-100 text-black cursor-pointer font-bold text-center border-2 p-2 rounded-xl">
               Go to Login
             </button>
           </Link>
