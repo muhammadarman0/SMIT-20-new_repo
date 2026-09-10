@@ -87,7 +87,7 @@ const User = ({
 
                 <img
                   src={
-                    data.imgUrl ||
+                    data.userImg ||
                     "https://ui-avatars.com/api/?name=User&background=1f2937&color=fff"
                   }
                   alt={data.fullname || "User"}

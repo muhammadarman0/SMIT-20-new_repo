@@ -6,7 +6,6 @@ import { collection, addDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import app, { db } from "../firebase/auth";
-import { field, log } from "firebase/firestore/pipelines";
 import { uploadImage } from "../cloudinary/cloudinary.js";
 // import
 
@@ -54,7 +53,7 @@ const Register = () => {
       Form.username === "" ||
       Form.age === "" ||
       Form.password === "" ||
-      Form.text === "" ||
+      Form.text === ""||
       !Form.img === ""
     ) {
       sweetAlert("error", "Please Fill All field");
@@ -76,9 +75,8 @@ const Register = () => {
             fullname: Form.text,
             username: Form.username,
             age: Form.age,
-            imgUrl: imgUrl,
+            userImg: imgUrl,
           });
-          
           console.log("Document written with ID: ", docRef.id);
         } catch (e) {
           console.error("Error adding document: ", e);

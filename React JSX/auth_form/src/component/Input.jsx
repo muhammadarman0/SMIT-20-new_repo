@@ -3,7 +3,7 @@ import React from "react";
 const Input = ({ placeholder, head, handler, type }) => {
   const handleChange = (e) => {
     if (type === "file") {
-      handler(e.target.files[0], type);
+      handler(e.target.files[0], "img");
     } else {
       handler(e.target.value, type);
     }

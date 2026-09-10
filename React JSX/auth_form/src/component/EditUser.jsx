@@ -68,7 +68,7 @@ const EditUser = ({ setEditIsUser, userDataEdit, updateUser }) => {
         username: Form.username,
         email: Form.email,
         age: Form.age,
-        imgUrl: imgUrl,
+        userImg: imgUrl,
       });
 
       // Update UI immediately
@@ -78,7 +78,7 @@ const EditUser = ({ setEditIsUser, userDataEdit, updateUser }) => {
         username: Form.username,
         email: Form.email,
         age: Form.age,
-        imgUrl: imgUrl,
+        userImg: imgUrl,
       });
 
       setEditIsUser(false);
