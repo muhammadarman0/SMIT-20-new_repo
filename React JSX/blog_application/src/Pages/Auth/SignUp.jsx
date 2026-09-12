@@ -6,7 +6,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import auth from "../../firebase/config";
-import { toast } from "react-toastify";
+import {ToastContainer , toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
@@ -38,10 +38,7 @@ const SignUp = () => {
 
   const signUpHandler = async () => {
     try {
-      if (form.fullName === "" || form.email === "" || form.password === "") {
-       return SweetAlert("error", "Please Fill all field");
-        
-      }
+     
       let response = await createUserWithEmailAndPassword(
         auth,
         form.email,
@@ -64,7 +61,7 @@ const SignUp = () => {
         toast.error("Email already Exist!");
       }
     }
-     SweetAlert("success", "Login SuccessFully");
+    //  SweetAlert("success", "Login SuccessFully");
   };
 
   const signUpWithGoogleHandler = async () => {
@@ -136,7 +133,7 @@ const SignUp = () => {
           label={"Enter your Password"}
           type={"password"}
         />
-
+<ToastContainer />
         {/* Button signUp */}
         <Btns
           handler={signUpWithGoogleHandler}
