@@ -118,6 +118,7 @@ const Register = () => {
             type="username"
             handler={formHandler}
           />
+          
           <Input
             placeholder="Enter your email"
             head="Email"
