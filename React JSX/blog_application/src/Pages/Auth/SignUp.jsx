@@ -5,9 +5,10 @@ import Btns from "../../component/Btns";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import auth from "../../firebase/config";
-import {ToastContainer , toast } from "react-toastify";
+import auth from "../../firebase/config.js";
+import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -16,7 +17,7 @@ const SignUp = () => {
     password: "",
   });
 
-  const signUpHanlderValue = (value, field) => {
+  const signUpHanlderValue = (field,value ) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
   const SweetAlert = (icon, title) => {
@@ -37,8 +38,8 @@ const SignUp = () => {
   };
 
   const signUpHandler = async () => {
+    
     try {
-     
       let response = await createUserWithEmailAndPassword(
         auth,
         form.email,
@@ -133,7 +134,7 @@ const SignUp = () => {
           label={"Enter your Password"}
           type={"password"}
         />
-<ToastContainer />
+        <ToastContainer />
         {/* Button signUp */}
         <Btns
           handler={signUpWithGoogleHandler}
@@ -142,6 +143,16 @@ const SignUp = () => {
         />
 
         <Btns handler={signUpHandler} btnTitle={"Sign Up"} />
+        <Link to={"/login"}>
+          <Typography
+            sx={{
+              margin: "10px 0",
+            }}
+            className="text-center"
+          >
+            Go to Login Page
+          </Typography>
+        </Link>
       </Paper>
     </Box>
   );

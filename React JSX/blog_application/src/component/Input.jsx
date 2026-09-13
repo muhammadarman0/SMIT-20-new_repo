@@ -7,7 +7,7 @@ const Input = ({ label, type, handler }) => {
       fullWidth
       label={label}
       variant="outlined"
-      onChange={(e) => handler(e.target.value, type)}
+      onChange={(e) => handler(type,e.target.value)}
       type={type}
       sx={{ mb: 2, color: "white" }}
     />
