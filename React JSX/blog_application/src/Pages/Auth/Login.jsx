@@ -5,6 +5,7 @@ import Input from "../../component/Input";
 import Btns from "../../component/Btns";
 import { toast, ToastContainer } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Link } from "react-router-dom";
 import auth from "../../firebase/config.js";
 
@@ -39,7 +40,21 @@ const Login = () => {
     }
     console.log("Email", form.email);
     console.log("Password", form.password);
+  };
+  const signInWithGoogle = async () => {
 
+    try {
+      const provider = new GoogleAuthProvider();
+      let response = await signInWithPopup(auth, provider);
+
+      console.log(response);
+
+      if (response.user) {
+        toast.success("user signIn successfully!");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -91,15 +106,17 @@ const Login = () => {
           handler={loginHandlerValue}
           label={"Enter Your Email"}
           type={"email"}
+          id={"email"}
         />
         <Input
           handler={loginHandlerValue}
           label={"Enter your Password"}
           type={"password"}
+          id={"password"}
         />
         <ToastContainer />
         {/* Button signUp */}
-        <Btns icon={<GoogleIcon />} btnTitle={"Sign In With Google"} />
+        <Btns icon={<GoogleIcon />} handler={signInWithGoogle} btnTitle={"Sign In With Google"} />
 
         <Btns handler={loginHandler} btnTitle={"Login"} />
 

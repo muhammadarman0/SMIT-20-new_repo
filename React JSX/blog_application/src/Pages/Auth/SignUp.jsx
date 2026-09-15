@@ -5,40 +5,40 @@ import Btns from "../../component/Btns";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import auth from "../../firebase/config.js";
+import auth, { db } from "../../firebase/config.js";
 import { ToastContainer, toast } from "react-toastify";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    fullName: "",
+    username: "",
     email: "",
     password: "",
   });
 
-  const signUpHanlderValue = (field,value ) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  };
-  const SweetAlert = (icon, title) => {
-    Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      },
-    }).fire({
-      icon: `${icon}`,
-      title: `${title}`,
-    });
+  const saveDataFordb = async (name = "", data) => {
+    try {
+      const docRef = doc(db, "users", data.uid);
+
+      await setDoc(docRef, {
+        userName: data.displayName ? data.displayName : name,
+        email: form.email,
+        imgUrl: data.photoURL ? data.photoURL : "",
+        role: "user",
+      });
+
+      console.log("Document saved:", data.uid);
+    } catch (e) {
+      console.error("Error adding document:", e);
+    }
   };
 
+  const signUpHanlderValue = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
   const signUpHandler = async () => {
-    
     try {
       let response = await createUserWithEmailAndPassword(
         auth,
@@ -47,7 +47,7 @@ const SignUp = () => {
       );
 
       console.log(response);
-
+      saveDataFordb(form.fullName, response.user);
       if (response.user) {
         toast.success("user signup successfully!");
       }
@@ -123,16 +123,18 @@ const SignUp = () => {
           Sign up to create your account
         </Typography>
         {/* SIgnup Inputs */}
-        <Input handler={signUpHanlderValue} label={"Full Name"} type={"text"} />
+        <Input handler={signUpHanlderValue} label={"Full Name"} type={"text"} id={"username"} />
         <Input
           handler={signUpHanlderValue}
           label={"Enter Your Email"}
           type={"email"}
+          id={"email"}
         />
         <Input
           handler={signUpHanlderValue}
           label={"Enter your Password"}
           type={"password"}
+          id={"password"}
         />
         <ToastContainer />
         {/* Button signUp */}

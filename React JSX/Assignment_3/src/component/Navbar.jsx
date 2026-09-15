@@ -13,7 +13,7 @@ const Navbar = ({ setSearch }) => {
     <nav className="navbar">
 
       <div className="logo">
-        <img src={Weblogo} alt="StyleHub Logo" />
+        {/* <img src={Weblogo} alt="StyleHub Logo" /> */}
         <h2>Menu<span>Card</span></h2>
       </div>
 
