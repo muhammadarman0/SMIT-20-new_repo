@@ -4,6 +4,8 @@ import SignUp from "./Pages/Auth/SignUp";
 import Login from "./Pages/Auth/Login";
 import Blog from "./Pages/Blog";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import Layout from "./Pages/Layout";
+import Home from "./Pages/Home";
 
 const App = () => {
   return (
@@ -11,14 +13,18 @@ const App = () => {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Blog />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Home />} />
+          <Route
+            path="blog"
+            element={
+              <ProtectedRoute>
+                <Blog />
+              </ProtectedRoute>
+            }
+          />
+
+        </Route>
       </Routes>
     </BrowserRouter>
   );

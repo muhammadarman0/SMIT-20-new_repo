@@ -6,7 +6,7 @@ import Btns from "../../component/Btns";
 import { toast, ToastContainer } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase/config.js";
 
 const Login = () => {
@@ -14,6 +14,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate()
   console.log("Login Form value aye", form);
 
   const loginHandlerValue = (field, value) => {
@@ -31,6 +32,7 @@ const Login = () => {
       console.log(response);
       if (response.user) {
         toast.success("Login SuccessFully");
+        navigate("/blog")
       }
     } catch (error) {
       const errorCode = error.code;
@@ -51,6 +53,7 @@ const Login = () => {
 
       if (response.user) {
         toast.success("user signIn successfully!");
+        navigate("/blog")
       }
     } catch (error) {
       toast.error(error.message);

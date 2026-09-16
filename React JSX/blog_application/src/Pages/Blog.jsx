@@ -2,10 +2,9 @@ import React from 'react'
 import Navbar from "../component/Navbar"
 
 const Blog = () => {
-  return (
+//   return (
     
-    <Navbar />
-  )
+//   )
 }
 
 export default Blog

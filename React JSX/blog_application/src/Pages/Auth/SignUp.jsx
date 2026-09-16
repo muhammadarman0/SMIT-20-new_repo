@@ -9,7 +9,7 @@ import auth, { db } from "../../firebase/config.js";
 import { ToastContainer, toast } from "react-toastify";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -18,6 +18,7 @@ const SignUp = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
   const saveDataFordb = async (name = "", data) => {
     try {
       const docRef = doc(db, "users", data.uid);
@@ -50,6 +51,7 @@ const SignUp = () => {
       saveDataFordb(form.fullName, response.user);
       if (response.user) {
         toast.success("user signup successfully!");
+        navigate("/");
       }
     } catch (error) {
       console.log(error.message);
@@ -71,9 +73,10 @@ const SignUp = () => {
       let response = await signInWithPopup(auth, provider);
 
       console.log(response);
-
+      saveDataFordb("", response.user);
       if (response.user) {
         toast.success("user signup successfully!");
+        navigate("/");
       }
     } catch (error) {
       toast.error(error.message);
@@ -123,7 +126,12 @@ const SignUp = () => {
           Sign up to create your account
         </Typography>
         {/* SIgnup Inputs */}
-        <Input handler={signUpHanlderValue} label={"Full Name"} type={"text"} id={"username"} />
+        <Input
+          handler={signUpHanlderValue}
+          label={"Full Name"}
+          type={"text"}
+          id={"username"}
+        />
         <Input
           handler={signUpHanlderValue}
           label={"Enter Your Email"}
