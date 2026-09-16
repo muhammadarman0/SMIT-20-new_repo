@@ -56,6 +56,7 @@ export default function BasicModal() {
       const imgUrl = await uploadImageToCloudinary(blog.file);
       console.log(blog);
       saveDataintoDb(imgUrl, blog);
+      handleClose(false)
     } catch (error) {
       console.log(error);
     }
