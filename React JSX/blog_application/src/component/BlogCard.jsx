@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 
 const BlogCard = ({ data, onEdit, onDelete }) => {
+    console.log(data);
+    
   return (
     <Card
       sx={{

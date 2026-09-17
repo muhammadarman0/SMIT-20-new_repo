@@ -60,7 +60,7 @@ export default function BasicModal() {
       const docRef = await addDoc(collection(db, "blogs"), {
         title: data.title,
         description: data.description,
-        file: url,
+        blogImgUrl: url,
         authorId: user,
         createdAt: serverTimestamp(),
       });
