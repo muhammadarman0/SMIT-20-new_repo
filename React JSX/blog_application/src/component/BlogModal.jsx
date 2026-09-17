@@ -8,6 +8,7 @@ import { uploadImageToCloudinary } from "../File/file.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase/config.js";
 import Btns from "../component/Btns";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const style = {
   position: "absolute",
@@ -27,6 +28,7 @@ export default function BasicModal() {
     description: "",
     file: "",
   });
+  const [user, setUser] = React.useState(null);
   console.log(blog);
 
   const [open, setOpen] = React.useState(false);
@@ -37,12 +39,28 @@ export default function BasicModal() {
     setBlog((prev) => ({ ...prev, [field]: value }));
   };
 
+  const getUser = () => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setUser(uid);
+      } else {
+        setUser(null);
+      }
+    //   setLoading(false);
+    });
+  };
+
+  console.log(user);
+  
   const saveDataintoDb = async (url, data) => {
     try {
       const docRef = await addDoc(collection(db, "blogs"), {
         title: data.title,
         description: data.description,
-        file: url,
+        imgUrl: url,
+        authorId: user,
         createdAt: serverTimestamp(),
       });
       console.log("Document written with ID: ", docRef.id);
@@ -56,12 +74,16 @@ export default function BasicModal() {
       const imgUrl = await uploadImageToCloudinary(blog.file);
       console.log(blog);
       saveDataintoDb(imgUrl, blog);
-      handleClose(false)
+      handleClose(false);
     } catch (error) {
       console.log(error);
     }
   };
 
+  React.useEffect(() => {
+    getUser();
+    return () => getUser();
+  }, []);
   return (
     <div>
       <Button onClick={handleOpen}>Create A blog</Button>
