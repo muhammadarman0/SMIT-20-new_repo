@@ -6,8 +6,8 @@ import BlogCard from "../component/BlogCard";
 import { db } from "../firebase/config";
 
 const Blog = () => {
-  return <BlogModal />;
+return(<BlogModal />)
 };
 
 export default Blog;
-//
+// 

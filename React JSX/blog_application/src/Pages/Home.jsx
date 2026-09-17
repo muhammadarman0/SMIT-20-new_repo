@@ -23,13 +23,16 @@ const Blog = () => {
     blogUser();
   }, []);
   console.log(allBlogs);
-console.log(allBlogs);
+  console.log(allBlogs);
 
   return (
     <>
-      {allBlogs.length > 0
-        ? allBlogs.map((u) => <BlogCard data={u} />)
-        : "User Not Found"}
+      <div className="flex flex-wrap p-5">
+        {" "}
+        {allBlogs.length > 0
+          ? allBlogs.map((u) => <BlogCard data={u} />)
+          : "User Not Found"}
+      </div>
     </>
   );
 };

@@ -9,6 +9,8 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase/config.js";
 import Btns from "../component/Btns";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { toast, ToastContainer } from "react-toastify";
+// import { data } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -29,7 +31,6 @@ export default function BasicModal() {
     file: "",
   });
   const [user, setUser] = React.useState(null);
-  console.log(blog);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -48,24 +49,26 @@ export default function BasicModal() {
       } else {
         setUser(null);
       }
-    //   setLoading(false);
+      //   setLoading(false);
     });
   };
 
   console.log(user);
-  
+
   const saveDataintoDb = async (url, data) => {
     try {
       const docRef = await addDoc(collection(db, "blogs"), {
         title: data.title,
         description: data.description,
-        imgUrl: url,
+        file: url,
         authorId: user,
         createdAt: serverTimestamp(),
       });
+        toast.success("Blog Create Successfully");
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
+      toast.error("FAILED CREATE YOUR BLOG")
     }
   };
 
@@ -118,6 +121,7 @@ export default function BasicModal() {
           <Btns handler={postBlogHandler} btnTitle={"Create blog"} />
         </Box>
       </Modal>
+      <ToastContainer />
     </div>
   );
 }
