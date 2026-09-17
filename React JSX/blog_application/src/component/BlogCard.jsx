@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 
 const BlogCard = ({ data, onEdit, onDelete }) => {
-    console.log(data);
-    
+  console.log(data);
+
   return (
     <Card
       sx={{
@@ -28,12 +28,13 @@ const BlogCard = ({ data, onEdit, onDelete }) => {
       }}
     >
       {/* Blog Image */}
+      
       {data.blogImgUrl && (
         <CardMedia
           component="img"
           height="220"
-          image={data.file}
-          alt={data.title}
+          image={data.blogImgUrl}
+          //   alt={data.title}
           sx={{
             objectFit: "cover",
           }}

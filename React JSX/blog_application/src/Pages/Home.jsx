@@ -19,6 +19,8 @@ const Blog = () => {
     });
     setAllBlogs(userblog);
   };
+  console.log(allBlogs);
+  
   useEffect(() => {
     blogUser();
   }, []);
@@ -30,7 +32,7 @@ const Blog = () => {
       <div className="flex flex-wrap p-5">
         {" "}
         {allBlogs.length > 0
-          ? allBlogs.map((u) => <BlogCard data={u} />)
+          ? allBlogs.map((u) => <BlogCard key={allBlogs.id} data={u} />)
           : "User Not Found"}
       </div>
     </>
