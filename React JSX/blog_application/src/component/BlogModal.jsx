@@ -67,7 +67,9 @@ export default function BasicModal() {
         blogImgUrl: url,
         authorId: user.uid,
         authorName: user.displayName || "Anonmyous",
-        authorImgUrl: user.photoURL || "",
+        authorImgUrl:
+          user.photoURL ||
+          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAACUCAMAAAD79nauAAAARVBMVEX6+vqPj4////+JiYmwsLCMjIyFhYWTk5Pz8/PW1tbb29v29vbf39/k5OSWlpbs7OzCwsK6urqjo6PNzc2dnZ2qqqp+fn4V/E9vAAAEI0lEQVR4nO2c25KjIBBAtbkoKqCi+f9PXXSyE3c2MUAU2inOw8xW7QtnmubaWBSZTCaTyWQymUwmgxH4JnVLArEtb6UwvcUI2V5QxDa5G6aqqkpmKe0/xl5ezAP0wLlt/AZGOOnr61i03cxJ+QTOqSyu4GH7ESVPFRYIGyR+C6j76qXCGg1lWuQaIGfC9hyW5KAatQWIaTcM9z41dYgtQJRvwnAPhsJrAYY7OVgL1iC1APEuHTYWJc5YgGTODkuPwpjd0CqHnH5ARowS1MvBThg9Ogs7MHmDbu5uR4+E+AJdh4Le26EsK4PLQo+eGbGGgtap270FTEAgbChQTXm179B0D8WQuuEbQIYo2Blv0qmbvkHwMAuOqT+F9SYrgag/1VVQXtv+NLap2/6NvoU5WAs0gyw0wRI3NEsP6APz2koINBJDYF7bzEaz8vBehT8gaNbjMIdLDFniQH5HdwpPbIInsfvw0QnPEBu6/kM12YUvOwiaZYddAAY6YFoABi/FSZ+65Q/ABG+KUjf9gd8x7ANc29PAgwI+IEqJ5VQ/JBAlpi32cngW0J+QHZ4FHmOima6/gNo/FGxO3eqfgPCXwHfj5b2pwLOV2ABu17/fDhNCB7sM9Lp4rDBNEQ9cr+LXOCg0a/CfGFcLonBNc/9g3A5lrUPqlu7RuMTC9qXU7dwF6vdX8nxEX/AEA9sbpex/ojml2QHkXL2qVGGkQl6x9RcoBK2eFQ0xrmhziULGBWi7fiJ8Gw9GOBv77jIKC1DozlDFbzdOyPJTUSP1pRRWbIPbWgphjBCybovrGfzl4vXumUzmosBxJHNotRnoIQyiTrKyhVqMy3R8DJzPTQKNbn791CMEQmjsbTcYv3pkJ40p7sYbmrALiTcWkct9Xd8Y+MFYRAkIqYJ1gdBoFtCc5GBjEW3zCvSUzrRKxDplhno6T2KM41BAp86TmCL1JxChBQQOErEOmsGcKRHp+ihLZIkjJU5N7FgSjTpPItoQK0+c7KZYlRK/YcYuYL7+2imsGsWRaHWy0J0nEe8eCU4bYyPWSnxQV71PzKpraIOrefe5xTwo+OCxwR5xn2iDPkOCRX7rBUNwjftroj8w0i5fGfGDzNFLoMTRZ4Csil8T+MHLj+ekedRy7GSR5nURtOHvoZ44JHoPbC2OGqJYuo94QDEcczqeuAbKsAO6FFFpi8btVvXjLsXn1E9BwO6QPpkxbCQNgvoVqGkVqsFINeD4NuDy0Tzl/n2qB4RMiD6oB4XsR+LnwTiZe1yfNoRCN0PFXT0Y52roNIJk+MHqoW5vRRjhN9XLGlUQNti/rF7KSZdqif9znbG1/kHRBq3AnbVkRoueTkpVX5Rfv5QaaS/0ZSoC79U/tZZd0wjRNJ3UdZG4JigUFAVNmUwmk8lkMplMJrPDHzzuNUeTOqcvAAAAAElFTkSuQmCC",
         createdAt: serverTimestamp(),
       });
       toast.success("Blog Create Successfully");

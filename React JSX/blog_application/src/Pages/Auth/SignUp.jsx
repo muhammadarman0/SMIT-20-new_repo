@@ -20,6 +20,8 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const saveDataFordb = async (name = "", data) => {
+    console.log(data);
+    
     try {
       const docRef = doc(db, "users", data.uid);
 
@@ -48,7 +50,7 @@ const SignUp = () => {
       );
 
       console.log(response);
-      saveDataFordb(form.fullName, response.user);
+      saveDataFordb(form.username, response.user);
       if (response.user) {
         toast.success("user signup successfully!");
         navigate("/");
