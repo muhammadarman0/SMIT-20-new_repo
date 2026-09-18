@@ -8,7 +8,7 @@ import { db } from "../firebase/config";
 const Blog = () => {
   const [allBlogs, setAllBlogs] = useState([]);
 
-  const blogUser = async () => {
+  const getblogUser = async () => {
     const querySnapshot = await getDocs(collection(db, "blogs"));
     let userblog = querySnapshot.docs.map((doc) => {
       //   console.log(`${doc.id} => ${doc.data()}`);
@@ -20,9 +20,9 @@ const Blog = () => {
     setAllBlogs(userblog);
   };
   console.log(allBlogs);
-  
+
   useEffect(() => {
-    blogUser();
+    getblogUser();
   }, []);
   console.log(allBlogs);
   console.log(allBlogs);
@@ -32,7 +32,9 @@ const Blog = () => {
       <div className="flex flex-wrap p-5 gap-10 justify-around mt-10">
         {" "}
         {allBlogs.length > 0
-          ? allBlogs.map((u) => <BlogCard key={allBlogs.id} data={u} />)
+          ? allBlogs.map((u) => (
+              <BlogCard allBlogs={allBlogs} getblogUser={getblogUser} key={allBlogs.id} data={u} />
+            ))
           : "User Not Found"}
       </div>
     </>

@@ -1,4 +1,5 @@
 import React from "react";
+import { doc, deleteDoc } from "firebase/firestore";
 import {
   Card,
   CardContent,
@@ -15,8 +16,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { db } from "../firebase/config";
+import { toast, ToastContainer } from "react-toastify";
 
-const BlogCard = ({ data, onEdit, onDelete }) => {
+const BlogCard = ({ data, onEdit, allBlogs, getblogUser }) => {
   // Firestore Timestamp ko date mein convert karna
   const postTime = data.createdAt?.toDate ? data.createdAt.toDate() : null;
   const [user, setUser] = React.useState(null);
@@ -42,6 +45,16 @@ const BlogCard = ({ data, onEdit, onDelete }) => {
       }
       //   setLoading(false);
     });
+  };
+
+  const deleteHandler = async (deleteBlogId) => {
+    try {
+      await deleteDoc(doc(db, "blogs", deleteBlogId));
+      getblogUser();
+      toast.success("Blog Delete SuccessFully")
+    } catch (error) {
+      console.log(error);
+    }
   };
   React.useEffect(() => {
     getUser();
@@ -149,7 +162,7 @@ const BlogCard = ({ data, onEdit, onDelete }) => {
               <Tooltip title="Delete">
                 <IconButton
                   size="small"
-                  onClick={() => onDelete(data)}
+                  onClick={() => deleteHandler(data.id)}
                   sx={{
                     color: "error.main",
                   }}
@@ -196,6 +209,7 @@ const BlogCard = ({ data, onEdit, onDelete }) => {
           {data.description}
         </Typography>
       </CardContent>
+      <ToastContainer />
     </Card>
   );
 };
