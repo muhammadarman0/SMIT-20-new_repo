@@ -4,50 +4,174 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  Button,
+  IconButton,
+  Avatar,
   Box,
   Divider,
+  Tooltip,
 } from "@mui/material";
 
-const BlogCard = ({ data, onEdit, onDelete }) => {
-  console.log(data);
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+const BlogCard = ({ data, onEdit, onDelete }) => {
+  // Firestore Timestamp ko date mein convert karna
+  const postTime = data.createdAt?.toDate ? data.createdAt.toDate() : null;
+  const [user, setUser] = React.useState(null);
+  const formattedTime = postTime
+    ? postTime.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "Just now";
+
+  const getUser = () => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+
+        console.log(user.uid);
+
+        setUser(uid);
+      } else {
+        setUser(null);
+      }
+      //   setLoading(false);
+    });
+  };
+  React.useEffect(() => {
+    getUser();
+    return () => getUser();
+  }, []);
   return (
     <Card
       sx={{
         width: "100%",
         maxWidth: 380,
-        borderRadius: 3,
+        borderRadius: 4,
         overflow: "hidden",
-        boxShadow: "0 4px 15px rgba(0,0,0,0.12)",
-        transition: "0.3s",
+        backgroundColor: "#fff",
+        boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+        transition: "all 0.3s ease",
+
         "&:hover": {
-          transform: "translateY(-5px)",
-          boxShadow: "0 8px 25px rgba(0,0,0,0.18)",
+          transform: "translateY(-6px)",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.14)",
         },
       }}
     >
       {/* Blog Image */}
-      
       {data.blogImgUrl && (
         <CardMedia
           component="img"
           height="220"
           image={data.blogImgUrl}
-          //   alt={data.title}
+          alt={data.title}
           sx={{
             objectFit: "cover",
           }}
         />
       )}
 
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: 2.5 }}>
+        {/* Author Section */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 2,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1.2,
+            }}
+          >
+            <Avatar
+              src={data.authorImgUrl || ""}
+              alt={data.authorName}
+              sx={{
+                width: 42,
+                height: 42,
+              }}
+            >
+              {data.authorName?.charAt(0).toUpperCase()}
+            </Avatar>
+
+            <Box>
+              <Typography variant="subtitle2" fontWeight={700}>
+                {data.authorName || "Anonymous"}
+              </Typography>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 0.5,
+                }}
+              >
+                <AccessTimeIcon
+                  sx={{
+                    fontSize: 15,
+                    color: "text.secondary",
+                  }}
+                />
+
+                <Typography variant="caption" color="text.secondary">
+                  {formattedTime}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Edit & Delete */}
+          {user == data.authorId ? (
+            <Box>
+              <Tooltip title="Edit">
+                <IconButton
+                  size="small"
+                  onClick={() => onEdit(data)}
+                  sx={{
+                    color: "primary.main",
+                  }}
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Delete">
+                <IconButton
+                  size="small"
+                  onClick={() => onDelete(data)}
+                  sx={{
+                    color: "error.main",
+                  }}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          ) : (
+            " "
+          )}
+        </Box>
+
+        <Divider sx={{ mb: 2 }} />
+
         {/* Title */}
         <Typography
           variant="h5"
           fontWeight={700}
           sx={{
             mb: 1,
+            lineHeight: 1.3,
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
@@ -61,39 +185,16 @@ const BlogCard = ({ data, onEdit, onDelete }) => {
           variant="body2"
           color="text.secondary"
           sx={{
-            mb: 2,
             lineHeight: 1.7,
             display: "-webkit-box",
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
+            minHeight: 72,
           }}
         >
           {data.description}
         </Typography>
-
-        <Divider sx={{ mb: 2 }} />
-
-        {/* Buttons */}
-        <Box
-          sx={{
-            display: "flex",
-            gap: 1.5,
-          }}
-        >
-          <Button variant="contained" fullWidth onClick={() => onEdit(data)}>
-            Edit
-          </Button>
-
-          <Button
-            variant="outlined"
-            color="error"
-            fullWidth
-            onClick={() => onDelete(data)}
-          >
-            Delete
-          </Button>
-        </Box>
       </CardContent>
     </Card>
   );

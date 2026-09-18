@@ -29,7 +29,7 @@ const Blog = () => {
 
   return (
     <>
-      <div className="flex flex-wrap p-5">
+      <div className="flex flex-wrap p-5 gap-10 justify-around mt-10">
         {" "}
         {allBlogs.length > 0
           ? allBlogs.map((u) => <BlogCard key={allBlogs.id} data={u} />)

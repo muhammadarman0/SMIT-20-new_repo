@@ -42,18 +42,22 @@ export default function BasicModal() {
 
   const getUser = () => {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setUser(uid);
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log("User:", currentUser);
+        console.log("UID:", currentUser.uid);
+        console.log("Name:", currentUser.displayName);
+        console.log("Photo:", currentUser.photoURL);
+
+        setUser(currentUser);
       } else {
         setUser(null);
       }
-      //   setLoading(false);
     });
-  };
 
-  console.log(user);
+    return unsubscribe;
+  };
 
   const saveDataintoDb = async (url, data) => {
     try {
@@ -61,14 +65,16 @@ export default function BasicModal() {
         title: data.title,
         description: data.description,
         blogImgUrl: url,
-        authorId: user,
+        authorId: user.uid,
+        authorName: user.displayName || "Anonmyous",
+        authorImgUrl: user.photoURL || "",
         createdAt: serverTimestamp(),
       });
-        toast.success("Blog Create Successfully");
+      toast.success("Blog Create Successfully");
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
-      toast.error("FAILED CREATE YOUR BLOG")
+      toast.error("FAILED CREATE YOUR BLOG");
     }
   };
 
@@ -76,7 +82,7 @@ export default function BasicModal() {
     try {
       const imgUrl = await uploadImageToCloudinary(blog.file);
       console.log(blog);
-      saveDataintoDb(imgUrl, blog);
+      await saveDataintoDb(imgUrl, blog);
       handleClose(false);
     } catch (error) {
       console.log(error);
@@ -84,8 +90,9 @@ export default function BasicModal() {
   };
 
   React.useEffect(() => {
-    getUser();
-    return () => getUser();
+    const unsubscribe = getUser();
+
+    return () => unsubscribe();
   }, []);
   return (
     <div>
