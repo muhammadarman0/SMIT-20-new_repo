@@ -9,6 +9,7 @@ import { uploadImageToCloudinary } from "../File/file";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { toast, ToastContainer } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -29,7 +30,7 @@ const EditBlogModal = ({ data, open, handleClose, getblogUser }) => {
     id: data?.id || "",
     title: data?.title || "",
     description: data?.description || "",
-    file: null,
+    file: "",
     createdAt: data?.createdAt || null,
   });
   const [user, setUser] = React.useState(null);
@@ -44,7 +45,6 @@ const EditBlogModal = ({ data, open, handleClose, getblogUser }) => {
         console.log("Photo:", currentUser.photoURL);
 
         setUser(currentUser);
-        getblogUser()
       } else {
         setUser(null);
       }
@@ -74,8 +74,10 @@ const EditBlogModal = ({ data, open, handleClose, getblogUser }) => {
       });
 
       console.log("Blog updated successfully");
+      toast.success("Edit Blog SuccessFully");
     } catch (error) {
       console.log(error);
+      toast.error("Failed To edit Blog");
     }
   };
 
@@ -88,7 +90,7 @@ const EditBlogModal = ({ data, open, handleClose, getblogUser }) => {
       }
 
       await saveDataIntoDb(imgUrl, blog);
-      //   getblogUser();
+      getblogUser();
       handleClose();
     } catch (error) {
       console.log(error);
@@ -102,87 +104,94 @@ const EditBlogModal = ({ data, open, handleClose, getblogUser }) => {
   }, []);
 
   return (
-    <Modal open={open} onClose={handleClose} aria-labelledby="edit-blog-title">
-      <Box sx={style}>
-        <Typography
-          id="edit-blog-title"
-          variant="h5"
-          fontWeight={700}
-          sx={{ mb: 3 }}
-        >
-          Edit Your Blog
-        </Typography>
+    <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="edit-blog-title"
+      >
+        <Box sx={style}>
+          <Typography
+            id="edit-blog-title"
+            variant="h5"
+            fontWeight={700}
+            sx={{ mb: 3 }}
+          >
+            Edit Your Blog
+          </Typography>
 
-        <Input
-          handler={blogHandlerValue}
-          label="Title"
-          type="text"
-          id="title"
-          value={blog.title}
-        />
+          <Input
+            handler={blogHandlerValue}
+            label="Title"
+            type="text"
+            id="title"
+            value={blog.title}
+          />
 
-        <Input
-          handler={blogHandlerValue}
-          label="Description"
-          type="text"
-          id="description"
-          value={blog.description}
-        />
+          <Input
+            handler={blogHandlerValue}
+            label="Description"
+            type="text"
+            id="description"
+            value={blog.description}
+          />
 
-        {/* Current Image */}
-        {data?.blogImgUrl && (
-          <Box sx={{ mt: 2, mb: 2 }}>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              Current Image
-            </Typography>
+          {/* Current Image */}
+          {data?.blogImgUrl && (
+            <Box sx={{ mt: 2, mb: 2 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                Current Image
+              </Typography>
 
-            <Box
-              component="img"
-              src={data.blogImgUrl}
-              alt={data.title}
-              sx={{
-                width: "100%",
-                height: 180,
-                objectFit: "cover",
-                borderRadius: 2,
-              }}
-            />
+              <Box
+                component="img"
+                src={data.blogImgUrl}
+                alt={data.title}
+                sx={{
+                  width: "100%",
+                  height: 180,
+                  objectFit: "cover",
+                  borderRadius: 2,
+                }}
+              />
+            </Box>
+          )}
+
+          <Input
+            handler={blogHandlerValue}
+            label="Change Image"
+            type="file"
+            id="file"
+          />
+
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              mt: 3,
+            }}
+          >
+            <Button
+              fullWidth
+              variant="outlined"
+              color="inherit"
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={() => postBlogHandler()}
+            >
+              Update Blog
+            </Button>
           </Box>
-        )}
-
-        <Input
-          handler={blogHandlerValue}
-          label="Change Image"
-          type="file"
-          id="file"
-        />
-
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            mt: 3,
-          }}
-        >
-          <Button
-            fullWidth
-            variant="outlined"
-            color="inherit"
-            onClick={handleClose}
-          >
-            Cancel
-          </Button>
-
-          <Button
-            fullWidth
-            variant="contained"
-            onClick={() => postBlogHandler()}
-          >
-            Update Blog
-          </Button>
         </Box>
-      </Box>
-    </Modal>
+      </Modal>
+      <ToastContainer />
+    </>
   );
 };
 
