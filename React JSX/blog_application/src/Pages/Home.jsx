@@ -4,6 +4,7 @@ import BlogModal from "../component/BlogModal";
 import { collection, getDocs } from "firebase/firestore";
 import BlogCard from "../component/BlogCard";
 import { db } from "../firebase/config";
+import EditBlogModal from "../component/EditModal";
 
 const Blog = () => {
   const [allBlogs, setAllBlogs] = useState([]);
@@ -17,25 +18,30 @@ const Blog = () => {
         ...doc.data(),
       };
     });
+
     setAllBlogs(userblog);
   };
-  console.log(allBlogs);
 
   useEffect(() => {
     getblogUser();
   }, []);
-  console.log(allBlogs);
-  console.log(allBlogs);
 
+  console.log(allBlogs);
   return (
     <>
       <div className="flex flex-wrap p-5 gap-10 justify-around mt-10">
         {" "}
         {allBlogs.length > 0
           ? allBlogs.map((u) => (
-              <BlogCard allBlogs={allBlogs} getblogUser={getblogUser} key={allBlogs.id} data={u} />
+              <BlogCard
+                allBlogs={allBlogs}
+                getblogUser={getblogUser}
+                key={allBlogs.id}
+                data={u}
+              />
             ))
           : "User Not Found"}
+        <EditBlogModal getblogUser={getblogUser} data={allBlogs} />
       </div>
     </>
   );
