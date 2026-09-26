@@ -16,9 +16,9 @@ const App = () => {
       <div>App</div>
       <div className="flex flex-wrap gap-20 justify-center">
         {" "}
-        {users.map((user) => (
-          <UserCard user={user} />
-        ))}
+        {users.lenght < 0
+          ? "User Not Found"
+          : users.map((user) => <UserCard user={user} />)}
       </div>
     </>
   );
