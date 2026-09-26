@@ -7,7 +7,8 @@ const Input = ({
   name,
   placeholder,
   value,
-  onChange,
+  id,
+  handler,
   showPassword,
   setShowPassword,
 }) => {
@@ -20,7 +21,6 @@ const Input = ({
       </label>
 
       <div className="flex h-[60px] items-center rounded-md border border-[#d4d9df] px-[18px] transition focus-within:border-[#222] focus-within:ring-1 focus-within:ring-[#222]">
-        
         {isPassword ? (
           <Lock size={20} className="shrink-0 text-[#50565d]" />
         ) : (
@@ -29,10 +29,10 @@ const Input = ({
 
         <input
           name={name}
+          onChange={(e)=> handler(id,e.target.value)}
           type={isPassword && showPassword ? "text" : type}
           placeholder={placeholder}
           value={value}
-          onChange={onChange}
           className="h-full w-full border-none px-[15px] text-[16px] outline-none placeholder:text-[#a0a5ab]"
         />
 
@@ -42,11 +42,7 @@ const Input = ({
             onClick={() => setShowPassword(!showPassword)}
             className="flex cursor-pointer items-center text-[#50565d]"
           >
-            {showPassword ? (
-              <EyeOff size={20} />
-            ) : (
-              <Eye size={20} />
-            )}
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
       </div>

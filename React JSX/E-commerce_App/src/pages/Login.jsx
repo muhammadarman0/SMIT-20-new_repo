@@ -2,9 +2,7 @@ import React, { useState } from "react";
 // import { Chrome } from "lucide-react";
 import Input from "../component/Input";
 import Button from "../component/Button";
-// import {ArrowForwardIcon} from '@mui/icons-material/ArrowForwardIos'
-// import fashionImage from "../assets/fashion-login.png";
-
+import { Link } from "react-router-dom";
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
@@ -13,16 +11,11 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  const loginFormValue = (type, value) => {
+    setForm((prev) => ({ ...prev, [type]: value }));
   };
 
   const handleLogin = (e) => {
-    e.preventDefault();
-
     console.log(form);
   };
 
@@ -99,37 +92,37 @@ const Login = () => {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleLogin}>
-              <Input
-                label="Email Address"
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={form.email}
-                onChange={handleChange}
-              />
+            <Input
+              label="Email Address"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              value={form.email}
+              handler={loginFormValue}
+            />
 
-              <Input
-                label="Password"
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                value={form.password}
-                onChange={handleChange}
-                showPassword={showPassword}
-                setShowPassword={setShowPassword}
-              />
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              value={form.password}
+              handler={loginFormValue}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+            />
 
-              {/* Forgot Password */}
-              <div className="-mt-2 mb-[34px] flex justify-end">
-                <a href="#" className="text-[14px] text-[#526075] underline">
-                  Forgot Password?
-                </a>
-              </div>
+            {/* Forgot Password */}
+            <div className="-mt-2 mb-[34px] flex justify-end">
+              <a href="#" className="text-[14px] text-[#526075] underline">
+                Forgot Password?
+              </a>
+            </div>
 
-              {/* Login */}
-             <Button title={"Login"} />
-            </form>
+            {/* Login */}
+            <Button handler={handleLogin} title={"Login"} />
 
             {/* OR */}
             <div className="my-[38px] flex items-center gap-5">
@@ -155,7 +148,7 @@ const Login = () => {
               <span>Don't have an account?</span>
 
               <a href="#" className="font-semibold text-[#26354b] underline">
-                Create Account
+                <Link to={"/register"}>Create Account</Link>
               </a>
             </div>
           </div>
