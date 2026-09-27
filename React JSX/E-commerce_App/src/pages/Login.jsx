@@ -2,12 +2,15 @@ import React, { useState } from "react";
 // import { Chrome } from "lucide-react";
 import Input from "../component/Input";
 import Button from "../component/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import auth from "../firebase/auth";
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -15,12 +18,41 @@ const Login = () => {
     setForm((prev) => ({ ...prev, [type]: value }));
   };
 
-  const handleLogin = (e) => {
-    console.log(form);
+  const handleLogin = async () => {
+      try {
+      // Signed in
+      let response = await signInWithEmailAndPassword(
+        auth,
+        form.email,
+        form.password,
+      );
+      console.log(response);
+      if (response.user) {
+        navigate("/profile")
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(error.code);
+      console.log(error.message);
+    }
+    console.log("Email", form.email);
+    console.log("Password", form.password);
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Google Login");
+   const loginWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      let response = await signInWithPopup(auth, provider);
+
+      console.log(response);
+      if (response.user) {
+        navigate("/profile");
+      }
+    } catch (error) {
+        console.log(error);
+        
+    }
   };
 
   return (
@@ -116,7 +148,7 @@ const Login = () => {
 
             {/* Forgot Password */}
             <div className="-mt-2 mb-[34px] flex justify-end">
-              <a href="#" className="text-[14px] text-[#526075] underline">
+              <a href="" className="text-[14px] text-[#526075] underline">
                 Forgot Password?
               </a>
             </div>
@@ -135,7 +167,7 @@ const Login = () => {
 
             {/* Google */}
             <button
-              onClick={handleGoogleLogin}
+              onClick={loginWithGoogle}
               className="flex h-[62px] w-full cursor-pointer items-center justify-center gap-4 rounded-md border border-[#68717d] bg-white text-[16px] transition hover:bg-[#f7f7f7]"
             >
               {/* <Chrome size={21} className="text-[#4285f4]" /> */}
@@ -147,9 +179,9 @@ const Login = () => {
             <div className="mt-[38px] flex justify-center gap-2.5 text-[14px] text-[#687487]">
               <span>Don't have an account?</span>
 
-              <a href="#" className="font-semibold text-[#26354b] underline">
+              {/* <a href="#" className="font-semibold text-[#26354b] underline"> */}
                 <Link to={"/register"}>Create Account</Link>
-              </a>
+              {/* </a> */}
             </div>
           </div>
         </div>

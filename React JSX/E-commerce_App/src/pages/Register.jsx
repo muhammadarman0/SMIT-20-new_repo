@@ -43,7 +43,7 @@ const Register = () => {
       console.log(response);
       if (response.user) {
         toast.success("user signup successfully!");
-        navigate("/");
+        navigate("/profile");
       }
     } catch (error) {
       console.log(error.message);
@@ -62,7 +62,7 @@ const Register = () => {
 
       console.log(response);
       if (response.user) {
-        navigate("/");
+        navigate("/profile");
       }
     } catch (error) {
         console.log(error);
