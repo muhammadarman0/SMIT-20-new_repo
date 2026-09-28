@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <>
       <h1>Home Page</h1>
-
+<Link to={"/profile"}><button>Profile</button></Link>
       <Link to={"/login"}>
         <Button title={"Log Out"} handler={logOutHandler}/>
       </Link>
