@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { User, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Input from "../component/Input";
 import Button from "../component/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
 import auth, { db } from "../firebase/auth";
-// import {toast ,ToastContainer} from 'toastify'
 import { GoogleAuthProvider } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -28,6 +26,7 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
+
   const registerFormValue = (type, value) => {
     setForm((prev) => ({
       ...prev,
@@ -54,6 +53,7 @@ const Register = () => {
         alert("Please Enter a correct password");
         return;
       }
+
       let response = await createUserWithEmailAndPassword(
         auth,
         form.email,
@@ -63,14 +63,17 @@ const Register = () => {
       await updateProfile(response.user, {
         displayName: form.fullName,
       });
+
       await saveDataIntoDB(response.user);
+
       if (response.user) {
-        toast.success("user signup successfully!");
+        toast.success("User signup successfully!");
         navigate("/profile");
       }
     } catch (error) {
       console.log(error.message);
       console.log(error.code);
+
       if (error.code === "auth/email-already-in-use") {
         toast.error("Email already exists!");
       } else if (error.code === "auth/weak-password") {
@@ -79,6 +82,7 @@ const Register = () => {
         toast.error("Something went wrong!");
       }
     }
+
     setForm({
       fullName: "",
       email: "",
@@ -90,10 +94,11 @@ const Register = () => {
   const signInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
+
       let response = await signInWithPopup(auth, provider);
 
-      console.log(response);
       await saveDataIntoDB(response.user);
+
       if (response.user) {
         navigate("/profile");
       }
@@ -103,11 +108,26 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f5f6] p-10">
-      <div className="mx-auto grid min-h-[900px] max-w-[1425px] grid-cols-2 overflow-hidden rounded-xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-        {/* ================= LEFT SIDE ================= */}
+    <div className="min-h-screen bg-[#f4f5f6] px-3 py-4 sm:px-5 sm:py-6 md:px-8 md:py-8 lg:p-10">
+      {/* Main Container */}
+      <div
+        className="
+          mx-auto
+          grid
+          w-full
+          max-w-[1425px]
+          overflow-hidden
+          rounded-lg
+          bg-white
+          shadow-[0_20px_60px_rgba(0,0,0,0.08)]
 
-        <div className="relative overflow-hidden">
+          lg:min-h-[850px]
+          lg:grid-cols-2
+          lg:rounded-xl
+        "
+      >
+        {/* ================= LEFT SIDE ================= */}
+        <div className="relative hidden overflow-hidden lg:block">
           {/* Image */}
           <img
             src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
@@ -119,23 +139,23 @@ const Register = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
 
           {/* Logo */}
-          <div className="absolute left-12 top-9">
-            <h2 className="text-[30px] font-medium tracking-[8px] text-white">
+          <div className="absolute left-8 top-8 xl:left-12 xl:top-9">
+            <h2 className="text-2xl font-medium tracking-[6px] text-white xl:text-[30px] xl:tracking-[8px]">
               LUXEWEAR
             </h2>
 
-            <div className="absolute -bottom-6 left-0 h-[2px] w-8 bg-white" />
+            <div className="absolute -bottom-5 left-0 h-[2px] w-7 bg-white xl:-bottom-6 xl:w-8" />
           </div>
 
           {/* Content */}
-          <div className="absolute bottom-16 left-12 text-white">
-            <h1 className="mb-6 font-serif text-[56px] font-normal leading-[1.08]">
+          <div className="absolute bottom-12 left-8 text-white xl:bottom-16 xl:left-12">
+            <h1 className="mb-5 font-serif text-4xl font-normal leading-[1.08] xl:mb-6 xl:text-[56px]">
               Your style,
               <br />
               your story.
             </h1>
 
-            <p className="text-[16px] leading-7">
+            <p className="text-sm leading-6 xl:text-[16px] xl:leading-7">
               Create your account and discover
               <br />
               fashion made for you.
@@ -144,33 +164,47 @@ const Register = () => {
         </div>
 
         {/* ================= RIGHT SIDE ================= */}
+        <div className="flex w-full items-center justify-center bg-white">
+          <div
+            className="
+              w-full
+              max-w-[540px]
+              px-5
+              py-8
 
-        <div className="flex items-center justify-center bg-white">
-          <div className="w-full max-w-[540px] px-12 py-14">
+              sm:px-8
+              sm:py-10
+
+              md:px-12
+              md:py-12
+
+              lg:px-10
+              lg:py-14
+
+              xl:px-12
+            "
+          >
             {/* Logo */}
-
-            <div className="mb-10">
-              <h2 className="text-[34px] font-medium tracking-[8px] text-black">
+            <div className="mb-7 sm:mb-8 md:mb-10">
+              <h2 className="text-2xl font-medium tracking-[5px] text-black sm:text-[30px] sm:tracking-[7px] md:text-[34px] md:tracking-[8px]">
                 LUXEWEAR
               </h2>
             </div>
 
             {/* Heading */}
-
-            <div className="mb-8">
-              <h1 className="mb-2 text-[32px] font-semibold text-[#17191b]">
+            <div className="mb-6 sm:mb-7 md:mb-8">
+              <h1 className="mb-2 text-2xl font-semibold text-[#17191b] sm:text-[28px] md:text-[32px]">
                 Create Account
               </h1>
 
-              <p className="text-[16px] leading-6 text-[#637083]">
+              <p className="text-sm leading-6 text-[#637083] sm:text-[15px] md:text-[16px]">
                 Join LUXEWEAR and start your style journey.
               </p>
             </div>
 
-            {/* Form */}
+            {/* ================= FORM ================= */}
 
             {/* Full Name */}
-
             <Input
               label="Full Name"
               type="text"
@@ -182,24 +216,6 @@ const Register = () => {
             />
 
             {/* Email */}
-
-            {/* <div className="mb-5">
-                <label className="mb-2.5 block text-[16px] font-semibold text-[#17191b]">
-                  Email Address
-                </label>
-
-                <div className="flex h-[56px] items-center rounded-md border border-[#d4d9df] px-5 transition focus-within:border-black focus-within:ring-1 focus-within:ring-black">
-                  <Mail size={20} className="shrink-0 text-[#50565d]" />
-
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={form.email}
-                    onChange={(e) => registerFormValue("email", e.target.value)}
-                    className="h-full w-full bg-transparent px-4 text-[16px] outline-none placeholder:text-[#a0a5ab]"
-                  />
-                </div>
-              </div> */}
             <Input
               label="Email"
               type="email"
@@ -211,7 +227,6 @@ const Register = () => {
             />
 
             {/* Password */}
-
             <Input
               label="Password"
               type="password"
@@ -225,7 +240,6 @@ const Register = () => {
             />
 
             {/* Confirm Password */}
-
             <Input
               label="Confirm Password"
               type="password"
@@ -237,29 +251,50 @@ const Register = () => {
               placeholder="Confirm Password"
               value={form.confirmPassword}
             />
-            {/* Register Button */}
 
+            {/* Register Button */}
             <Button
               handler={handleRegister}
               title="Create Account"
               icon={ArrowRight}
             />
-            {/* OR */}
 
-            <div className="my-7 flex items-center gap-4">
+            {/* OR */}
+            <div className="my-5 flex items-center gap-3 sm:my-6 md:my-7">
               <div className="h-px flex-1 bg-[#d6d9dd]" />
 
-              <span className="text-sm text-[#687487]">OR</span>
+              <span className="text-xs text-[#687487] sm:text-sm">OR</span>
 
               <div className="h-px flex-1 bg-[#d6d9dd]" />
             </div>
 
             {/* Google Sign Up */}
-
             <button
               onClick={signInWithGoogle}
               type="button"
-              className="flex h-[60px] w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-[#68717d] bg-white text-[16px] font-medium text-[#17191b] transition hover:bg-[#f7f7f7]"
+              className="
+                flex
+                h-14
+                w-full
+                cursor-pointer
+                items-center
+                justify-center
+                gap-2
+                rounded-md
+                border
+                border-[#68717d]
+                bg-white
+                px-3
+                text-sm
+                font-medium
+                text-[#17191b]
+                transition
+                hover:bg-[#f7f7f7]
+
+                sm:h-[60px]
+                sm:gap-3
+                sm:text-[16px]
+              "
             >
               <GoogleIcon fontSize="small" />
 
@@ -267,12 +302,26 @@ const Register = () => {
             </button>
 
             {/* Login */}
+            <div
+              className="
+                mt-6
+                flex
+                flex-wrap
+                justify-center
+                gap-1.5
+                text-center
+                text-xs
 
-            <div className="mt-8 flex justify-center gap-2 text-[14px]">
+                sm:mt-7
+                sm:gap-2
+                sm:text-[14px]
+
+                md:mt-8
+              "
+            >
               <span className="text-[#687487]">Already have an account?</span>
 
-              <Link to={"/login"}>
-                {" "}
+              <Link to="/login">
                 <button
                   type="button"
                   className="cursor-pointer font-semibold text-[#26354b] underline"
