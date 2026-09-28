@@ -4,10 +4,17 @@ import Input from "../component/Input";
 import Button from "../component/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import auth from "../firebase/auth";
+import { toast } from "react-toastify";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
+import auth, { db } from "../firebase/auth";
 // import {toast ,ToastContainer} from 'toastify'
 import { GoogleAuthProvider } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -20,12 +27,25 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const registerFormValue = (type, value) => {
     setForm((prev) => ({
       ...prev,
       [type]: value,
     }));
+  };
+
+  const saveDataIntoDB = async (data) => {
+    try {
+      await setDoc(doc(db, "profile", data.uid), {
+        currentUserID: data.uid,
+        displayName: data.displayName,
+        email: data.email,
+        photoURL: data.photoURL || "",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleRegister = async () => {
@@ -40,7 +60,10 @@ const Register = () => {
         form.password,
       );
 
-      console.log(response);
+      await updateProfile(response.user, {
+        displayName: form.fullName,
+      });
+      await saveDataIntoDB(response.user);
       if (response.user) {
         toast.success("user signup successfully!");
         navigate("/profile");
@@ -48,11 +71,20 @@ const Register = () => {
     } catch (error) {
       console.log(error.message);
       console.log(error.code);
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("Email already exists!");
+      } else if (error.code === "auth/weak-password") {
+        toast.error("Password is too weak!");
+      } else {
+        toast.error("Something went wrong!");
+      }
     }
-    form.confirmPassword = "";
-    form.password = "";
-    form.email = "";
-    form.fullName = "";
+    setForm({
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   const signInWithGoogle = async () => {
@@ -61,12 +93,12 @@ const Register = () => {
       let response = await signInWithPopup(auth, provider);
 
       console.log(response);
+      await saveDataIntoDB(response.user);
       if (response.user) {
         navigate("/profile");
       }
     } catch (error) {
-        console.log(error);
-        
+      console.log(error);
     }
   };
 
@@ -175,7 +207,7 @@ const Register = () => {
               id="email"
               handler={registerFormValue}
               placeholder="Enter your email"
-              value={form.username}
+              value={form.email}
             />
 
             {/* Password */}
@@ -197,11 +229,11 @@ const Register = () => {
             <Input
               label="Confirm Password"
               type="password"
-              name="password"
+              name="confirmPassword"
               id="confirmPassword"
-              showPassword={showPassword}
+              showPassword={showConfirmPassword}
               handler={registerFormValue}
-              setShowPassword={setShowPassword}
+              setShowPassword={setShowConfirmPassword}
               placeholder="Confirm Password"
               value={form.confirmPassword}
             />
