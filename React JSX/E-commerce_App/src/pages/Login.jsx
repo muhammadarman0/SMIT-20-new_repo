@@ -1,334 +1,187 @@
 import React, { useState } from "react";
-import { ArrowRight } from "lucide-react";
+// import { Chrome } from "lucide-react";
 import Input from "../component/Input";
 import Button from "../component/Button";
-import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  updateProfile,
-} from "firebase/auth";
-import auth, { db } from "../firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-
-const Register = () => {
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import auth from "../firebase/auth";
+const Login = () => {
   const [form, setForm] = useState({
-    fullName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
+  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const navigate = useNavigate();
-
-  const registerFormValue = (type, value) => {
-    setForm((prev) => ({
-      ...prev,
-      [type]: value,
-    }));
+  const loginFormValue = (type, value) => {
+    setForm((prev) => ({ ...prev, [type]: value }));
   };
 
-  const saveDataIntoDB = async (data) => {
-    try {
-      await setDoc(doc(db, "profile", data.uid), {
-        currentUserID: data.uid,
-        displayName: data.displayName,
-        email: data.email,
-        photoURL: data.photoURL || "",
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleRegister = async () => {
-    try {
-      if (form.password !== form.confirmPassword) {
-        alert("Please Enter a correct password");
-        return;
-      }
-
-      let response = await createUserWithEmailAndPassword(
+  const handleLogin = async () => {
+      try {
+      // Signed in
+      let response = await signInWithEmailAndPassword(
         auth,
         form.email,
         form.password,
       );
-
-      await updateProfile(response.user, {
-        displayName: form.fullName,
-      });
-
-      await saveDataIntoDB(response.user);
-
+      console.log(response);
       if (response.user) {
-        toast.success("User signup successfully!");
-        navigate("/profile");
+        navigate("/profile")
       }
     } catch (error) {
-      console.log(error.message);
+      const errorCode = error.code;
+      const errorMessage = error.message;
       console.log(error.code);
-
-      if (error.code === "auth/email-already-in-use") {
-        toast.error("Email already exists!");
-      } else if (error.code === "auth/weak-password") {
-        toast.error("Password is too weak!");
-      } else {
-        toast.error("Something went wrong!");
-      }
+      console.log(error.message);
     }
-
-    setForm({
-      fullName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
+    console.log("Email", form.email);
+    console.log("Password", form.password);
   };
 
-  const signInWithGoogle = async () => {
+   const loginWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
-
       let response = await signInWithPopup(auth, provider);
 
-      await saveDataIntoDB(response.user);
-
+      console.log(response);
       if (response.user) {
         navigate("/profile");
       }
     } catch (error) {
-      console.log(error);
+        console.log(error);
+        
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f5f6] px-3 py-4 sm:px-5 sm:py-6 md:px-8 md:py-8 lg:p-10">
-      {/* Main Container */}
-      <div
-        className="
-          mx-auto
-          grid
-          w-full
-          max-w-[1425px]
-          overflow-hidden
-          rounded-lg
-          bg-white
-          shadow-[0_20px_60px_rgba(0,0,0,0.08)]
-
-          lg:min-h-[850px]
-          lg:grid-cols-2
-          lg:rounded-xl
-        "
-      >
+    <div className="flex min-h-screen items-center justify-center bg-[#f5f6f7] p-10 max-[600px]:p-0">
+      <div className="grid min-h-[900px] w-full max-w-[1425px] grid-cols-2 overflow-hidden rounded-[10px] bg-white shadow-[0_15px_45px_rgba(0,0,0,0.08)] max-[1000px]:max-w-[650px] max-[1000px]:grid-cols-1 max-[600px]:min-h-screen max-[600px]:rounded-none">
         {/* ================= LEFT SIDE ================= */}
-        <div className="relative hidden overflow-hidden lg:block">
+
+        <div className="relative min-h-[900px] overflow-hidden text-white max-[1000px]:min-h-[500px] max-[600px]:min-h-[400px]">
           {/* Image */}
           <img
-            src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
-            alt="Fashion"
+            src="https://images.unsplash.com/photo-1731505103716-7ee6fa96dee5?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFzaGlvbiUyMGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000"
+            alt="Luxury Fashion"
             className="absolute inset-0 h-full w-full object-cover"
           />
 
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/5 to-black/55" />
 
-          {/* Logo */}
-          <div className="absolute left-8 top-8 xl:left-12 xl:top-9">
-            <h2 className="text-2xl font-medium tracking-[6px] text-white xl:text-[30px] xl:tracking-[8px]">
-              LUXEWEAR
-            </h2>
+          {/* Top Content */}
+          <div className="absolute left-[50px] right-[35px] top-[38px] flex items-start justify-between max-[600px]:left-[25px] max-[600px]:top-[25px]">
+            <div className="relative">
+              <h2 className="text-[30px] font-medium tracking-[8px] max-[600px]:text-[22px] max-[600px]:tracking-[5px]">
+                LUXEWEAR
+              </h2>
 
-            <div className="absolute -bottom-5 left-0 h-[2px] w-7 bg-white xl:-bottom-6 xl:w-8" />
+              <div className="absolute -bottom-[22px] left-0 h-[2px] w-[32px] bg-white" />
+            </div>
+
+            <div className="flex flex-col text-right text-[16px] leading-[1.5] max-[600px]:text-[12px]">
+              <span>Premium Fashion</span>
+              <span>For a Better You</span>
+            </div>
           </div>
 
-          {/* Content */}
-          <div className="absolute bottom-12 left-8 text-white xl:bottom-16 xl:left-12">
-            <h1 className="mb-5 font-serif text-4xl font-normal leading-[1.08] xl:mb-6 xl:text-[56px]">
-              Your style,
+          {/* Bottom Content */}
+          <div className="absolute bottom-[65px] left-[50px] max-[600px]:bottom-[35px] max-[600px]:left-[25px]">
+            <h1 className="mb-[25px] font-serif text-[56px] font-normal leading-[1.08] max-[600px]:text-[40px]">
+              Style is a
               <br />
-              your story.
+              way of life.
             </h1>
 
-            <p className="text-sm leading-6 xl:text-[16px] xl:leading-7">
-              Create your account and discover
+            <p className="text-[16px] leading-[1.7]">
+              Discover the latest trends and
               <br />
-              fashion made for you.
+              upgrade your wardrobe with LUXEWEAR.
             </p>
           </div>
         </div>
 
         {/* ================= RIGHT SIDE ================= */}
-        <div className="flex w-full items-center justify-center bg-white">
-          <div
-            className="
-              w-full
-              max-w-[540px]
-              px-5
-              py-8
 
-              sm:px-8
-              sm:py-10
-
-              md:px-12
-              md:py-12
-
-              lg:px-10
-              lg:py-14
-
-              xl:px-12
-            "
-          >
+        <div className="flex items-center justify-center bg-white max-[1000px]:min-h-[700px]">
+          <div className="w-full max-w-[540px] p-[50px] max-[600px]:p-[35px_25px]">
             {/* Logo */}
-            <div className="mb-7 sm:mb-8 md:mb-10">
-              <h2 className="text-2xl font-medium tracking-[5px] text-black sm:text-[30px] sm:tracking-[7px] md:text-[34px] md:tracking-[8px]">
-                LUXEWEAR
-              </h2>
+            <div className="mb-[55px] text-[34px] font-medium tracking-[8px] max-[600px]:mb-10 max-[600px]:text-[28px]">
+              LUXEWEAR
             </div>
 
             {/* Heading */}
-            <div className="mb-6 sm:mb-7 md:mb-8">
-              <h1 className="mb-2 text-2xl font-semibold text-[#17191b] sm:text-[28px] md:text-[32px]">
-                Create Account
+            <div>
+              <h1 className="mb-[10px] text-[32px] font-semibold max-[600px]:text-[27px]">
+                Welcome Back
               </h1>
 
-              <p className="text-sm leading-6 text-[#637083] sm:text-[15px] md:text-[16px]">
-                Join LUXEWEAR and start your style journey.
+              <p className="mb-[42px] text-[16px] leading-[1.6] text-[#637083]">
+                Sign in to your account and continue your style journey.
               </p>
             </div>
 
-            {/* ================= FORM ================= */}
-
-            {/* Full Name */}
+            {/* Form */}
             <Input
-              label="Full Name"
-              type="text"
-              name="fullName"
-              id="fullName"
-              handler={registerFormValue}
-              placeholder="Enter your Full Name"
-              value={form.fullName}
-            />
-
-            {/* Email */}
-            <Input
-              label="Email"
+              label="Email Address"
               type="email"
               name="email"
               id="email"
-              handler={registerFormValue}
               placeholder="Enter your email"
               value={form.email}
+              handler={loginFormValue}
             />
 
-            {/* Password */}
             <Input
               label="Password"
               type="password"
               name="password"
               id="password"
-              handler={registerFormValue}
+              placeholder="Enter your password"
+              value={form.password}
+              handler={loginFormValue}
               showPassword={showPassword}
               setShowPassword={setShowPassword}
-              placeholder="Create Password"
-              value={form.password}
             />
 
-            {/* Confirm Password */}
-            <Input
-              label="Confirm Password"
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              showPassword={showConfirmPassword}
-              handler={registerFormValue}
-              setShowPassword={setShowConfirmPassword}
-              placeholder="Confirm Password"
-              value={form.confirmPassword}
-            />
-
-            {/* Register Button */}
-            <Button
-              handler={handleRegister}
-              title="Create Account"
-              icon={ArrowRight}
-            />
-
-            {/* OR */}
-            <div className="my-5 flex items-center gap-3 sm:my-6 md:my-7">
-              <div className="h-px flex-1 bg-[#d6d9dd]" />
-
-              <span className="text-xs text-[#687487] sm:text-sm">OR</span>
-
-              <div className="h-px flex-1 bg-[#d6d9dd]" />
+            {/* Forgot Password */}
+            <div className="-mt-2 mb-[34px] flex justify-end">
+              <a href="" className="text-[14px] text-[#526075] underline">
+                Forgot Password?
+              </a>
             </div>
 
-            {/* Google Sign Up */}
+            {/* Login */}
+            <Button handler={handleLogin} title={"Login"} />
+
+            {/* OR */}
+            <div className="my-[38px] flex items-center gap-5">
+              <span className="h-px flex-1 bg-[#d6d9dd]" />
+
+              <p className="text-[14px] text-[#4e5968]">OR</p>
+
+              <span className="h-px flex-1 bg-[#d6d9dd]" />
+            </div>
+
+            {/* Google */}
             <button
-              onClick={signInWithGoogle}
-              type="button"
-              className="
-                flex
-                h-14
-                w-full
-                cursor-pointer
-                items-center
-                justify-center
-                gap-2
-                rounded-md
-                border
-                border-[#68717d]
-                bg-white
-                px-3
-                text-sm
-                font-medium
-                text-[#17191b]
-                transition
-                hover:bg-[#f7f7f7]
-
-                sm:h-[60px]
-                sm:gap-3
-                sm:text-[16px]
-              "
+              onClick={loginWithGoogle}
+              className="flex h-[62px] w-full cursor-pointer items-center justify-center gap-4 rounded-md border border-[#68717d] bg-white text-[16px] transition hover:bg-[#f7f7f7]"
             >
-              <GoogleIcon fontSize="small" />
+              {/* <Chrome size={21} className="text-[#4285f4]" /> */}
 
-              <span>Sign up with Google</span>
+              <span>Continue with Google</span>
             </button>
 
-            {/* Login */}
-            <div
-              className="
-                mt-6
-                flex
-                flex-wrap
-                justify-center
-                gap-1.5
-                text-center
-                text-xs
+            {/* Create Account */}
+            <div className="mt-[38px] flex justify-center gap-2.5 text-[14px] text-[#687487]">
+              <span>Don't have an account?</span>
 
-                sm:mt-7
-                sm:gap-2
-                sm:text-[14px]
-
-                md:mt-8
-              "
-            >
-              <span className="text-[#687487]">Already have an account?</span>
-
-              <Link to="/login">
-                <button
-                  type="button"
-                  className="cursor-pointer font-semibold text-[#26354b] underline"
-                >
-                  Login
-                </button>
-              </Link>
+              {/* <a href="#" className="font-semibold text-[#26354b] underline"> */}
+                <Link to={"/register"}>Create Account</Link>
+              {/* </a> */}
             </div>
           </div>
         </div>
@@ -337,4 +190,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
