@@ -9,10 +9,31 @@ import { logout, setCurrentUser } from "./store/slices/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "./firebase/auth";
 import { useDispatch } from "react-redux";
+import Shop from "./pages/Shop";
+import Layout from "./component/Layout";
+import { asycThunsProduct } from "./store/slices/apiPorduct";
 
 const App = () => {
   const dispatch = useDispatch();
 
+  const getProducts = async () => {
+    // try {
+    //   const response = await fetch("https://dummyjson.com/products?limit=100");
+
+    //   const data = await response.json();
+
+    //   setProducts(data.products);
+    // } catch (error) {
+    //   console.log("Products Error:", error);
+    // } finally {
+    //   setLoading(false);
+    // }
+    dispatch(asycThunsProduct());
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -32,7 +53,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
@@ -43,6 +63,11 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/" element={<Layout />}>
+          {" "}
+          <Route index element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
