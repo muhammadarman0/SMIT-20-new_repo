@@ -11,7 +11,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import auth from "../firebase/auth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCard } from "../store/slices/cartSlice";
+import { clearWishList } from "../store/slices/wishListSlice";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,7 +21,7 @@ const Navbar = () => {
 
   // Wishlist
   const wishListItems = useSelector((state) => state.wishList.wishListProduct);
-
+  const dispatch = useDispatch();
   // Cart
   const cartItems = useSelector((state) => state.cart?.cartProduct || []);
 
@@ -30,6 +32,8 @@ const Navbar = () => {
       console.log("User signed out successfully");
 
       setMenuOpen(false);
+      dispatch(clearCard())
+      dispatch(clearWishList())
       navigate("/login");
     } catch (error) {
       console.error("An error happened during sign out", error);
