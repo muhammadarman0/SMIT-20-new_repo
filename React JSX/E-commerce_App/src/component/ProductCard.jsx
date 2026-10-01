@@ -1,8 +1,35 @@
-import React from "react";
 import { Heart, ShoppingBag, Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleWishlist } from "../store/slices/wishListSlice.js";
+import { addToCard } from "../store/slices/cartSlice.js";
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const wisListItem = useSelector((state) => state.wishList.wishListProduct);
+  const cardsProduct = useSelector((state) => state.cart.cartProduct);
+  const isWishList = wisListItem.some((item) => item.id === product.id);
+  const user = useSelector((state) => state.user.currentUser);
+console.log(user);
+
+  const handleWishlistClick = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    } else {
+      dispatch(toggleWishlist(product));
+    }
+  };
+
+  const handlerAddToCard = async () => {
+    if (!user) {
+      navigate("/login");
+    } else {
+      dispatch(addToCard(product));
+    }
+  };
+
   return (
     <div className="group">
       {/* Image */}
@@ -25,13 +52,23 @@ const ProductCard = ({ product }) => {
         {/* Wishlist */}
         <button
           type="button"
-          className="absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white/90 transition hover:bg-white"
+          onClick={() => handleWishlistClick()}
+          className={`absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white/95 shadow-sm transition ${
+            isWishList
+              ? "text-red-500"
+              : "text-gray-600 hover:bg-black hover:text-white"
+          }`}
         >
-          <Heart size={17} strokeWidth={1.6} />
+          <Heart
+            size={17}
+            strokeWidth={1.6}
+            fill={isWishList ? "currentColor" : "none"}
+          />
         </button>
 
         {/* Add to Cart */}
         <button
+          onClick={() => handlerAddToCard()}
           type="button"
           className="
             absolute

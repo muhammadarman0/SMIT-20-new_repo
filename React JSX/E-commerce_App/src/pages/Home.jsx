@@ -15,7 +15,7 @@ const Home = () => {
 
   const getProducts = async () => {
     try {
-      const response = await fetch("https://dummyjson.com/products?limit=0");
+      const response = await fetch("https://dummyjson.com/products?limit=4");
 
       const data = await response.json();
 
@@ -147,7 +147,7 @@ const Home = () => {
           <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
             {/* Men */}
             <Link
-              to="/shop?category=men"
+              to="/men"
               className="group relative h-[280px] overflow-hidden sm:h-[380px] lg:h-[450px]"
             >
               <img
@@ -171,7 +171,7 @@ const Home = () => {
 
             {/* Women */}
             <Link
-              to="/shop?category=women"
+              to="/women"
               className="group relative h-[280px] overflow-hidden sm:h-[380px] lg:h-[450px]"
             >
               <img
@@ -195,7 +195,7 @@ const Home = () => {
 
             {/* Shoes */}
             <Link
-              to="/shop?category=shoes"
+              to="/men"
               className="group relative h-[280px] overflow-hidden sm:h-[380px] lg:h-[450px]"
             >
               <img
@@ -219,7 +219,7 @@ const Home = () => {
 
             {/* Accessories */}
             <Link
-              to="/shop?category=accessories"
+              to="/women"
               className="group relative h-[280px] overflow-hidden sm:h-[380px] lg:h-[450px]"
             >
               <img

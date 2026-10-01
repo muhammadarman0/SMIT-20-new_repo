@@ -33,7 +33,7 @@ const Profile = () => {
 
       if (docSnap.exists()) {
         setProfile(docSnap.data());
-        log
+        
       } else {
         console.log("User profile is not found");
       }

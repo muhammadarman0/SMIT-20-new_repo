@@ -12,6 +12,14 @@ import { useDispatch } from "react-redux";
 import Shop from "./pages/Shop";
 import Layout from "./component/Layout";
 import { asycThunsProduct } from "./store/slices/apiPorduct";
+import Men from "./pages/Men";
+import { menProductThunk } from "./store/slices/menProductSlice";
+import Women from "./pages/Women";
+import { womenProductThunk } from "./store/slices/womenProductSlice";
+import ProductDetails from "./pages/ProductDetail";
+import ScrollToTop from "./component/ScrollToTop";
+import Wishlist from "./pages/WishList";
+import Cart from "./pages/Card";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +36,8 @@ const App = () => {
     // } finally {
     //   setLoading(false);
     // }
+    dispatch(womenProductThunk());
+    dispatch(menProductThunk());
     dispatch(asycThunsProduct());
   };
 
@@ -51,25 +61,52 @@ const App = () => {
     });
   }, [dispatch]);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/" element={<Layout />}>
-          {" "}
-          <Route index element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<Layout />}>
+            {" "}
+            <Route index element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/men" element={<Men />} />
+            <Route path="/women" element={<Women />} />
+            <Route
+              path="/product/:productID"
+              element={
+                  <ProductDetails />
+              }
+            />
+            <Route
+              path="/wishList"
+              element={
+                <ProtectedRoute>
+                  <Wishlist />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="cart"
+              element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 

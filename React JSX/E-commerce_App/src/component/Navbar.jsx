@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { Search, ShoppingBag, User, Menu, X, LogOut } from "lucide-react";
+import {
+  Search,
+  ShoppingBag,
+  User,
+  Menu,
+  X,
+  LogOut,
+  Heart,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import auth from "../firebase/auth";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  // Wishlist
+  const wishListItems = useSelector((state) => state.wishList.wishListProduct);
+
+  // Cart
+  const cartItems = useSelector((state) => state.cart?.cartProduct || []);
 
   const logOutHandler = async () => {
     try {
@@ -24,8 +39,7 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#e8e8e8] bg-white">
       <nav className="mx-auto flex h-[72px] w-full max-w-[1425px] items-center justify-between px-5 sm:px-8 lg:h-[82px] lg:px-10">
-        {/* ================= LOGO ================= */}
-
+        {/* LOGO */}
         <Link
           to="/"
           className="text-[22px] font-medium tracking-[5px] text-[#17191b] sm:text-[25px] lg:text-[28px]"
@@ -33,8 +47,7 @@ const Navbar = () => {
           LUXEWEAR
         </Link>
 
-        {/* ================= DESKTOP NAV ================= */}
-
+        {/* DESKTOP NAV */}
         <div className="hidden items-center gap-7 lg:flex xl:gap-10">
           <Link
             to="/"
@@ -51,14 +64,14 @@ const Navbar = () => {
           </Link>
 
           <Link
-            to="/shop?category=men"
+            to="/men"
             className="text-[14px] text-[#555] transition hover:text-[#17191b]"
           >
             Men
           </Link>
 
           <Link
-            to="/shop?category=women"
+            to="/women"
             className="text-[14px] text-[#555] transition hover:text-[#17191b]"
           >
             Women
@@ -72,8 +85,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* ================= DESKTOP ACTIONS ================= */}
-
+        {/* DESKTOP ACTIONS */}
         <div className="hidden items-center gap-5 lg:flex">
           {/* Search */}
           <button
@@ -92,6 +104,21 @@ const Navbar = () => {
             <User size={20} strokeWidth={1.7} />
           </Link>
 
+          {/* Wishlist */}
+          <Link
+            to="/wishList"
+            className="relative text-[#25282a] transition hover:text-[#777]"
+            title="Wishlist"
+          >
+            <Heart size={21} strokeWidth={1.7} />
+
+            {wishListItems.length > 0 && (
+              <span className="absolute -right-2.5 -top-2 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#17191b] px-1 text-[9px] text-white">
+                {wishListItems.length}
+              </span>
+            )}
+          </Link>
+
           {/* Cart */}
           <Link
             to="/cart"
@@ -100,9 +127,11 @@ const Navbar = () => {
           >
             <ShoppingBag size={21} strokeWidth={1.7} />
 
-            <span className="absolute -right-2.5 -top-2 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#17191b] px-1 text-[9px] text-white">
-              0
-            </span>
+            {cartItems.length > 0 && (
+              <span className="absolute -right-2.5 -top-2 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#17191b] px-1 text-[9px] text-white">
+                {cartItems.length}
+              </span>
+            )}
           </Link>
 
           {/* Logout */}
@@ -116,16 +145,32 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* ================= MOBILE ACTIONS ================= */}
-
+        {/* MOBILE ACTIONS */}
         <div className="flex items-center gap-4 lg:hidden">
+          {/* Wishlist */}
+          <Link
+            to="/wishList"
+            className="relative text-[#25282a]"
+            title="Wishlist"
+          >
+            <Heart size={20} strokeWidth={1.7} />
+
+            {wishListItems.length > 0 && (
+              <span className="absolute -right-2.5 -top-2 flex h-[16px] min-w-[16px] items-center justify-center rounded-full bg-[#17191b] px-1 text-[8px] text-white">
+                {wishListItems.length}
+              </span>
+            )}
+          </Link>
+
           {/* Cart */}
-          <Link to="/cart" className="relative text-[#25282a]">
+          <Link to="/cart" className="relative text-[#25282a]" title="Cart">
             <ShoppingBag size={20} strokeWidth={1.7} />
 
-            <span className="absolute -right-2.5 -top-2 flex h-[16px] min-w-[16px] items-center justify-center rounded-full bg-[#17191b] px-1 text-[8px] text-white">
-              0
-            </span>
+            {cartItems.length > 0 && (
+              <span className="absolute -right-2.5 -top-2 flex h-[16px] min-w-[16px] items-center justify-center rounded-full bg-[#17191b] px-1 text-[8px] text-white">
+                {cartItems.length}
+              </span>
+            )}
           </Link>
 
           {/* Menu */}
@@ -143,8 +188,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* ================= MOBILE MENU ================= */}
-
+      {/* MOBILE MENU */}
       {menuOpen && (
         <div className="border-t border-[#e8e8e8] bg-white lg:hidden">
           <div className="mx-auto flex w-full max-w-[1425px] flex-col px-5 py-5 sm:px-8">
@@ -165,7 +209,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/shop?category=men"
+              to="/men"
               onClick={() => setMenuOpen(false)}
               className="border-b border-[#eeeeee] py-4 text-[15px] text-[#555]"
             >
@@ -173,7 +217,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/shop?category=women"
+              to="/women"
               onClick={() => setMenuOpen(false)}
               className="border-b border-[#eeeeee] py-4 text-[15px] text-[#555]"
             >
@@ -188,7 +232,40 @@ const Navbar = () => {
               New Arrivals
             </Link>
 
-            {/* Profile */}
+            <Link
+              to="/wishList"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center justify-between border-b border-[#eeeeee] py-4 text-[15px] text-[#555]"
+            >
+              <span className="flex items-center gap-3">
+                <Heart size={18} strokeWidth={1.7} />
+                Wishlist
+              </span>
+
+              {wishListItems.length > 0 && (
+                <span className="text-xs text-gray-400">
+                  {wishListItems.length}
+                </span>
+              )}
+            </Link>
+
+            <Link
+              to="/cart"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center justify-between border-b border-[#eeeeee] py-4 text-[15px] text-[#555]"
+            >
+              <span className="flex items-center gap-3">
+                <ShoppingBag size={18} strokeWidth={1.7} />
+                Cart
+              </span>
+
+              {cartItems.length > 0 && (
+                <span className="text-xs text-gray-400">
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
+
             <Link
               to="/profile"
               onClick={() => setMenuOpen(false)}
@@ -198,7 +275,6 @@ const Navbar = () => {
               Profile
             </Link>
 
-            {/* Logout */}
             <button
               type="button"
               onClick={logOutHandler}
