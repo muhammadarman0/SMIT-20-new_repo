@@ -5,6 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 const UserDetail = () => {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
+  
   //   const location = useLocation();
   const userData = async () => {
     const result = await axios.get(`https://dummyjson.com/users/${userId}`);
