@@ -14,6 +14,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCard } from "../store/slices/cartSlice";
+import { toggleWishlist } from "../store/slices/wishListSlice";
 
 const ProductDetails = () => {
   const { productID } = useParams();
@@ -318,6 +319,7 @@ const ProductDetails = () => {
               </button>
 
               <button
+                onClick={() => dispatch(toggleWishlist(product))}
                 type="button"
                 className="flex h-14 w-full cursor-pointer items-center justify-center border border-[#dfe2e5] transition hover:border-[#17191b] sm:w-14"
               >

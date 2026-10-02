@@ -7,27 +7,29 @@ import { addToCard } from "../store/slices/cartSlice.js";
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const wisListItem = useSelector((state) => state.wishList.wishListProduct);
-  const cardsProduct = useSelector((state) => state.cart.cartProduct);
-  const isWishList = wisListItem.some((item) => item.id === product.id);
-  const user = useSelector((state) => state.user.currentUser);
-console.log(user);
 
-  const handleWishlistClick = async () => {
+  const user = useSelector((state) => state.user.currentUser);
+
+  const wisListItem = useSelector((state) => state.wishList.wishListProduct);
+
+  const isWishList = wisListItem.some((item) => item.id === product.id);
+
+  const handleWishlistClick = () => {
     if (!user) {
       navigate("/login");
       return;
-    } else {
-      dispatch(toggleWishlist(product));
     }
+
+    dispatch(toggleWishlist(product));
   };
 
-  const handlerAddToCard = async () => {
+  const handlerAddToCard = () => {
     if (!user) {
       navigate("/login");
-    } else {
-      dispatch(addToCard(product));
+      return;
     }
+
+    dispatch(addToCard(product));
   };
 
   return (
@@ -52,7 +54,7 @@ console.log(user);
         {/* Wishlist */}
         <button
           type="button"
-          onClick={() => handleWishlistClick()}
+          onClick={handleWishlistClick}
           className={`absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white/95 shadow-sm transition ${
             isWishList
               ? "text-red-500"
@@ -68,28 +70,33 @@ console.log(user);
 
         {/* Add to Cart */}
         <button
-          onClick={() => handlerAddToCard()}
+          onClick={handlerAddToCard}
           type="button"
           className="
-            absolute
-            bottom-3
-            left-3
-            right-3
-            flex
-            h-11
-            translate-y-2
-            items-center
-            justify-center
-            gap-2
-            bg-white
-            text-[12px]
-            font-medium
-            opacity-0
-            transition
-            duration-300
-            group-hover:translate-y-0
-            group-hover:opacity-100
-          "
+          cursor-pointer
+    absolute
+    bottom-3
+    left-3
+    right-3
+    flex
+    h-11
+    translate-y-2
+    items-center
+    justify-center
+    gap-2
+    bg-white
+    text-[12px]
+    font-medium
+    opacity-0
+    transition
+    duration-300
+
+    [@media(hover:none)]:translate-y-0
+    [@media(hover:none)]:opacity-100
+
+    [@media(hover:hover)]:group-hover:translate-y-0
+    [@media(hover:hover)]:group-hover:opacity-100
+  "
         >
           <ShoppingBag size={16} strokeWidth={1.6} />
           Add to Cart

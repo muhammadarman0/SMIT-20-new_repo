@@ -3,6 +3,7 @@ import { Heart, ShoppingBag, Trash2 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteToWishList } from "../store/slices/wishListSlice";
+import { addToCard } from "../store/slices/cartSlice";
 // import { addToCard } from "../store/slices/cartSlice";
 
 const Wishlist = () => {

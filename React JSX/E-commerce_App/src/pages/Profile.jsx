@@ -220,6 +220,7 @@ const Profile = () => {
                     text-xs font-medium text-white
                     transition hover:bg-[#303538]
                     sm:gap-2 sm:px-5 sm:py-3 sm:text-sm
+                    cursor-pointer
                   "
                 >
                   <Edit size={15} className="sm:h-[17px] sm:w-[17px]" />
