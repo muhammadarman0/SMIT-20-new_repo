@@ -18,7 +18,7 @@ const UserDetail = () => {
     userData();
   }, [userId]);
 
-  if (!user) {
+  if (!user
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-950 text-white">
         <p className="text-gray-400">Loading...</p>
