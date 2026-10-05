@@ -8,7 +8,6 @@ const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.user.currentUser);
-  console.log(currentUser);
 
   if (!currentUser) {
     return <Navigate to={"/login"} replace />;

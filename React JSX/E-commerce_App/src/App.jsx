@@ -25,17 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   const getProducts = async () => {
-    // try {
-    //   const response = await fetch("https://dummyjson.com/products?limit=100");
 
-    //   const data = await response.json();
-
-    //   setProducts(data.products);
-    // } catch (error) {
-    //   console.log("Products Error:", error);
-    // } finally {
-    //   setLoading(false);
-    // }
     dispatch(womenProductThunk());
     dispatch(menProductThunk());
     dispatch(asycThunsProduct());

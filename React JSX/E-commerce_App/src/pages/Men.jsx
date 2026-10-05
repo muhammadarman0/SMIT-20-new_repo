@@ -12,8 +12,7 @@ const Men = () => {
   const products = useSelector((state) => state.menProduct.menProductApi);
   const loading = useSelector((state) => state.menProduct.loading);
 
-  console.log(products);
-  console.log(loading);
+
 
   const categories = ["all", "mens-shirts", "mens-shoes"];
 

@@ -35,10 +35,8 @@ const Profile = () => {
         setProfile(docSnap.data());
         
       } else {
-        console.log("User profile is not found");
       }
     } catch (error) {
-      console.log("Firestore Error:", error);
     } finally {
       setLoading(false);
     }
@@ -109,7 +107,6 @@ const Profile = () => {
 
       setEditOpen(false);
 
-      console.log("Profile updated successfully!");
     } catch (error) {
       console.error("Error updating profile:", error);
     }

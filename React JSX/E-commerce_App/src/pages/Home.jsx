@@ -21,7 +21,6 @@ const Home = () => {
 
       setProducts(data.products);
     } catch (error) {
-      console.log("Products Error:", error);
     } finally {
       setLoading(false);
     }

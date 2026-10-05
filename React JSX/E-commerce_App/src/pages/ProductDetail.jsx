@@ -46,7 +46,6 @@ const ProductDetails = () => {
       setProduct(data);
       setSelectedImage(0);
     } catch (error) {
-      console.log("Product Details Error:", error);
       setError("Product not found");
     } finally {
       setLoading(false);

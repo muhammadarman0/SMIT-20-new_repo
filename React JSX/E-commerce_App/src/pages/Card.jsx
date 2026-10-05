@@ -12,7 +12,6 @@ import {
 const Cart = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart?.cartProduct || []);
-  console.log(cartProducts);
 
   const subtotal = cartProducts.reduce(
     (total, product) => total + product.price * product.quantity,

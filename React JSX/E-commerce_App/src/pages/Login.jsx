@@ -3,14 +3,18 @@ import React, { useState } from "react";
 import Input from "../component/Input";
 import Button from "../component/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import auth from "../firebase/auth";
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -19,40 +23,31 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-      try {
+    try {
       // Signed in
       let response = await signInWithEmailAndPassword(
         auth,
         form.email,
         form.password,
       );
-      console.log(response);
-      if (response.user) {
-        navigate("/profile")
-      }
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(error.code);
-      console.log(error.message);
-    }
-    console.log("Email", form.email);
-    console.log("Password", form.password);
-  };
-
-   const loginWithGoogle = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      let response = await signInWithPopup(auth, provider);
-
-      console.log(response);
       if (response.user) {
         navigate("/profile");
       }
     } catch (error) {
-        console.log(error);
-        
+      const errorCode = error.code;
+      const errorMessage = error.message;
     }
+  };
+
+  const loginWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      let response = await signInWithPopup(auth, provider);
+
+      if (response.user) {
+        navigate("/profile");
+      }
+    } catch (error) {}
   };
 
   return (
@@ -180,7 +175,7 @@ const Login = () => {
               <span>Don't have an account?</span>
 
               {/* <a href="#" className="font-semibold text-[#26354b] underline"> */}
-                <Link to={"/register"}>Create Account</Link>
+              <Link to={"/register"}>Create Account</Link>
               {/* </a> */}
             </div>
           </div>

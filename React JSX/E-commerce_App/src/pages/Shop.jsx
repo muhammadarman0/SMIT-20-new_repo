@@ -5,35 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { asycThunsProduct } from "../store/slices/apiPorduct";
 
 const Shop = () => {
-//   const [products, setProducts] = useState([]);
+  //   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("default");
-//   const [loading, setLoading] = useState(true);
+  //   const [loading, setLoading] = useState(true);
 
   const products = useSelector((state) => state.product.productApi);
-  console.log(products);
-
-  //   const dispatch = useDispatch();
-
-  //   const getProducts = async () => {
-  //     // try {
-  //     //   const response = await fetch("https://dummyjson.com/products?limit=100");
-
-  //     //   const data = await response.json();
-
-  //     //   setProducts(data.products);
-  //     // } catch (error) {
-  //     //   console.log("Products Error:", error);
-  //     // } finally {
-  //     //   setLoading(false);
-  //     // }
-  //     dispatch(asycThunsProduct());
-  //   };
-
-  //   useEffect(() => {
-  //     getProducts();
-  //   }, []);
 
   // Categories
   const categories = [
@@ -50,7 +28,6 @@ const Shop = () => {
   // Filter + Search + Sort
   const filteredProducts = useMemo(() => {
     let result = [...products];
-    console.log(result);
 
     // Category
     if (category !== "all") {

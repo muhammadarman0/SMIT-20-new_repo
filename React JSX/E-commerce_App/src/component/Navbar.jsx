@@ -29,7 +29,6 @@ const Navbar = () => {
     try {
       await signOut(auth);
 
-      console.log("User signed out successfully");
 
       setMenuOpen(false);
       dispatch(clearCard())

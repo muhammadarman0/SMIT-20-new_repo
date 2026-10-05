@@ -42,9 +42,7 @@ const Register = () => {
         email: data.email,
         photoURL: data.photoURL || "",
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleRegister = async () => {
@@ -71,9 +69,6 @@ const Register = () => {
         navigate("/profile");
       }
     } catch (error) {
-      console.log(error.message);
-      console.log(error.code);
-
       if (error.code === "auth/email-already-in-use") {
         toast.error("Email already exists!");
       } else if (error.code === "auth/weak-password") {
@@ -102,9 +97,7 @@ const Register = () => {
       if (response.user) {
         navigate("/profile");
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
