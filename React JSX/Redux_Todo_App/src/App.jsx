@@ -431,7 +431,13 @@ const TodoItems = ({ todo, deleteHandler, editTodoHandler }) => {
 
           <button
             onClick={() => editTodoHandler(todo)}
-            className="flex h-9 items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 text-[11px] font-semibold text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 sm:h-10 sm:px-3 sm:text-xs"
+            className={`flex h-9 items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 text-[11px] font-semibold transition sm:h-10 sm:px-3 sm:text-xs
+    ${
+      todo.complete
+        ? "cursor-not-allowed opacity-50"
+        : "text-slate-600 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600"
+    }`}
+            disabled={todo.complete}
           >
             <Pencil size={13} />
             Edit
