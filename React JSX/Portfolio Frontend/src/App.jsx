@@ -6,10 +6,12 @@ import Skills from "./component/Skill";
 import Layout from "./Page/Layout";
 import Projects from "./component/Projects";
 import Contact from "./component/Contact";
+import ScrollToTop from "./component/ScrollToTop";
 
 const App = () => {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           {" "}
