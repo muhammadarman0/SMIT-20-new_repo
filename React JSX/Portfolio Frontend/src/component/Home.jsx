@@ -70,7 +70,7 @@ const Home = () => {
               <span className="h-1 w-1 rounded-full bg-slate-600"></span>
 
               <a
-                href="https://www.linkedin.com/in/arman-coder-77500a38a/"
+                href="https://www.linkedin.com/in/arman-coder/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium text-slate-400 transition duration-300 hover:text-cyan-400"

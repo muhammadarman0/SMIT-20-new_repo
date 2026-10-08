@@ -83,7 +83,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/arman-coder-77500a38a/"
+                href="https://www.linkedin.com/in/arman-coder/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-lg border border-white/10 bg-[#111827] px-4 py-2 text-sm font-medium text-slate-300 transition duration-300 hover:border-cyan-400/50 hover:text-cyan-400"
