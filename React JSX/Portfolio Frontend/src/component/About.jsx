@@ -1,6 +1,10 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const About = () => {
+  const location = useLocation();
+  console.log(location);
+
   return (
     <main className="min-h-screen overflow-hidden bg-[#0B1120] text-white">
       <section className="mx-auto w-full max-w-[1600px] px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10 lg:py-24 xl:px-12 2xl:px-16">
@@ -108,41 +112,43 @@ const About = () => {
         </div>
 
         {/* Bottom Stats */}
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          className="mx-auto mt-6 grid w-full max-w-6xl grid-cols-1 gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5 md:mt-8 md:grid-cols-3"
-        >
-          <div className="rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:p-6">
-            <h3 className="text-2xl font-bold text-cyan-400 sm:text-3xl">
-              React
-            </h3>
+        {location.pathname === "/about" && (
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            className="mx-auto mt-6 grid w-full max-w-6xl grid-cols-1 gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5 md:mt-8 md:grid-cols-3"
+          >
+            <div className="rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:p-6">
+              <h3 className="text-2xl font-bold text-cyan-400 sm:text-3xl">
+                React
+              </h3>
 
-            <p className="mt-2 text-xs text-slate-400 sm:text-sm">
-              Frontend Development
-            </p>
+              <p className="mt-2 text-xs text-slate-400 sm:text-sm">
+                Frontend Development
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:p-6">
+              <h3 className="text-2xl font-bold text-cyan-400 sm:text-3xl">
+                Redux
+              </h3>
+
+              <p className="mt-2 text-xs text-slate-400 sm:text-sm">
+                State Management
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:p-6">
+              <h3 className="text-2xl font-bold text-cyan-400 sm:text-3xl">
+                Firebase
+              </h3>
+
+              <p className="mt-2 text-xs text-slate-400 sm:text-sm">
+                Backend Services
+              </p>
+            </div>
           </div>
-
-          <div className="rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:p-6">
-            <h3 className="text-2xl font-bold text-cyan-400 sm:text-3xl">
-              Redux
-            </h3>
-
-            <p className="mt-2 text-xs text-slate-400 sm:text-sm">
-              State Management
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:p-6">
-            <h3 className="text-2xl font-bold text-cyan-400 sm:text-3xl">
-              Firebase
-            </h3>
-
-            <p className="mt-2 text-xs text-slate-400 sm:text-sm">
-              Backend Services
-            </p>
-          </div>
-        </div>
+        )}
       </section>
     </main>
   );

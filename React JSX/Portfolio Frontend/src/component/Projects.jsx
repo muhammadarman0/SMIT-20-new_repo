@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import blogImg from "../assets/blog.png";
 import ecommerceImg from "../assets/ecommerce.png";
 import todoImg from "../assets/todo.png";
 
 const Projects = () => {
+  const location = useLocation();
   const projects = [
     {
       title: "Blog Application",
@@ -137,20 +138,22 @@ const Projects = () => {
         </div>
 
         {/* Bottom Section */}
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          className="mx-auto mt-8 w-full max-w-7xl rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:mt-10 sm:p-7 md:p-8 lg:p-10"
-        >
-          <h2 className="text-xl font-bold leading-tight sm:text-2xl md:text-3xl">
-            More Projects <span className="text-cyan-400">Coming Soon</span>
-          </h2>
+        {location.pathname === "/projects" && (
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            className="mx-auto mt-8 w-full max-w-7xl rounded-2xl border border-white/10 bg-[#111827] p-5 text-center sm:mt-10 sm:p-7 md:p-8 lg:p-10"
+          >
+            <h2 className="text-xl font-bold leading-tight sm:text-2xl md:text-3xl">
+              More Projects <span className="text-cyan-400">Coming Soon</span>
+            </h2>
 
-          <p className="mx-auto mt-3 max-w-2xl text-xs leading-6 text-slate-400 sm:text-sm sm:leading-7 md:text-base md:leading-8">
-            I'm continuously working on new projects to improve my skills and
-            build better real-world web applications.
-          </p>
-        </div>
+            <p className="mx-auto mt-3 max-w-2xl text-xs leading-6 text-slate-400 sm:text-sm sm:leading-7 md:text-base md:leading-8">
+              I'm continuously working on new projects to improve my skills and
+              build better real-world web applications.
+            </p>
+          </div>
+        )}
       </section>
     </main>
   );

@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import main from "../assets/main.png";
 // import {index} from "../../public/"
 const Home = () => {
+    const location = useLocation()
   return (
     <main className="min-h-[calc(100vh-80px)] overflow-hidden bg-[#0B1120] text-white">
       <section className="mx-auto flex min-h-[calc(100vh-80px)] w-full max-w-[1600px] items-center px-4 py-12 sm:px-6 sm:py-14 md:px-8 md:py-16 lg:px-10 lg:py-20 xl:px-12 2xl:px-16">

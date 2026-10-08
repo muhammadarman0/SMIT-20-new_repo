@@ -1,6 +1,8 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const Skills = () => {
+  const location = useLocation();
   const skills = [
     {
       name: "React.js",
@@ -128,21 +130,23 @@ const Skills = () => {
         </div>
 
         {/* Bottom Highlight */}
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          className="mx-auto mt-10 w-full max-w-7xl rounded-2xl border border-cyan-400/10 bg-[#111827] p-6 text-center sm:mt-12 sm:p-8 md:p-10"
-        >
-          <h2 className="text-xl font-bold sm:text-2xl md:text-3xl">
-            Building With{" "}
-            <span className="text-cyan-400">Modern Technologies</span>
-          </h2>
+        {location.pathname === "/skills" && (
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            className="mx-auto mt-10 w-full max-w-7xl rounded-2xl border border-cyan-400/10 bg-[#111827] p-6 text-center sm:mt-12 sm:p-8 md:p-10"
+          >
+            <h2 className="text-xl font-bold sm:text-2xl md:text-3xl">
+              Building With{" "}
+              <span className="text-cyan-400">Modern Technologies</span>
+            </h2>
 
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base sm:leading-8">
-            I combine these technologies to create responsive interfaces, manage
-            application state and build practical web applications.
-          </p>
-        </div>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base sm:leading-8">
+              I combine these technologies to create responsive interfaces,
+              manage application state and build practical web applications.
+            </p>
+          </div>
+        )}
       </section>
     </main>
   );

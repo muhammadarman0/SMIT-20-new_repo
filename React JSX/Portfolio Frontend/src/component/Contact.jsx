@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Contact = () => {
+  const Location = useLocation();
   return (
     <section className="min-h-screen overflow-hidden bg-[#0B1120] px-4 py-24 text-[#F8FAFC] sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[1400px]">
-
         {/* Header */}
         <div
           data-aos="fade-up"
@@ -29,7 +29,6 @@ const Contact = () => {
 
         {/* Main Content */}
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-
           {/* Left Side */}
           <div
             data-aos="fade-right"
@@ -38,17 +37,14 @@ const Contact = () => {
           >
             {/* Contact Card */}
             <div className="rounded-2xl border border-slate-800 bg-[#111827] p-6 shadow-xl sm:p-8">
-              <h2 className="text-2xl font-bold">
-                Contact Information
-              </h2>
+              <h2 className="text-2xl font-bold">Contact Information</h2>
 
               <p className="mt-3 text-sm leading-6 text-[#94A3B8]">
-                I'm available for freelance projects, internships, and
-                frontend development opportunities.
+                I'm available for freelance projects, internships, and frontend
+                development opportunities.
               </p>
 
               <div className="mt-8 space-y-5">
-
                 {/* Email */}
                 <div className="flex items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-xl text-cyan-400">
@@ -61,7 +57,7 @@ const Contact = () => {
                     </p>
 
                     <p className="mt-1 break-all text-sm font-medium text-[#F8FAFC]">
-                        armandevs74@gmail.com
+                      armandevs74@gmail.com
                     </p>
                   </div>
                 </div>
@@ -99,22 +95,18 @@ const Contact = () => {
                     </p>
                   </div>
                 </div>
-
               </div>
             </div>
 
             {/* Social Card */}
             <div className="rounded-2xl border border-slate-800 bg-[#111827] p-6 sm:p-8">
-              <h2 className="text-xl font-bold">
-                Let's Connect
-              </h2>
+              <h2 className="text-xl font-bold">Let's Connect</h2>
 
               <p className="mt-2 text-sm leading-6 text-[#94A3B8]">
                 You can also find me on these platforms.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
-
                 <a
                   href="https://github.com/muhammadarman0"
                   target="_blank"
@@ -132,7 +124,6 @@ const Contact = () => {
                 >
                   LinkedIn
                 </a>
-
               </div>
             </div>
           </div>
@@ -155,10 +146,8 @@ const Contact = () => {
             </div>
 
             <form className="space-y-6">
-
               {/* Name + Email */}
               <div className="grid gap-6 sm:grid-cols-2">
-
                 <div>
                   <label
                     htmlFor="name"
@@ -190,7 +179,6 @@ const Contact = () => {
                     className="w-full rounded-xl border border-slate-700 bg-[#0B1120] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
                   />
                 </div>
-
               </div>
 
               {/* Subject */}
@@ -234,29 +222,29 @@ const Contact = () => {
               >
                 Send Message
               </button>
-
             </form>
           </div>
         </div>
 
         {/* Bottom */}
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          className="mt-16 text-center"
-        >
-          <p className="text-sm text-[#94A3B8]">
-            Have an interesting project in mind?
-          </p>
-
-          <Link
-            to="/projects"
-            className="mt-2 inline-block text-sm font-semibold text-cyan-400 transition hover:text-cyan-300"
+        {location.pathname === "/contact" && (
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            className="mt-16 text-center"
           >
-            Explore My Projects →
-          </Link>
-        </div>
+            <p className="text-sm text-[#94A3B8]">
+              Have an interesting project in mind?
+            </p>
 
+            <Link
+              to="/projects"
+              className="mt-2 inline-block text-sm font-semibold text-cyan-400 transition hover:text-cyan-300"
+            >
+              Explore My Projects →
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
