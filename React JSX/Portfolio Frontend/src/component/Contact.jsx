@@ -74,7 +74,7 @@ const Contact = () => {
                     </p>
 
                     <p className="mt-1 text-sm font-medium text-[#F8FAFC]">
-                      Pakistan
+                      Pakistan | Karachi
                     </p>
                   </div>
                 </div>
@@ -117,7 +117,7 @@ const Contact = () => {
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/arman-coder-77500a38/"
+                  href="https://www.linkedin.com/in/arman-coder-77500a38a/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-xl border border-slate-700 px-5 py-3 text-sm font-medium transition duration-300 hover:border-cyan-400 hover:text-cyan-400"
