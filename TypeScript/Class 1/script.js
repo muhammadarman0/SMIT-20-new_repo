@@ -1,6 +1,6 @@
-"use strict";
-// Basic Types String,Number,Boolean
-Object.defineProperty(exports, "__esModule", { value: true });
+// "use strict";
+// // Basic Types String,Number,Boolean
+// Object.defineProperty(exports, "__esModule", { value: true });
 // string
 // let a = 21;
 // console.log(a);
@@ -38,4 +38,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // }
 // foo()
 // foo("arma");
+// class user {
+//   email = "arman@mail.com";
+//   name = "Arman Ansari";
+//   age = 18;
+//   role= "user"
+// }
+// class Admin extends user {
+//   name= "Bilal";
+//   role= "Admin"
+// }
+// const u1 = new Admin();
+// console.log(u1.role);
 //# sourceMappingURL=script.js.map
