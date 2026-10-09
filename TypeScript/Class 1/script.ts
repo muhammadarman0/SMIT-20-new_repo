@@ -28,10 +28,21 @@
 
 // console.log(user);
 
-
 // let user:string[] = ["Arman","Ansari"]
 
 // console.log(user);
 
-
 // let std:(number | string)[] = [32,21,"user1",true]
+
+// enum StatusCode {
+//   error = 404,
+//   success = 200,
+//   Redirection = 400,
+// }
+// console.log(StatusCode);
+
+// function foo():void{
+//  console.log("Hello");
+ 
+// }
+// foo()
