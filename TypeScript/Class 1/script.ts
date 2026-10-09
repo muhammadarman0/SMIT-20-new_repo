@@ -43,6 +43,16 @@
 
 // function foo():void{
 //  console.log("Hello");
- 
+
 // }
 // foo()
+// interface obj {
+//   name: "Arman";
+//   age: 21;
+// }
+
+// function foo(user: obj):void {
+//   console.log(user);
+// }
+// foo()
+// foo("arma");

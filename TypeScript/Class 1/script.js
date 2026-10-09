@@ -29,4 +29,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //  console.log("Hello");
 // }
 // foo()
+// interface obj {
+//   name: "Arman";
+//   age: 21;
+// }
+// function foo(user: obj):void {
+//   console.log(user);
+// }
+// foo()
+// foo("arma");
 //# sourceMappingURL=script.js.map
