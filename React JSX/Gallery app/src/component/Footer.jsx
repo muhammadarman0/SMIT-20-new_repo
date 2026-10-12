@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { galleryThunck } from "../store/slice/gallerySlice";
 
 const Footer = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const dispatch = useDispatch();
 
@@ -56,16 +56,11 @@ const Footer = () => {
         </div>
 
         {/* Pagination */}
-
         <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:gap-3">
           <button
             onClick={() => handelPageLimit(page - 1)}
             disabled={page === 1}
-            className={
-              page === 1
-                ? "rounded-lg border border-slate-700 px-4 py-2 text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparen"
-                : "flex min-h-10 items-center justify-center rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300 transition hover:border-blue-500 hover:bg-slate-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:px-4 sm:text-base"
-            }
+            className="min-h-10 rounded-lg border border-slate-700 px-4 py-2 text-slate-300 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
           >
             ← Previous
           </button>
@@ -84,12 +79,8 @@ const Footer = () => {
           ))}
           <button
             onClick={() => handelPageLimit(page + 1)}
-            disabled={page === 3}
-            className={
-              page === 3
-                ? "rounded-lg border border-slate-700 px-4 py-2 text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparen"
-                : "flex min-h-10 items-center justify-center rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300 transition hover:border-blue-500 hover:bg-slate-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:px-4 sm:text-base"
-            }
+            disabled={page===3}
+            className="min-h-10 rounded-lg border border-slate-700 px-4 py-2 text-slate-300 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Next →
           </button>

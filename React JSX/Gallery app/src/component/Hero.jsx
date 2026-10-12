@@ -1,4 +1,3 @@
-import { lruMemoize } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -65,7 +64,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
           {getGallery.map((limit, index) => (
             <div
-              key={limit.src}
+              key={limit.download_url}
               onClick={() => openImage(index)}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
@@ -75,7 +74,7 @@ const Hero = () => {
               }}
               role="button"
               tabIndex={0}
-              aria-label={`Open ${limit.alt}`}
+              aria-label={`Open ${limit.author}`}
               className="group relative h-60 cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:h-64 md:h-64 lg:h-60 xl:h-64 2xl:h-72"
             >
               <img
