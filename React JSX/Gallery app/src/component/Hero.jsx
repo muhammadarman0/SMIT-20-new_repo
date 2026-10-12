@@ -5,9 +5,8 @@ import { useSelector } from "react-redux";
 const Hero = () => {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const limit = useSelector((state) => state.gallery.getGallery);
-
-
+  //   const limit = useSelector((state) => state.gallery.getGallery);
+  const { loading, getGallery, error } = useSelector((state) => state.gallery);
 
   const openImage = (index) => {
     setSelectedIndex(index);
@@ -18,11 +17,14 @@ const Hero = () => {
   };
 
   const showNext = () => {
-    setSelectedIndex((current) => (current + 1) % limit.length);
+    if (!getGallery.length) return;
+    setSelectedIndex((current) => (current + 1) % getGallery.length);
   };
   const showPrevious = () => {
+    if (!getGallery.length) return;
+
     setSelectedIndex(
-      (current) => (current - 1 + limit.length) % limit.length,
+      (current) => (current - 1 + getGallery.length) % getGallery.length,
     );
   };
 
@@ -42,10 +44,15 @@ const Hero = () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [selectedIndex,limit]);
+  }, [selectedIndex, getGallery,error,loading]);
 
   return (
     <section className="min-h-screen bg-[#0b1120] px-4 py-8 text-white sm:px-6 sm:py-10 lg:px-10 xl:px-16">
+      {loading && (
+        <p className="py-10 text-center text-slate-400">Loading gallery...</p>
+      )}
+
+      {error && <p className="py-10 text-center text-red-400">{error}</p>}
       <div className="mx-auto max-w-[1440px]">
         {/* Gallery Heading */}
         <div className="mb-8 text-center sm:mb-10 lg:mb-12">
@@ -60,9 +67,9 @@ const Hero = () => {
 
         {/* Responsive Gallery Grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4">
-          {limit.map((image, index) => (
+          {getGallery.map((limit, index) => (
             <div
-              key={image.src}
+              key={limit.src}
               onClick={() => openImage(index)}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
@@ -72,12 +79,11 @@ const Hero = () => {
               }}
               role="button"
               tabIndex={0}
-              aria-label={`Open ${image.alt}`}
+              aria-label={`Open ${limit.alt}`}
               className="group relative h-60 cursor-pointer overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:h-64 md:h-64 lg:h-60 xl:h-64 2xl:h-72"
             >
               <img
-                src={limit.download_url
-}
+                src={limit.download_url}
                 alt={limit.author}
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
@@ -161,8 +167,8 @@ const Hero = () => {
           >
             <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden p-2 sm:p-4">
               <img
-                src={limit[selectedIndex].src}
-                alt={limit[selectedIndex].alt}
+                src={getGallery[selectedIndex].download_url}
+                alt={getGallery[selectedIndex].author}
                 className="max-h-[65vh] w-full rounded-lg object-contain sm:max-h-[72vh]"
               />
             </div>
@@ -170,15 +176,15 @@ const Hero = () => {
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 px-4 py-3 sm:px-6 sm:py-4">
               <div className="min-w-0">
                 <h2 className="truncate text-sm font-semibold sm:text-base">
-                  {limit[selectedIndex].alt}
+                  {getGallery[selectedIndex].author}
                 </h2>
                 <p className="mt-1 text-xs text-slate-400">
-                  Image {selectedIndex + 1} of {limit.length}
+                  Image {selectedIndex + 1} of {getGallery.length}
                 </p>
               </div>
 
               <a
-                href={limit[selectedIndex].src}
+                href={getGallery[selectedIndex].download_url}
                 target="_blank"
                 rel="noreferrer"
                 className="shrink-0 rounded-lg bg-blue-600 px-3 py-2 text-xs font-medium text-white transition hover:bg-blue-500 sm:px-4 sm:text-sm"
