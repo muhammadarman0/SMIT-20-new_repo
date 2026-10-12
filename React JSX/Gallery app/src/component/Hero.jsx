@@ -48,11 +48,7 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen bg-[#0b1120] px-4 py-8 text-white sm:px-6 sm:py-10 lg:px-10 xl:px-16">
-      {loading && (
-        <p className="py-10 text-center text-slate-400">Loading gallery...</p>
-      )}
 
-      {error && <p className="py-10 text-center text-red-400">{error}</p>}
       <div className="mx-auto max-w-[1440px]">
         {/* Gallery Heading */}
         <div className="mb-8 text-center sm:mb-10 lg:mb-12">
