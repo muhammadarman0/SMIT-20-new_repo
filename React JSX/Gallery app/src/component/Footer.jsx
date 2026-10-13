@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { galleryThunck } from "../store/slice/gallerySlice";
 
 const Footer = () => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const dispatch = useDispatch();
 

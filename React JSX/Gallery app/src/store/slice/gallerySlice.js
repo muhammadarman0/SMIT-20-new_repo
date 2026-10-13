@@ -36,7 +36,7 @@ const gallerySlice = createSlice({
       })
 
       .addCase(galleryThunck.rejected, (state) => {
-        state.loading = false;
+        state.loading = true;
         state.error = "API error";
       });
   },
