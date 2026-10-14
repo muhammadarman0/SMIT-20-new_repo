@@ -44,7 +44,7 @@ const Projects = () => {
       technologies: ["React.js", "Redux-Toolkit", "Javascript", "Tailwind"],
       type: "Web Application",
       image: galleryImg,
-      link: "https://blogapplication-lac.vercel.app/",
+      link: "https://gallery-app-dun-nine.vercel.app/",
     },
   ];
 
