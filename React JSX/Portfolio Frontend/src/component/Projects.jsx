@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 
 import blogImg from "../assets/blog.png";
 import ecommerceImg from "../assets/ecommerce.png";
+import galleryImg from "../assets/gallery.png";
+
 import todoImg from "../assets/todo.png";
 
 const Projects = () => {
@@ -34,6 +36,15 @@ const Projects = () => {
       type: "Productivity App",
       image: todoImg,
       link: "https://redux-todo-application-two.vercel.app/",
+    },
+     {
+      title: "Gallery Applucation",
+      description:
+        "A modern and responsive Gallery App featuring dynamic image fetching, interactive hover effects, full-size image previews, and smooth navigation. Designed to provide a seamless photo-browsing experience across all devices.",
+      technologies: ["React.js", "Redux-Toolkit", "Javascript", "Tailwind"],
+      type: "Web Application",
+      image: galleryImg,
+      link: "https://blogapplication-lac.vercel.app/",
     },
   ];
 
