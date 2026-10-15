@@ -1,15 +1,22 @@
 import { useState } from "react";
 import Input from "../component/Input";
 import Button from "../component/Button";
-import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, signInWithPopup, updateProfile ,GoogleAuthProvider} from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+  GoogleAuthProvider,
+} from "firebase/auth";
 
 import { auth } from "../Firebase/auth";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   const signUpHandler = async () => {
     if (
@@ -17,7 +24,7 @@ const Login = () => {
       password.trim() === "" ||
       username.trim() === ""
     ) {
-      alert("Please Fill All field");
+      toast.error("Please Fill all field");
       return;
     }
     try {
@@ -27,14 +34,14 @@ const Login = () => {
         password,
       );
 
-      updateProfile(response.user,{
+      updateProfile(response.user, {
         displayName: username,
-      })
+      });
 
       console.log(response);
-      
+      toast.success("User Login SuccessFully");
+      navigate("/");
 
-      alert("signUp user");
     } catch (error) {
       console.log(error);
     }
@@ -45,6 +52,8 @@ const Login = () => {
 
       let response = await signInWithPopup(auth, provider);
       console.log(response);
+      toast.success("User Login SuccessFully");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -207,6 +216,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

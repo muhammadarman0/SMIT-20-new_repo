@@ -179,9 +179,9 @@ const Dashboard = () => {
         </nav>
 
         <div className="mt-auto rounded-2xl border border-cyan-400/10 bg-gradient-to-br from-cyan-400/10 to-indigo-500/10 p-4">
-          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+          {/* <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
             <PiggyBank size={22} />
-          </div>
+          </div> */}
 
           <h3 className="font-semibold">Save more, stress less</h3>
           <p className="mt-2 text-xs leading-5 text-slate-400">

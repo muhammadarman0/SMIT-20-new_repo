@@ -5,20 +5,24 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../Firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  
   const loginHandler = async () => {
     try {
       if (email.trim() === "" || password.trim() === "") {
-        toast.error("Fill all field")
+        toast.error("Fill all field");
         return;
       }
       let response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
+      if (response.user) {
+        toast.success("User Login SuccessFully");
+      }
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +33,8 @@ const Login = () => {
       const provider = new GoogleAuthProvider();
 
       let response = await signInWithPopup(auth, provider);
-      console.log(response);
+      toast.success("User Login SuccessFully");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
