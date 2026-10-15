@@ -2,7 +2,8 @@ import { useState } from "react";
 import Input from "../component/Input";
 import Button from "../component/Button";
 import { Link } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile ,GoogleAuthProvider} from "firebase/auth";
+
 import { auth } from "../Firebase/auth";
 
 const Login = () => {
@@ -11,7 +12,11 @@ const Login = () => {
   const [username, setUsername] = useState("");
 
   const signUpHandler = async () => {
-    if (email.trim() === "" || password.trim() === "") {
+    if (
+      email.trim() === "" ||
+      password.trim() === "" ||
+      username.trim() === ""
+    ) {
       alert("Please Fill All field");
       return;
     }
@@ -22,7 +27,24 @@ const Login = () => {
         password,
       );
 
-      alert("signUp user")
+      updateProfile(response.user,{
+        displayName: username,
+      })
+
+      console.log(response);
+      
+
+      alert("signUp user");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const signUpWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+
+      let response = await signInWithPopup(auth, provider);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -163,8 +185,9 @@ const Login = () => {
             </div>
 
             <button
+              onClick={signUpWithGoogle}
               type="button"
-              className="flex w-full items-center justify-center gap-3 rounded-lg border border-slate-200 px-4 py-3 font-semibold text-slate-700 transition hover:bg-slate-50"
+              className="cursor-pointer flex w-full items-center justify-center gap-3 rounded-lg border border-slate-200 px-4 py-3 font-semibold text-slate-700 transition hover:bg-slate-50"
             >
               <span className="text-lg font-bold text-blue-600">G</span>
               Continue with Google
