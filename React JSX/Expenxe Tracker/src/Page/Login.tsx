@@ -4,15 +4,17 @@ import Button from "../component/Button";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../Firebase/auth";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  
   const loginHandler = async () => {
     try {
       if (email.trim() === "" || password.trim() === "") {
-        alert("Please fill al field");
+        toast.error("Fill all field")
         return;
       }
       let response = await signInWithEmailAndPassword(auth, email, password);
@@ -206,6 +208,7 @@ const Login = () => {
           </div>
         </section>
       </div>
+      <ToastContainer />
     </div>
   );
 };
