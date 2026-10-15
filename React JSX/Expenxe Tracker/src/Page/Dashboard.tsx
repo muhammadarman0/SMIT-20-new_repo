@@ -106,6 +106,8 @@ const Dashboard = () => {
     { label: "Settings", icon: Settings, active: false },
   ];
 
+//   console.log();
+  
   const navigate = useNavigate()
 
   const logOutUser = async () => {
