@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "../Firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddExpense from "../component/AddExpense";
 import type { Expense } from "../expense/expense";
 import { subscribeToExpenses } from "../expense/expenseService";
@@ -101,10 +101,20 @@ const Dashboard = () => {
   ];
 
   const navItems = [
-    { label: "Dashboard", icon: LayoutDashboard, active: true },
-    { label: "Transactions", icon: ArrowLeftRight, active: false },
-    { label: "Analytics", icon: ChartNoAxesCombined, active: false },
-    { label: "Settings", icon: Settings, active: false },
+    { label: "Dashboard", icon: LayoutDashboard, active: true, url: "/" },
+    {
+      label: "Transactions",
+      icon: ArrowLeftRight,
+      active: false,
+      url: "/transaction",
+    },
+    {
+      label: "Analytics",
+      icon: ChartNoAxesCombined,
+      active: false,
+      url: "/analytics",
+    },
+    { label: "Settings", icon: Settings, active: false, url: "setting" },
   ];
   const [transactions, setTransactions] = useState<Expense[]>([]);
   const [loadingTransactions, setLoadingTransactions] = useState(true);
@@ -184,18 +194,21 @@ const Dashboard = () => {
             const Icon = item.icon;
 
             return (
-              <button
-                key={item.label}
-                type="button"
-                className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
-                  item.active
-                    ? "bg-cyan-400/10 text-cyan-300"
-                    : "text-slate-400 hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                <Icon size={19} />
-                {item.label}
-              </button>
+              <Link to={item.url}>
+                {" "}
+                <button
+                  key={item.label}
+                  type="button"
+                  className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                    item.active
+                      ? "bg-cyan-400/10 text-cyan-300"
+                      : "text-slate-400 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  <Icon size={19} />
+                  {item.label}
+                </button>
+              </Link>
             );
           })}
         </nav>
