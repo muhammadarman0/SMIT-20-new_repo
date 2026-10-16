@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Wallet,
   TrendingUp,
@@ -23,8 +23,9 @@ import {
 import { signOut } from "firebase/auth";
 import { auth } from "../Firebase/auth";
 import { useNavigate } from "react-router-dom";
-
-
+import AddExpense from "../component/AddExpense";
+import type { Expense } from "../expense/expense";
+import { subscribeToExpenses } from "../expense/expenseService";
 
 const transactions = [
   {
@@ -105,21 +106,42 @@ const Dashboard = () => {
     { label: "Analytics", icon: ChartNoAxesCombined, active: false },
     { label: "Settings", icon: Settings, active: false },
   ];
+  const [transactions, setTransactions] = useState<Expense[]>([]);
+  const [loadingTransactions, setLoadingTransactions] = useState(true);
+  const [transactionError, setTransactionError] = useState("");
 
-//   console.log();
-  
-  const navigate = useNavigate()
+  useEffect(() => {
+    const unsubscribe = subscribeToExpenses(
+      (expenses) => {
+        setTransactions(expenses);
+        setLoadingTransactions(false);
+        setTransactionError("");
+      },
+      (error) => {
+        setTransactionError(error.message);
+        setLoadingTransactions(false);
+      },
+    );
+
+    return unsubscribe;
+  }, []);
+
+  //   console.log();
+
+  const navigate = useNavigate();
 
   const logOutUser = async () => {
     try {
       await signOut(auth);
       console.log("Sign-out successful.");
-      navigate("/")
+      navigate("/");
       // Redirect or update UI here
     } catch (error) {
       console.error("Error signing out:", error.message);
     }
   };
+
+  const AddExpenseRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="min-h-screen bg-[#080F1F] text-slate-100">
@@ -233,7 +255,9 @@ const Dashboard = () => {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 font-bold text-slate-950">
               A
             </div>
-            <button onClick={logOutUser} className="cursor-pointer">Log Out</button>
+            <button onClick={logOutUser} className="cursor-pointer">
+              Log Out
+            </button>
           </div>
         </header>
 
@@ -252,6 +276,12 @@ const Dashboard = () => {
 
             <button
               type="button"
+              onClick={() =>
+                AddExpenseRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              }
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
             >
               <Plus size={19} />
@@ -445,57 +475,73 @@ const Dashboard = () => {
                 </thead>
 
                 <tbody className="divide-y divide-white/[0.06]">
-                  {transactions.map((transaction) => (
-                    <tr
-                      key={transaction.id}
-                      className="transition hover:bg-white/[0.02]"
-                    >
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div
-                            className={`rounded-xl p-3 ${
-                              transaction.type === "income"
-                                ? "bg-emerald-400/10 text-emerald-400"
-                                : "bg-rose-400/10 text-rose-400"
-                            }`}
-                          >
-                            {transaction.type === "income" ? (
-                              <ArrowDownRight size={19} />
-                            ) : (
-                              <ArrowUpRight size={19} />
-                            )}
-                          </div>
-
-                          <span className="font-medium text-slate-200">
-                            {transaction.title}
-                          </span>
-                        </div>
-                      </td>
-
-                      <td className="px-6 py-4 text-slate-400">
-                        {transaction.category}
-                      </td>
-
-                      <td className="px-6 py-4 text-slate-500">
-                        {transaction.date}
-                      </td>
-
+                  {loadingTransactions ? (
+                    <tr>
                       <td
-                        className={`px-6 py-4 text-right font-semibold ${
-                          transaction.type === "income"
-                            ? "text-emerald-400"
-                            : "text-rose-400"
-                        }`}
+                        colSpan={4}
+                        className="px-6 py-8 text-center text-slate-400"
                       >
-                        {transaction.type === "income" ? "+" : "−"}$
-                        {transaction.amount.toLocaleString()}
+                        Loading transactions...
                       </td>
                     </tr>
-                  ))}
+                  ) : transactionError ? (
+                    <tr>
+                      <td
+                        colSpan={4}
+                        className="px-6 py-8 text-center text-rose-400"
+                      >
+                        {transactionError}
+                      </td>
+                    </tr>
+                  ) : transactions.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={4}
+                        className="px-6 py-8 text-center text-slate-400"
+                      >
+                        No transactions yet. Add your first transaction.
+                      </td>
+                    </tr>
+                  ) : (
+                    transactions.map((transaction) => (
+                      <tr
+                        key={transaction.id}
+                        className="transition hover:bg-white/[0.02]"
+                      >
+                        <td className="px-6 py-4">
+                          <div className="font-medium text-slate-200">
+                            {transaction.title}
+                          </div>
+                        </td>
+
+                        <td className="px-6 py-4 text-slate-400">
+                          {transaction.category}
+                        </td>
+
+                        <td className="px-6 py-4 text-slate-500">
+                          {transaction.date}
+                        </td>
+
+                        <td
+                          className={`px-6 py-4 text-right font-semibold ${
+                            transaction.type === "income"
+                              ? "text-emerald-400"
+                              : "text-rose-400"
+                          }`}
+                        >
+                          {transaction.type === "income" ? "+" : "−"}$
+                          {transaction.amount.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
           </section>
+          <div ref={AddExpenseRef} className="scroll-mt-24">
+            <AddExpense />
+          </div>
         </div>
       </main>
     </div>
