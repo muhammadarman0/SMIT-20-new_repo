@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft,
@@ -7,33 +6,36 @@ import {
   ArrowUpRight,
   ReceiptText,
 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { subscribeToExpenses } from "../expense/expenseService";
-import type { Expense } from "../expense/expense";
+import type { Expense } from "../expense/expense.ts";
 
-type FilterType = "all" | "income" | "expense";
+// const searchVal =
 
 const Transactions = () => {
+  type filterType = "all" | "income" | "expense";
+
   const [transactions, setTransactions] = useState<Expense[]>([]);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [filter, setFilter] = useState<filterType>("all");
+  const [error, setTransactionError] = useState("");
 
   useEffect(() => {
     const unsubscribe = subscribeToExpenses(
       (expenses) => {
         setTransactions(expenses);
         setLoading(false);
-        setError("");
+        setTransactionError("");
       },
-      (err) => {
-        setError(err.message);
+      (error) => {
+        setTransactionError(error.message);
         setLoading(false);
       },
     );
-
     return unsubscribe;
   }, []);
+  console.log(transactions);
 
   const filteredTransactions = useMemo(() => {
     return transactions.filter((transaction) => {
@@ -54,10 +56,12 @@ const Transactions = () => {
   const totalExpenses = transactions
     .filter((item) => item.type === "expense")
     .reduce((sum, item) => sum + item.amount, 0);
+  // console.log(totalExpense.toLocaleString());
 
   return (
     <main className="min-h-screen bg-[#080F1F] p-4 text-slate-100 sm:p-8">
       <div className="mx-auto max-w-7xl space-y-7">
+        {/* Header */}
         <header className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
@@ -84,6 +88,7 @@ const Transactions = () => {
           </Link>
         </header>
 
+        {/* Summary Cards */}
         <section className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-white/10 bg-[#101B30] p-5">
             <div className="flex items-center gap-3 text-emerald-400">
@@ -100,14 +105,14 @@ const Transactions = () => {
               <ArrowDownRight size={22} />
               <span className="text-sm">Total Expenses</span>
             </div>
-            <p className="mt-4 text-2xl font-bold">
-              {totalExpenses.toLocaleString()}
-            </p>
+            <p className="mt-4 text-2xl font-bold">{totalExpenses}</p>
           </div>
         </section>
 
+        {/* Transactions Table */}
         <section className="rounded-2xl border border-white/10 bg-[#101B30] p-4 sm:p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            {/* Search UI Only */}
             <div className="relative w-full md:max-w-sm">
               <Search
                 size={19}
@@ -122,24 +127,26 @@ const Transactions = () => {
               />
             </div>
 
+            {/* Filter UI Only */}
             <div className="flex flex-wrap gap-2">
-              {(["all", "income", "expense"] as const).map((item) => (
+              {["all", "income", "expense" as const].map((item) => (
                 <button
                   key={item}
                   type="button"
                   onClick={() => setFilter(item)}
-                  className={`rounded-lg px-4 py-2 text-sm font-medium capitalize transition ${
+                  className={
                     filter === item
-                      ? "bg-cyan-400 text-slate-950"
-                      : "bg-white/5 text-slate-400 hover:bg-white/10"
-                  }`}
+                      ? "rounded-lg bg-cyan-400 px-4 py-2 text-sm font-medium text-slate-950"
+                      : "rounded-lg bg-white/5 px-4 py-2 text-sm font-medium text-slate-400 transition hover:bg-white/10"
+                  }
                 >
-                  {item === "all" ? "All" : item}
+                  {item == "all" ? "All" : item}
                 </button>
               ))}
             </div>
           </div>
 
+          {/* Static Table */}
           <div className="mt-6 overflow-x-auto">
             <table className="w-full min-w-[600px] text-left text-sm">
               <thead className="border-b border-white/10 text-xs uppercase text-slate-500">
@@ -150,7 +157,6 @@ const Transactions = () => {
                   <th className="px-4 py-4 text-right">Amount</th>
                 </tr>
               </thead>
-
               <tbody className="divide-y divide-white/5">
                 {loading ? (
                   <tr>
@@ -197,9 +203,7 @@ const Transactions = () => {
                       <td className="px-4 py-4 text-slate-400">
                         {transaction.category}
                       </td>
-                      <td className="px-4 py-4 text-slate-400">
-                        {transaction.date}
-                      </td>
+                      <td className="px-4 py-4 text-slate-400">2026-10-01</td>
                       <td
                         className={`px-4 py-4 text-right font-semibold ${
                           transaction.type === "income"
@@ -207,7 +211,7 @@ const Transactions = () => {
                             : "text-rose-400"
                         }`}
                       >
-                        {transaction.type === "income" ? "+" : "−"}
+                        {transaction.type === "income" ? "+" : "-"}
                         {transaction.amount.toLocaleString()}
                       </td>
                     </tr>
@@ -217,9 +221,11 @@ const Transactions = () => {
             </table>
           </div>
 
-          {!loading && !error && filteredTransactions.length > 0 && (
+          {/* Empty State UI - For Future Use */}
+
+          {!loading && !error && transactions.length > 0 && (
             <p className="mt-4 text-xs text-slate-500">
-              Showing {filteredTransactions.length} of {transactions.length}{" "}
+              Showing {transactions.length} of {transactions.length}{" "}
               transactions
             </p>
           )}

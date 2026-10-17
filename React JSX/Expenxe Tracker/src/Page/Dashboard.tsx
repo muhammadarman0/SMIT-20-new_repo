@@ -150,6 +150,8 @@ const Dashboard = () => {
       console.error("Error signing out:", error.message);
     }
   };
+  console.log(transactions);
+  
 
   const AddExpenseRef = useRef<HTMLDivElement>(null);
 
