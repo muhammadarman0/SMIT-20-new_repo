@@ -13,6 +13,8 @@ import {
   BriefcaseBusiness,
   Utensils,
   Zap,
+  Icon,
+  TrendingDownIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -31,22 +33,22 @@ const stats = [
     color: "text-cyan-400",
     bg: "bg-cyan-400/10",
   },
-  {
-    title: "Total Income",
-    amount: "$7,500.00",
-    change: "This month",
-    icon: TrendingUp,
-    color: "text-emerald-400",
-    bg: "bg-emerald-400/10",
-  },
-  {
-    title: "Total Expenses",
-    amount: "$2,260.00",
-    change: "This month",
-    icon: TrendingDown,
-    color: "text-rose-400",
-    bg: "bg-rose-400/10",
-  },
+  // {
+  //   title: "Total Income",
+  //   amount: "$7,500.00",
+  //   change: "This month",
+  //   icon: TrendingUp,
+  //   color: "text-emerald-400",
+  //   bg: "bg-emerald-400/10",
+  // },
+  // {
+  //   title: "Total Expenses",
+  //   amount: "$2,260.00",
+  //   change: "This month",
+  //   icon: TrendingDown,
+  //   color: "text-rose-400",
+  //   bg: "bg-rose-400/10",
+  // },
   {
     title: "Savings Rate",
     amount: "69.9%",
@@ -124,6 +126,12 @@ const Dashboard = () => {
   console.log(transactions);
   const AddExpenseRef = useRef<HTMLDivElement>(null);
 
+  const totalIncome = transactions
+    .filter((item) => item.type === "income")
+    .reduce((sum, item) => sum + item.amount, 0);
+  const totalExpense = transactions
+    .filter((item) => item.type === "expense")
+    .reduce((sum, item) => sum + item.amount, 0);
   return (
     <div className="min-h-screen bg-[#080F1F] text-slate-100">
       {sidebarOpen && (
@@ -274,6 +282,30 @@ const Dashboard = () => {
                 </div>
               );
             })}
+            <div className="rounded-2xl border border-white/[0.07] bg-[#101B30] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-slate-400">Total Income</p>
+                <div className={`rounded-xl p-3 bg-emerald-400/10 text-green-400`}>
+                  <TrendingUp />
+                </div>
+              </div>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
+                {totalIncome.toLocaleString()}
+              </h3>
+              <p className="mt-3 text-xs text-slate-500"></p>
+            </div>
+            <div className="rounded-2xl border border-white/[0.07] bg-[#101B30] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-slate-400">Total Expense</p>
+                <div className={`rounded-xl p-3 bg-rose-400/10 text-rose-400`}>
+                  <TrendingDownIcon />
+                </div>
+              </div>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
+                {totalExpense.toLocaleString()}
+              </h3>
+              <p className="mt-3 text-xs text-slate-500"></p>
+            </div>
           </section>
 
           {/* Overview */}
