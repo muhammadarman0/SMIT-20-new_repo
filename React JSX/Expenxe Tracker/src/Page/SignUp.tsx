@@ -48,6 +48,7 @@ const Login = () => {
       console.log(error);
     }
   };
+  
   const signUpWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();

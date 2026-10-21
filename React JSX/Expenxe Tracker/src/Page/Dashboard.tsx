@@ -20,7 +20,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Links } from "react-router-dom";
 import type { Expense } from "../expense/expense";
 import { subscribeToExpenses } from "../expense/expenseService";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Firebase/auth";
 
 const stats = [
@@ -86,6 +86,7 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const unsubscribe = subscribeToExpenses(
       (expense) => {
@@ -97,6 +98,15 @@ const Dashboard = () => {
         setLoading(false);
       },
     );
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+
+    return unsubscribe;
   }, []);
 
   const logOutHandler = async () => {
@@ -121,9 +131,6 @@ const Dashboard = () => {
   const savingsRate = totalIncome > 0 ? (totalAmount / totalIncome) * 100 : 0;
 
   const totalSpent = totalExpense + totalIncome;
-  console.log(totalSpent);
-
-  
 
   return (
     <div className="min-h-screen bg-[#080F1F] text-slate-100">
@@ -211,9 +218,7 @@ const Dashboard = () => {
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-cyan-400" />
             </button>
 
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 font-bold text-slate-950">
-              A
-            </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 font-bold text-slate-950"></div>
             <button
               onClick={logOutHandler}
               type="button"
@@ -230,8 +235,9 @@ const Dashboard = () => {
             <div>
               <p className="text-sm text-cyan-400">Wednesday, October 14</p>
               <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
-                Welcome back, Arman 👋
-              </h1>
+                Welcome back,{" "}
+                 {user?.displayName || user?.email?.split("@")[0] || "User"}👋
+               </h1>
               <p className="mt-2 text-sm text-slate-400">
                 Here's what's happening with your money today.
               </p>
@@ -385,7 +391,6 @@ const Dashboard = () => {
                       className="flex items-center justify-between gap-3"
                     >
                       <div className="flex items-center gap-3">
-                        
                         <span className="text-sm text-slate-300">
                           {transaction.title}
                         </span>
