@@ -44,6 +44,7 @@ const Transactions = () => {
         transaction.category.toLowerCase().includes(search.toLowerCase());
 
       const matchesFilter = filter === "all" || transaction.type === filter;
+console.log(transaction.title);
 
       return matchesSearch && matchesFilter;
     });

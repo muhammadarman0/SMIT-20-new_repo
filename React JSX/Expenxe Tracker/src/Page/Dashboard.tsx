@@ -69,27 +69,15 @@ const chartBars = [
 
 const categories = [
   {
-    name: "Food",
-    amount: "$820",
-    color: "bg-cyan-400",
     icon: Utensils,
   },
   {
-    name: "Shopping",
-    amount: "$640",
-    color: "bg-indigo-500",
     icon: ShoppingCart,
   },
   {
-    name: "Bills",
-    amount: "$500",
-    color: "bg-violet-500",
     icon: Zap,
   },
   {
-    name: "Other",
-    amount: "$300",
-    color: "bg-emerald-400",
     icon: BriefcaseBusiness,
   },
 ];
@@ -122,8 +110,6 @@ const Dashboard = () => {
     }
   };
 
-  console.log(transactions);
-
   const totalAmount = 50500;
   const totalIncome = transactions
     .filter((item) => item.type === "income")
@@ -132,11 +118,12 @@ const Dashboard = () => {
     .filter((item) => item.type === "expense")
     .reduce((sum, item) => sum + item.amount, 0);
 
-  // const savingsRate =
-  //   totalIncome > 0 ? ((totalIncome - totalExpense) / totalIncome) * 100 : 0;
-  // console.log(savingsRate);
-  // Formula: (Total Balance / Total Income) * 100
   const savingsRate = totalIncome > 0 ? (totalAmount / totalIncome) * 100 : 0;
+
+  const totalSpent = totalExpense + totalIncome;
+  console.log(totalSpent);
+
+  
 
   return (
     <div className="min-h-screen bg-[#080F1F] text-slate-100">
@@ -383,32 +370,30 @@ const Dashboard = () => {
 
               <div className="mx-auto my-8 flex h-40 w-40 items-center justify-center rounded-full border-[16px] border-cyan-400 border-r-indigo-500 border-b-violet-500 border-l-emerald-400">
                 <div className="text-center">
-                  <p className="text-2xl font-bold">$2,260</p>
+                  <p className="text-2xl font-bold">${totalSpent}</p>
                   <p className="mt-1 text-xs text-slate-500">Total spent</p>
                 </div>
               </div>
 
               <div className="space-y-4">
-                {categories.map((category) => {
-                  const Icon = category.icon;
+                {transactions.map((transaction) => {
+                  // const Icon = transaction.icon;
 
                   return (
                     <div
-                      key={category.name}
+                      key={transaction.title}
                       className="flex items-center justify-between gap-3"
                     >
                       <div className="flex items-center gap-3">
-                        <Icon size={17} className="text-slate-400" />
+                        
                         <span className="text-sm text-slate-300">
-                          {category.name}
+                          {transaction.title}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span
-                          className={`h-2 w-2 rounded-full ${category.color}`}
-                        />
+                        <span className={`h-2 w-2 rounded-full`} />
                         <span className="text-sm font-medium">
-                          {category.amount}
+                          {transaction.amount}
                         </span>
                       </div>
                     </div>
