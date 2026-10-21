@@ -17,12 +17,11 @@ import {
   TrendingDownIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import type { Expense } from "../expense/expense";
 import { subscribeToExpenses } from "../expense/expenseService";
 import { signOut } from "firebase/auth";
 import { auth } from "../Firebase/auth";
-import AddExpense from "../component/AddExpense";
 
 const stats = [
   {
@@ -124,9 +123,8 @@ const Dashboard = () => {
   };
 
   console.log(transactions);
-  const AddExpenseRef = useRef<HTMLDivElement>(null);
 
-  const totalAmount = 50500 
+  const totalAmount = 50500;
   const totalIncome = transactions
     .filter((item) => item.type === "income")
     .reduce((sum, item) => sum + item.amount, 0);
@@ -138,8 +136,7 @@ const Dashboard = () => {
   //   totalIncome > 0 ? ((totalIncome - totalExpense) / totalIncome) * 100 : 0;
   // console.log(savingsRate);
   // Formula: (Total Balance / Total Income) * 100
-const savingsRate = totalIncome > 0 ? (totalAmount / totalIncome) * 100 : 0;
-
+  const savingsRate = totalIncome > 0 ? (totalAmount / totalIncome) * 100 : 0;
 
   return (
     <div className="min-h-screen bg-[#080F1F] text-slate-100">
@@ -253,19 +250,16 @@ const savingsRate = totalIncome > 0 ? (totalAmount / totalIncome) * 100 : 0;
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={() =>
-                AddExpenseRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                })
-              }
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
-            >
-              <Plus size={19} />
-              Add Transaction
-            </button>
+            <Link to={"/addtransaction"}>
+              {" "}
+              <button
+                type="button"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
+              >
+                <Plus size={19} />
+                Add Transaction
+              </button>
+            </Link>
           </section>
 
           {/* Summary Cards */}
@@ -487,9 +481,6 @@ const savingsRate = totalIncome > 0 ? (totalAmount / totalIncome) * 100 : 0;
           </section>
         </div>
       </main>
-      <div ref={AddExpenseRef} className="scroll-mt-24">
-        <AddExpense />
-      </div>{" "}
     </div>
   );
 };

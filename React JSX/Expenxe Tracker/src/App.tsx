@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./Page/Dashboard";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import Transactions from "./Page/Transaction";
+import AddExpense from "./component/AddExpense";
 // import Analytics from "./Page/Analytics";
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
           <Route path="/" element={<ProtectedRoute />}>
             <Route index element={<Dashboard />} />
             <Route path="/transaction" element={<Transactions />} />
+            <Route path="/addtransaction" element={<AddExpense />} />
+
             {/* <Route path="/analytics" element={<Analytics />} /> */}
           </Route>{" "}
         </Routes>

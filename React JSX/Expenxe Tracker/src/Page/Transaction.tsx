@@ -81,7 +81,7 @@ const Transactions = () => {
           </div>
 
           <Link
-            to="/"
+            to="/addtransaction"
             className="rounded-xl bg-cyan-400 px-4 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
           >
             + Add Transaction
@@ -129,6 +129,21 @@ const Transactions = () => {
 
             {/* Filter UI Only */}
             <div className="flex flex-wrap gap-2">
+              {/* {["all", "income", "expense" as const].map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setFilter(item)}
+                  className={
+                    filter === item
+                      ? "rounded-lg bg-cyan-400 px-4 py-2 text-sm font-medium text-slate-950"
+                      : "rounded-lg bg-white/5 px-4 py-2 text-sm font-medium text-slate-400 transition hover:bg-white/10"
+                  }
+                >
+                  {item == "all" ? "All" : item}
+                </button>
+                
+              ))} */}
               {["all", "income", "expense" as const].map((item) => (
                 <button
                   key={item}

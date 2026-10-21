@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import { addExpense, type NewExpense } from "../expense/expenseService";
@@ -50,12 +50,13 @@ const AddExpense = () => {
       setDate(new Date().toISOString().slice(0, 10));
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to save transaction."
+        err instanceof Error ? err.message : "Failed to save transaction.",
       );
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <form
@@ -63,9 +64,7 @@ const AddExpense = () => {
       className="mx-auto max-w-xl space-y-5 rounded-2xl border border-slate-200 bg-white p-6 text-slate-900 shadow-lg sm:p-8"
     >
       <div>
-        <h2 className="text-2xl font-bold text-slate-900">
-          Add Transaction
-        </h2>
+        <h2 className="text-2xl font-bold text-slate-900">Add Transaction</h2>
         <p className="mt-1 text-sm text-slate-500">
           Record your income and expenses.
         </p>
@@ -114,9 +113,7 @@ const AddExpense = () => {
         </label>
         <select
           value={type}
-          onChange={(e) =>
-            setType(e.target.value as "income" | "expense")
-          }
+          onChange={(e) => setType(e.target.value as "income" | "expense")}
           className={inputClass}
         >
           <option value="expense">Expense</option>
