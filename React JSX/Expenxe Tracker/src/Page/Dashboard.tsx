@@ -49,14 +49,14 @@ const stats = [
   //   color: "text-rose-400",
   //   bg: "bg-rose-400/10",
   // },
-  {
-    title: "Savings Rate",
-    amount: "69.9%",
-    change: "Income saved",
-    icon: PiggyBank,
-    color: "text-violet-400",
-    bg: "bg-violet-400/10",
-  },
+  // {
+  //   title: "Savings Rate",
+  //   amount: "69.9%",
+  //   change: "Income saved",
+  //   icon: PiggyBank,
+  //   color: "text-violet-400",
+  //   bg: "bg-violet-400/10",
+  // },
 ];
 
 const chartBars = [
@@ -126,12 +126,21 @@ const Dashboard = () => {
   console.log(transactions);
   const AddExpenseRef = useRef<HTMLDivElement>(null);
 
+  const totalAmount = 50500 
   const totalIncome = transactions
     .filter((item) => item.type === "income")
     .reduce((sum, item) => sum + item.amount, 0);
   const totalExpense = transactions
     .filter((item) => item.type === "expense")
     .reduce((sum, item) => sum + item.amount, 0);
+
+  // const savingsRate =
+  //   totalIncome > 0 ? ((totalIncome - totalExpense) / totalIncome) * 100 : 0;
+  // console.log(savingsRate);
+  // Formula: (Total Balance / Total Income) * 100
+const savingsRate = totalIncome > 0 ? (totalAmount / totalIncome) * 100 : 0;
+
+
   return (
     <div className="min-h-screen bg-[#080F1F] text-slate-100">
       {sidebarOpen && (
@@ -261,31 +270,44 @@ const Dashboard = () => {
 
           {/* Summary Cards */}
           <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {stats.map((stat) => {
-              const Icon = stat.icon;
-
-              return (
-                <div
-                  key={stat.title}
-                  className="rounded-2xl border border-white/[0.07] bg-[#101B30] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20"
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-slate-400">{stat.title}</p>
-                    <div className={`rounded-xl p-3 ${stat.bg} ${stat.color}`}>
-                      <Icon size={21} />
-                    </div>
-                  </div>
-                  <h3 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
-                    {stat.amount}
-                  </h3>
-                  <p className="mt-3 text-xs text-slate-500">{stat.change}</p>
+            <div
+              // key={stat.title}
+              className="rounded-2xl border border-white/[0.07] bg-[#101B30] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20"
+            >
+              <div className="flex items-center justify-between ">
+                <p className="text-sm text-slate-400">Total Balance</p>
+                <div className={`rounded-xl p-3 bg-cyan-400/10 text-cyan-400`}>
+                  <Wallet />
                 </div>
-              );
-            })}
+              </div>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
+                {totalAmount}
+              </h3>
+              {/* <p className="mt-3 text-xs text-slate-500"></p> */}
+            </div>
+
+            {/* Saving Rate  */}
+            <div className="rounded-2xl border border-white/[0.07] bg-[#101B30] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-slate-400">Savings Rate</p>
+                <div
+                  className={`rounded-xl p-3 text-violet-400 bg-violet-400/10`}
+                >
+                  <PiggyBank />
+                </div>
+              </div>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl">
+                {savingsRate.toFixed(1).toLocaleString()}%
+              </h3>
+              <p className="mt-3 text-xs text-slate-500"></p>
+            </div>
+            {/* Total income  */}
             <div className="rounded-2xl border border-white/[0.07] bg-[#101B30] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20">
               <div className="flex items-center justify-between">
                 <p className="text-sm text-slate-400">Total Income</p>
-                <div className={`rounded-xl p-3 bg-emerald-400/10 text-green-400`}>
+                <div
+                  className={`rounded-xl p-3 bg-emerald-400/10 text-green-400`}
+                >
                   <TrendingUp />
                 </div>
               </div>
@@ -294,6 +316,7 @@ const Dashboard = () => {
               </h3>
               <p className="mt-3 text-xs text-slate-500"></p>
             </div>
+            {/* Total Expense  */}
             <div className="rounded-2xl border border-white/[0.07] bg-[#101B30] p-5 transition hover:-translate-y-1 hover:border-cyan-400/20">
               <div className="flex items-center justify-between">
                 <p className="text-sm text-slate-400">Total Expense</p>

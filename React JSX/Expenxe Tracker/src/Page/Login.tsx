@@ -25,6 +25,9 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
+      if (error) {
+        toast.error("Email & Password is not exist");
+      }
     }
   };
 

@@ -34,6 +34,8 @@ const Login = () => {
         password,
       );
 
+      console.log(response)
+
       updateProfile(response.user, {
         displayName: username,
       });
