@@ -47,15 +47,15 @@ const Projects = () => {
       image: galleryImg,
       link: "https://gallery-app-dun-nine.vercel.app/",
     },
-      {
-      title: "Expense Tracker Applucation",
-      description:
-        "A modern and responsive Gallery App featuring dynamic image fetching, interactive hover effects, full-size image previews, and smooth navigation. Designed to provide a seamless photo-browsing experience across all devices.",
-      technologies: ["React.js", "Redux-Toolkit", "TypeScript", "Tailwind"],
-      type: "Web Application",
-      image: expenseTrackerImg,
-      link: "https://gallery-app-dun-nine.vercel.app/",
-    },
+    //   {
+    //   title: "Expense Tracker Applucation",
+    //   description:
+    //     "A modern and responsive Gallery App featuring dynamic image fetching, interactive hover effects, full-size image previews, and smooth navigation. Designed to provide a seamless photo-browsing experience across all devices.",
+    //   technologies: ["React.js", "Redux-Toolkit", "TypeScript", "Tailwind"],
+    //   type: "Web Application",
+    //   image: expenseTrackerImg,
+    //   link: "https://gallery-app-dun-nine.vercel.app/",
+    // },
   ];
 
   return (
