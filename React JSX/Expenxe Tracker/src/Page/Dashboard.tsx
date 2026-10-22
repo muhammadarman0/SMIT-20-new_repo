@@ -218,7 +218,9 @@ const Dashboard = () => {
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-cyan-400" />
             </button>
 
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 font-bold text-slate-950">A</div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 font-bold text-slate-950">
+              A
+            </div>
             <button
               onClick={logOutHandler}
               type="button"
@@ -236,8 +238,8 @@ const Dashboard = () => {
               <p className="text-sm text-cyan-400">Wednesday, October 14</p>
               <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
                 Welcome back,{" "}
-                 {user?.displayName || user?.email?.split("@")[0] || "User"}👋
-               </h1>
+                {user?.displayName || user?.email?.split("@")[0] || "User"}👋
+              </h1>
               <p className="mt-2 text-sm text-slate-400">
                 Here's what's happening with your money today.
               </p>
@@ -437,34 +439,40 @@ const Dashboard = () => {
                 </thead>
 
                 <tbody className="divide-y divide-white/[0.06]">
-                  {transactions.map((transaction) => (
-                    <tr
-                      key={transaction.id}
-                      className="transition hover:bg-white/[0.02]"
-                    >
-                      <td className="px-6 py-4">
-                        <div className="font-medium text-slate-200">
-                          {transaction.title}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-slate-400">
-                        {transaction.category}
-                      </td>
-                      <td className="px-6 py-4 text-slate-500">
-                        {transaction.date}
-                      </td>
-                      <td
-                        className={`px-6 py-4 text-right font-semibold ${
-                          transaction.type === "income"
-                            ? "text-emerald-400"
-                            : "text-rose-400"
-                        }`}
+                  {transactions.length === 0 ? (
+                    <p className="font-medium text-slate-300">
+                      No transactions found
+                    </p>
+                  ) : (
+                    transactions.map((transaction) => (
+                      <tr
+                        key={transaction.id}
+                        className="transition hover:bg-white/[0.02]"
                       >
-                        {transaction.type === "income" ? "+" : "−"}$
-                        {transaction.amount.toLocaleString()}
-                      </td>
-                    </tr>
-                  ))}
+                        <td className="px-6 py-4">
+                          <div className="font-medium text-slate-200">
+                            {transaction.title}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-slate-400">
+                          {transaction.category}
+                        </td>
+                        <td className="px-6 py-4 text-slate-500">
+                          {transaction.date}
+                        </td>
+                        <td
+                          className={`px-6 py-4 text-right font-semibold ${
+                            transaction.type === "income"
+                              ? "text-emerald-400"
+                              : "text-rose-400"
+                          }`}
+                        >
+                          {transaction.type === "income" ? "+" : "−"}$
+                          {transaction.amount.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
