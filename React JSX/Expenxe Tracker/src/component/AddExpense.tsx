@@ -1,7 +1,8 @@
-import {  useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import { addExpense, type NewExpense } from "../expense/expenseService";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddExpense = () => {
   const [title, setTitle] = useState("");
@@ -48,6 +49,7 @@ const AddExpense = () => {
       setCategory("Food");
       setType("expense");
       setDate(new Date().toISOString().slice(0, 10));
+      toast.success("Added");
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to save transaction.",
@@ -56,7 +58,6 @@ const AddExpense = () => {
       setLoading(false);
     }
   };
-
 
   return (
     <form
@@ -148,6 +149,7 @@ const AddExpense = () => {
         type="submit"
         disabled={loading}
       />
+      <ToastContainer />
     </form>
   );
 };

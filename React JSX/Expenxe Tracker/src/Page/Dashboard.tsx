@@ -218,7 +218,7 @@ const Dashboard = () => {
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-cyan-400" />
             </button>
 
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 font-bold text-slate-950"></div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-indigo-500 font-bold text-slate-950">A</div>
             <button
               onClick={logOutHandler}
               type="button"
