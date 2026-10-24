@@ -13,6 +13,7 @@ import {
 import auth, { db } from "../firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import {toast,ToastContainer} from "react-toastify"
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -48,8 +49,10 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       if (form.password !== form.confirmPassword) {
-        alert("Please Enter a correct password");
+        toast.error("Please Enter a correct password");
         return;
+      }else if(form.confirmPassword.trim() === "" || form.email.trim() === "" || form.password.trim() === "" ||form.fullName.trim() === ""){
+toast.error("Please fill all field")
       }
 
       let response = await createUserWithEmailAndPassword(
@@ -326,6 +329,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
