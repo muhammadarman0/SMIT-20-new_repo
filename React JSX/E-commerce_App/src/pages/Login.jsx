@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Input from "../component/Input";
 import Button from "../component/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -24,19 +25,33 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+
+      if(form.email.trim() === "" || form.password.trim === ""){
+        toast.error("Please fill all field")
+        return
+      }
       // Signed in
       let response = await signInWithEmailAndPassword(
         auth,
         form.email,
         form.password,
-      );
+      );    
+      toast.success("Login use Successfully")
       if (response.user) {
         navigate("/profile");
       }
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+    if (
+      error.code === "auth/user-not-found" ||
+      error.code === "auth/invalid-credential"
+    ) {
+      toast.error("Email or password is incorrect");
+    } else if (error.code === "auth/wrong-password") {
+      toast.error("Incorrect password");
+    } else {
+      toast.error(error.message || "Login failed");
     }
+  }
   };
 
   const loginWithGoogle = async () => {
@@ -47,7 +62,10 @@ const Login = () => {
       if (response.user) {
         navigate("/profile");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      
+    }
   };
 
   return (
@@ -181,6 +199,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
