@@ -4,7 +4,6 @@ import Input from "../component/Input";
 import Button from "../component/Button";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
