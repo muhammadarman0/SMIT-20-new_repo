@@ -57,7 +57,7 @@ const Page = async () => {
 
               <Link href={`/blog/${product.id}`}>
                 {" "}
-                <button className="mt-5 w-full rounded-lg bg-blue-600 py-2.5 font-semibold text-white transition hover:bg-blue-700">
+                <button className="mt-5 cursor-pointer w-full rounded-lg bg-blue-600 py-2.5 font-semibold text-white transition hover:bg-blue-700">
                   View Product
                 </button>
               </Link>
