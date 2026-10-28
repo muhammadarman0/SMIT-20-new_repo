@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../auth/auth";
+import { doc, deleteDoc } from "firebase/firestore";
 import Navbar from "../component/Navbar";
 
 function AdminDashboard() {
@@ -13,11 +14,11 @@ function AdminDashboard() {
       try {
         const usersRef = collection(db, "users");
         const snapshot = await getDocs(usersRef);
-
         const usersData = snapshot.docs.map((userDoc) => ({
           id: userDoc.id,
           ...userDoc.data(),
         }));
+console.log(usersData);
 
         setUsers(usersData);
       } catch (error) {
@@ -29,6 +30,25 @@ function AdminDashboard() {
 
     fetchUsers();
   }, []);
+  const deleteUser = async (user)=>{
+    if(user.role === "admin"){
+         alert("Admin account cannot be deleted here.");
+    return;
+    }
+    
+    const confirm = window.confirm(`Are you sure you want to delete ${user.email}`)
+    if(!confirm) return
+try {
+    await deleteDoc(doc(db, "users",user.id));
+    setUsers((prevUser)=> prevUser.filter((item)=> {item.id !== item.id
+     console.log(item.id)}
+    ))
+    alert("Delete SuccessFully")
+
+} catch (error) {
+    console.log(error);
+    
+}  }
 
   if (loading) {
     return <h2>Loading users...</h2>;
@@ -46,6 +66,21 @@ function AdminDashboard() {
           <p>Email: {user.email || "No email"}</p>
           <p>Role: {user.role || "No role"}</p>
           <hr />
+           <div className="flex gap-2">
+      <button
+        onClick={() => deleteUser(user)}
+        className="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+      >
+        Delete
+      </button>
+
+      {/* <button
+        onClick={() => logoutUser(user)}
+        className="rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-orange-600"
+      >
+        Logout
+      </button> */}
+    </div>
         </div>
       ))}
     </div></>
