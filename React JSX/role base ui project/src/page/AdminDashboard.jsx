@@ -29,7 +29,7 @@ console.log(usersData);
     };
 
     fetchUsers();
-  }, []);
+  }, [users]);
   const deleteUser = async (user)=>{
     if(user.role === "admin"){
          alert("Admin account cannot be deleted here.");
