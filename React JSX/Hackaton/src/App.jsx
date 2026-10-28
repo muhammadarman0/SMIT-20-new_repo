@@ -16,18 +16,18 @@ import {
 */
 
 const initialEmployees = [
-  { id: 1, name: "Ayesha Khan", email: "ayesha@company.com", department: "Engineering", designation: "Frontend Developer", status: "Active", salary: 95000, joined: "2025-02-12" },
+  { id: 1, name: "arman Khan", email: "arman@company.com", department: "Engineering", designation: "Frontend Developer", status: "Active", salary: 95000, joined: "2025-02-12" },
   { id: 2, name: "Hamza Ali", email: "hamza@company.com", department: "Design", designation: "UI Designer", status: "Active", salary: 85000, joined: "2024-11-04" },
   { id: 3, name: "Sara Ahmed", email: "sara@company.com", department: "Human Resources", designation: "HR Executive", status: "Active", salary: 78000, joined: "2025-05-19" },
   { id: 4, name: "Usman Raza", email: "usman@company.com", department: "Engineering", designation: "Backend Developer", status: "On leave", salary: 110000, joined: "2024-08-20" },
 ];
 const initialLeaves = [
-  { id: 1, name: "Ayesha Khan", type: "Casual", from: "2026-10-28", to: "2026-10-29", days: 2, reason: "Family commitment", status: "Pending" },
+  { id: 1, name: "arman Khan", type: "Casual", from: "2026-10-28", to: "2026-10-29", days: 2, reason: "Family commitment", status: "Pending" },
   { id: 2, name: "Hamza Ali", type: "Sick", from: "2026-10-24", to: "2026-10-24", days: 1, reason: "Not feeling well", status: "Approved" },
   { id: 3, name: "Usman Raza", type: "Annual", from: "2026-10-30", to: "2026-11-02", days: 2, reason: "Personal travel", status: "Pending" },
 ];
 const initialAttendance = [
-  { id: 1, name: "Ayesha Khan", department: "Engineering", checkIn: "09:02 AM", checkOut: "05:12 PM", status: "Present" },
+  { id: 1, name: "arman Khan", department: "Engineering", checkIn: "09:02 AM", checkOut: "05:12 PM", status: "Present" },
   { id: 2, name: "Hamza Ali", department: "Design", checkIn: "09:24 AM", checkOut: "05:00 PM", status: "Late" },
   { id: 3, name: "Sara Ahmed", department: "Human Resources", checkIn: "08:56 AM", checkOut: "05:16 PM", status: "Present" },
   { id: 4, name: "Usman Raza", department: "Engineering", checkIn: "—", checkOut: "—", status: "On leave" },
@@ -65,7 +65,7 @@ function AppShell({ role, onSignOut, employees, setEmployees, leaves, setLeaves,
   const [mobileOpen, setMobileOpen] = useState(false);
   const [modal, setModal] = useState(null);
   const [query, setQuery] = useState("");
-  const currentUser = role === "Employee" ? "Ayesha Khan" : role === "HR" ? "Sara Ahmed" : "Admin User";
+  const currentUser = role === "Employee" ? "arman Khan" : role === "HR" ? "Sara Ahmed" : "Admin User";
   const location = useLocation();
   const navigate = useNavigate();
   const titleMap = {
@@ -358,7 +358,7 @@ function CommunicationsPage({ role, toast }) {
 }
 
 function AuditPage() {
-  const rows = [["Admin User", "EMPLOYEE_CREATED", "Employee", "Ayesha Khan", "Today, 09:42 AM"], ["Sara Ahmed", "LEAVE_APPROVED", "Leave request", "Hamza Ali", "Today, 09:15 AM"], ["Admin User", "PAYROLL_DRAFTED", "Payroll", "October 2026", "Yesterday"], ["Sara Ahmed", "ATTENDANCE_CORRECTION", "Attendance", "Usman Raza", "Yesterday"]];
+  const rows = [["Admin User", "EMPLOYEE_CREATED", "Employee", "arman Khan", "Today, 09:42 AM"], ["Sara Ahmed", "LEAVE_APPROVED", "Leave request", "Hamza Ali", "Today, 09:15 AM"], ["Admin User", "PAYROLL_DRAFTED", "Payroll", "October 2026", "Yesterday"], ["Sara Ahmed", "ATTENDANCE_CORRECTION", "Attendance", "Usman Raza", "Yesterday"]];
   return <><Welcome title="Audit log" subtitle="Review important changes and actions across the organization." />
     <div className="panel table-panel"><div className="panel-head"><div><h3>Recent activity</h3><p>Audit entries must be immutable and recorded by the backend.</p></div><Button variant="secondary"><Filter size={14} /> Filter log</Button></div>
       <div className="table-wrap"><table><thead><tr><th>Actor</th><th>Action</th><th>Entity</th><th>Record</th><th>Timestamp</th></tr></thead><tbody>{rows.map((r, i) => <tr key={i}>{r.map((v, j) => <td key={j}>{j === 1 ? <span style={{ fontSize: 10, fontWeight: 700, color: "#596fe0" }}>{v}</span> : v}</td>)}</tr>)}</tbody></table></div></div></>;
