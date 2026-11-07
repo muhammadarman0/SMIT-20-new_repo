@@ -1,0 +1,4 @@
+lPROFESSIONAL SUMMARY
+Frontend Developer focused on building responsive, user-friendly web applications with ReactJS and
+modern JavaScript. Skilled in Redux Toolkit, Firebase, and reusable UI components, with a strong
+interest in creating clean interfaces and maintainable frontend code
